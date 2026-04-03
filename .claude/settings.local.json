@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(gh auth:*)",
+      "Bash(where gh:*)",
+      "Bash(cmd.exe /c \"where gh\")",
+      "Bash(\"/c/Program Files/GitHub CLI/gh.exe\" --version)",
+      "Bash(\"/c/Program Files \\(x86\\)/GitHub CLI/gh.exe\" --version)",
+      "Bash(git --version)",
+      "Bash(cmd.exe /c \"winget install --id GitHub.cli -e --accept-source-agreements --accept-package-agreements\")",
+      "Bash(export PATH=\"$PATH:/c/Program Files/GitHub CLI\")",
+      "Bash(gh --version)",
+      "Bash(powershell.exe -Command \"Get-Command gh -ErrorAction SilentlyContinue | Select-Object -ExpandProperty Source\")",
+      "Bash(npx create-next-app@latest . --typescript --app --eslint --src-app=false --import-alias=\"@/*\" --use-pnpm --turbopack --tailwind)"
+    ]
+  }
+}
