@@ -44,6 +44,7 @@
 
 import { getTranslations, getLocale } from 'next-intl/server'
 import prisma from '@/app/lib/prisma'
+import type { Property } from '@prisma/client'
 import { Link } from '@/i18n/navigation'
 import CloudinaryImage from '@/app/components/CloudinaryImage'
 
@@ -216,7 +217,7 @@ export default async function HomePage() {
 
             {/* Property cards grid -- 3 columns desktop, 2 tablet, 1 mobile */}
             <div className={styles.propertiesGrid}>
-              {featuredProperties.map((property, index) => (
+              {featuredProperties.map((property: Property, index: number) => (
                 /**
                  * FadeIn wraps each card with a staggered entrance animation.
                  * delay is calculated as index * 0.15s so cards appear sequentially

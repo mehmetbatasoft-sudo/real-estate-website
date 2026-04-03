@@ -36,6 +36,7 @@
 import { Suspense } from 'react'
 import { getTranslations } from 'next-intl/server'
 import prisma from '@/app/lib/prisma'
+import type { Property } from '@prisma/client'
 import { Link } from '@/i18n/navigation'
 
 /* -- Layout components -- */
@@ -237,7 +238,7 @@ export default async function PropertiesPage({
           {properties.length > 0 ? (
             /* Property cards grid */
             <div className={styles.grid}>
-              {properties.map((property, index) => (
+              {properties.map((property: Property, index: number) => (
                 /**
                  * FadeIn wraps each card for staggered entrance animation.
                  * Delay is capped at 0.5s to avoid long waits for large lists.

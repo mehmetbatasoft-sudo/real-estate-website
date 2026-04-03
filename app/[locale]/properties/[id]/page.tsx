@@ -37,6 +37,7 @@
 import { notFound } from 'next/navigation'
 import { getTranslations, getLocale } from 'next-intl/server'
 import prisma from '@/app/lib/prisma'
+import type { Property } from '@prisma/client'
 import { Link } from '@/i18n/navigation'
 
 /* -- Layout components -- */
@@ -331,7 +332,7 @@ export default async function PropertyDetailPage({
 
               {/* Similar properties grid */}
               <div className={styles.similarGrid}>
-                {similarProperties.map((similar, index) => (
+                {similarProperties.map((similar: Property, index: number) => (
                   /**
                    * FadeIn with staggered delay for sequential entrance.
                    * Links to the similar property's detail page.
