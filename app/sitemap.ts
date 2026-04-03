@@ -15,6 +15,9 @@
 import { MetadataRoute } from 'next'
 import prisma from '@/app/lib/prisma'
 
+/* Force dynamic rendering — sitemap queries the database at runtime, not build time */
+export const dynamic = 'force-dynamic'
+
 /* Base URL for the production site */
 const BASE_URL = 'https://ozguls-realty.vercel.app'
 
