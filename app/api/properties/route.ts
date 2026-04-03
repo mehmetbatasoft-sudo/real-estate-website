@@ -31,7 +31,7 @@ export async function GET() {
   } catch (error) {
     console.error('Failed to fetch properties:', error)
     return NextResponse.json(
-      { error: 'Failed to fetch properties', details: String(error) },
+      { error: 'Failed to fetch properties' },
       { status: 500 }
     )
   }
