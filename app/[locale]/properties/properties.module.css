@@ -1,0 +1,325 @@
+/**
+ * properties.module.css -- Property listing page styles for Ozgul's Realty
+ *
+ * This CSS Module provides all styling for the properties listing page
+ * (app/[locale]/properties/page.tsx). It defines styles for:
+ *   1. Page layout and heading
+ *   2. Property card grid (responsive: 1/2/3 columns)
+ *   3. Individual property cards with hover animations
+ *   4. "No results" empty state
+ *
+ * Design system tokens used:
+ *   --color-espresso (#2C1A0E) -- headings, body text
+ *   --color-gold     (#C9A96E) -- accents, prices, links, borders
+ *   --color-ivory    (#F5F0E8) -- no-results background
+ *   --color-warm     (#8C6B4A) -- secondary text (location, subtitle)
+ *   --color-cream    (#FDFAF4) -- page background
+ *   --font-cormorant           -- 'Cormorant Garamond', serif
+ *
+ * Responsive breakpoints:
+ *   768px  -- tablet (2-column grid)
+ *   480px  -- mobile (1-column grid, reduced padding)
+ *
+ * All containers use sharp corners (no border-radius) per brand guidelines.
+ */
+
+/* ================================================================== */
+/*  PAGE WRAPPER                                                       */
+/*  Top-level container with padding-top for fixed navbar clearance    */
+/* ================================================================== */
+
+/* .page -- main page wrapper */
+.page {
+  /* Top padding clears the fixed navbar (approximately 80px height) */
+  padding-top: 80px;
+  /* Minimum full viewport height */
+  min-height: 100vh;
+  /* Cream page background */
+  background: var(--color-cream);
+}
+
+/* ================================================================== */
+/*  PAGE HEADER                                                        */
+/*  Title and subtitle centered at the top of the page                 */
+/* ================================================================== */
+
+/* .header -- centered header area with title and subtitle */
+.header {
+  /* Generous vertical padding */
+  padding: 48px 24px 0;
+  /* Cap width */
+  max-width: 1280px;
+  /* Center horizontally */
+  margin: 0 auto;
+  /* Center text alignment */
+  text-align: center;
+}
+
+/* .title -- page heading "Properties" */
+.title {
+  /* Luxury serif font */
+  font-family: var(--font-cormorant);
+  /* Prominent heading size */
+  font-size: 2.5rem;
+  /* Dark text */
+  color: var(--color-espresso);
+  /* Regular weight for elegance */
+  font-weight: 400;
+  /* Space below before subtitle */
+  margin-bottom: 8px;
+}
+
+/* .subtitle -- descriptive text below the title */
+.subtitle {
+  /* Warm secondary color */
+  color: var(--color-warm);
+  /* Space below before filter/grid */
+  margin-bottom: 32px;
+  /* Readable line height */
+  line-height: 1.6;
+}
+
+/* ================================================================== */
+/*  CONTENT AREA                                                       */
+/*  Wraps the filter bar and property grid                             */
+/* ================================================================== */
+
+/* .content -- padded, centered content container */
+.content {
+  /* Horizontal and bottom padding */
+  padding: 32px 24px 80px;
+  /* Cap width */
+  max-width: 1280px;
+  /* Center horizontally */
+  margin: 0 auto;
+}
+
+/* ================================================================== */
+/*  PROPERTY GRID                                                      */
+/*  3-column responsive grid of property cards                         */
+/* ================================================================== */
+
+/* .grid -- 3-column grid for property cards */
+.grid {
+  /* CSS Grid layout */
+  display: grid;
+  /* 3 equal columns on desktop */
+  grid-template-columns: repeat(3, 1fr);
+  /* Consistent gap between cards */
+  gap: 24px;
+  /* Space above grid (below the filter) */
+  margin-top: 32px;
+}
+
+/* ================================================================== */
+/*  PROPERTY CARD                                                      */
+/*  Individual listing card with image, text, and hover effect         */
+/* ================================================================== */
+
+/* .card -- property card container */
+.card {
+  /* Thin gold border with low opacity */
+  border: 0.5px solid rgba(201, 169, 110, 0.2);
+  /* Hide content overflow (no border-radius) */
+  overflow: hidden;
+  /* Smooth hover lift animation */
+  transition: transform 0.3s ease;
+  /* Block display for link wrapping */
+  display: block;
+  /* Remove link underline */
+  text-decoration: none;
+  /* White background for card surface */
+  background: #fff;
+}
+
+/* .card:hover -- lift effect on hover */
+.card:hover {
+  /* Subtle upward movement */
+  transform: translateY(-4px);
+}
+
+/* .cardImageWrapper -- container for the property image */
+.cardImageWrapper {
+  /* Full width */
+  width: 100%;
+  /* 4:3 aspect ratio for consistent card heights */
+  aspect-ratio: 4 / 3;
+  /* Clip image overflow */
+  overflow: hidden;
+}
+
+/* .cardImage -- property thumbnail image */
+.cardImage {
+  /* Fill the wrapper */
+  width: 100%;
+  height: 100%;
+  /* Cover mode */
+  object-fit: cover;
+}
+
+/* .cardInfo -- text content below the image */
+.cardInfo {
+  /* Comfortable padding */
+  padding: 20px;
+}
+
+/* .cardTitle -- property name */
+.cardTitle {
+  /* Luxury serif font */
+  font-family: var(--font-cormorant);
+  /* Slightly larger than body */
+  font-size: 1.3rem;
+  /* Dark text */
+  color: var(--color-espresso);
+  /* Space below */
+  margin-bottom: 8px;
+}
+
+/* .cardLocation -- property location text */
+.cardLocation {
+  /* Warm secondary color */
+  color: var(--color-warm);
+  /* Smaller text */
+  font-size: 0.9rem;
+  /* Space below */
+  margin-bottom: 8px;
+}
+
+/* .cardPrice -- price display */
+.cardPrice {
+  /* Gold accent */
+  color: var(--color-gold);
+  /* Larger for emphasis */
+  font-size: 1.2rem;
+  /* Semibold weight */
+  font-weight: 600;
+  /* Space below */
+  margin-bottom: 12px;
+}
+
+/* .cardMeta -- bedrooms / bathrooms / area row */
+.cardMeta {
+  /* Horizontal layout */
+  display: flex;
+  /* Spacing between meta items */
+  gap: 16px;
+  /* Warm color for secondary info */
+  color: var(--color-warm);
+  /* Smaller text */
+  font-size: 0.85rem;
+  /* Space below */
+  margin-bottom: 12px;
+}
+
+/* .cardLink -- "View Details" link text */
+.cardLink {
+  /* Gold accent */
+  color: var(--color-gold);
+  /* No underline */
+  text-decoration: none;
+  /* Smaller text */
+  font-size: 0.9rem;
+  /* Elegant spacing */
+  letter-spacing: 0.5px;
+  /* Uppercase CTA style */
+  text-transform: uppercase;
+}
+
+/* ================================================================== */
+/*  NO RESULTS STATE                                                   */
+/*  Displayed when no properties match the current filters             */
+/* ================================================================== */
+
+/* .noResults -- empty state container */
+.noResults {
+  /* Center text */
+  text-align: center;
+  /* Generous vertical padding */
+  padding: 80px 24px;
+  /* Light background */
+  background: var(--color-ivory);
+  /* Top margin for spacing */
+  margin-top: 32px;
+}
+
+/* .noResultsTitle -- "No Properties Found" heading */
+.noResultsTitle {
+  /* Luxury serif font */
+  font-family: var(--font-cormorant);
+  /* Prominent size */
+  font-size: 2rem;
+  /* Dark text */
+  color: var(--color-espresso);
+  /* Space below */
+  margin-bottom: 12px;
+}
+
+/* .noResultsText -- explanatory text */
+.noResultsText {
+  /* Warm color */
+  color: var(--color-warm);
+  /* Readable line height */
+  line-height: 1.6;
+  /* Space below */
+  margin-bottom: 24px;
+}
+
+/* .resetLink -- link to clear all filters */
+.resetLink {
+  /* Gold accent */
+  color: var(--color-gold);
+  /* No underline */
+  text-decoration: none;
+  /* Elegant spacing */
+  letter-spacing: 0.5px;
+  /* Serif font */
+  font-family: var(--font-cormorant);
+  /* Slightly larger */
+  font-size: 1.1rem;
+  /* Subtle bottom border */
+  border-bottom: 1px solid var(--color-gold);
+  /* Inline-block for border to hug text */
+  display: inline-block;
+}
+
+/* ================================================================== */
+/*  RESPONSIVE: TABLET (max-width: 768px)                              */
+/* ================================================================== */
+
+@media (max-width: 768px) {
+  /* 2-column grid on tablets */
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Slightly smaller title */
+  .title {
+    font-size: 2rem;
+  }
+}
+
+/* ================================================================== */
+/*  RESPONSIVE: MOBILE (max-width: 480px)                              */
+/* ================================================================== */
+
+@media (max-width: 480px) {
+  /* Single column grid on mobile */
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Smaller title */
+  .title {
+    font-size: 1.8rem;
+  }
+
+  /* Reduced padding */
+  .content {
+    padding: 24px 16px 48px;
+  }
+
+  /* Reduced header padding */
+  .header {
+    padding: 32px 16px 0;
+  }
+}

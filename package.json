@@ -8,19 +8,47 @@
     "start": "next start",
     "lint": "eslint"
   },
+  "prisma": {
+    "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
+  },
   "dependencies": {
+    "@auth/prisma-adapter": "^2.11.1",
+    "@neondatabase/serverless": "^1.0.2",
+    "@prisma/adapter-neon": "^7.6.0",
+    "@prisma/client": "^7.6.0",
+    "@studio-freight/lenis": "^1.0.42",
+    "bcryptjs": "^3.0.3",
+    "cloudinary": "^2.9.0",
+    "embla-carousel-react": "^8.6.0",
+    "framer-motion": "^12.38.0",
+    "gsap": "^3.14.2",
     "next": "16.2.2",
+    "next-auth": "5.0.0-beta.30",
+    "next-cloudinary": "^6.17.5",
+    "next-intl": "^4.9.0",
     "react": "19.2.4",
-    "react-dom": "19.2.4"
+    "react-dom": "19.2.4",
+    "resend": "^6.10.0"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "@prisma/engines",
+      "prisma",
+      "@parcel/watcher",
+      "@swc/core"
+    ]
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "dotenv": "^17.4.0",
     "eslint": "^9",
     "eslint-config-next": "16.2.2",
+    "prisma": "^7.6.0",
     "tailwindcss": "^4",
+    "ts-node": "^10.9.2",
     "typescript": "^5"
   }
 }

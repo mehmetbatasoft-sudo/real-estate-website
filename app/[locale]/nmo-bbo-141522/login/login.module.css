@@ -1,0 +1,147 @@
+/**
+ * login.module.css — Styles for the Admin Login Page
+ *
+ * Design system:
+ * - Font: Cormorant Garamond (var(--font-cormorant))
+ * - Colors: espresso (#2C1A0E), gold (#C9A96E), ivory (#F5F0E8), warm (#8C6B4A), cream (#FDFAF4)
+ * - No border-radius (luxury aesthetic — sharp edges)
+ * - 0.5px gold borders (thin, elegant)
+ *
+ * Layout: Full-screen centered card with cream background.
+ * The login form is intentionally minimal — single-admin system.
+ */
+
+/* Full-screen centered container — flexbox centering */
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 24px;
+  background: var(--color-cream);
+}
+
+/* Login card — white box with thin gold border */
+.card {
+  width: 100%;
+  max-width: 420px;
+  padding: 48px 40px;
+  background: #ffffff;
+  border: 0.5px solid rgba(201, 169, 110, 0.3);
+}
+
+/* Page title — "Giris Yap" in Cormorant Garamond */
+.title {
+  font-family: var(--font-cormorant);
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--color-espresso);
+  text-align: center;
+  margin: 0 0 8px 0;
+}
+
+/* Subtitle — brand name below title */
+.subtitle {
+  font-family: var(--font-cormorant);
+  font-size: 1rem;
+  color: var(--color-warm);
+  text-align: center;
+  margin: 0 0 32px 0;
+}
+
+/* Form element — vertical stack with spacing */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Field group — label + input pair */
+.fieldGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* Field label — small uppercase text */
+.label {
+  font-family: var(--font-cormorant);
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--color-warm);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Text input — thin gold border, no border-radius */
+.input {
+  padding: 12px 16px;
+  font-family: var(--font-cormorant);
+  font-size: 1rem;
+  color: var(--color-espresso);
+  background: var(--color-cream);
+  border: 0.5px solid rgba(201, 169, 110, 0.3);
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+/* Input focus state — solid gold border */
+.input:focus {
+  border-color: var(--color-gold);
+}
+
+/* Input disabled state — reduced opacity during loading */
+.input:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Error message — red text for invalid credentials */
+.error {
+  font-family: var(--font-cormorant);
+  font-size: 0.9rem;
+  color: #c0392b;
+  text-align: center;
+  margin: 0;
+  padding: 8px 0;
+}
+
+/* Submit button — gold background, espresso text */
+.button {
+  padding: 14px 24px;
+  font-family: var(--font-cormorant);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--color-espresso);
+  background: var(--color-gold);
+  border: none;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  transition: opacity 0.2s ease;
+}
+
+/* Button hover — slightly reduced opacity */
+.button:hover {
+  opacity: 0.9;
+}
+
+/* Button disabled state — reduced opacity during loading */
+.button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/**
+ * Mobile responsive adjustments
+ * Reduce card padding on small screens
+ */
+@media (max-width: 480px) {
+  .card {
+    padding: 32px 24px;
+  }
+
+  .title {
+    font-size: 1.75rem;
+  }
+}

@@ -1,0 +1,301 @@
+/**
+ * about.module.css -- About page styles for Ozgul's Realty
+ *
+ * This CSS Module provides all styling for the about page
+ * (app/[locale]/about/page.tsx). It defines styles for:
+ *   1. Page wrapper with navbar clearance
+ *   2. Agent hero section (2-column: photo + bio)
+ *   3. Stats row (experience, listings, rating)
+ *   4. Contact section at the bottom
+ *
+ * Design system tokens used:
+ *   --color-espresso (#2C1A0E) -- headings, body text
+ *   --color-gold     (#C9A96E) -- accents, stat values, borders
+ *   --color-ivory    (#F5F0E8) -- stats background, section bg
+ *   --color-warm     (#8C6B4A) -- secondary text, labels
+ *   --color-cream    (#FDFAF4) -- page background, contact section
+ *   --font-cormorant           -- 'Cormorant Garamond', serif
+ *
+ * Responsive breakpoints:
+ *   768px  -- tablet/mobile (single column, stacked layout)
+ *
+ * All containers use sharp corners (no border-radius) per brand guidelines.
+ */
+
+/* ================================================================== */
+/*  PAGE WRAPPER                                                       */
+/* ================================================================== */
+
+/* .page -- main page container */
+.page {
+  /* Minimum viewport height */
+  min-height: 100vh;
+  /* Cream background */
+  background: var(--color-cream);
+  /* Top padding clears the fixed navbar */
+  padding-top: 80px;
+}
+
+/* ================================================================== */
+/*  AGENT HERO SECTION                                                 */
+/*  Two-column layout with agent photo and biographical information    */
+/* ================================================================== */
+
+/* .heroSection -- wrapper for the agent hero area */
+.heroSection {
+  /* Generous vertical padding */
+  padding: 64px 24px;
+  /* Cap width */
+  max-width: 1280px;
+  /* Center horizontally */
+  margin: 0 auto;
+}
+
+/* .heroGrid -- 2-column grid for photo + bio */
+.heroGrid {
+  /* CSS Grid layout */
+  display: grid;
+  /* Two equal columns */
+  grid-template-columns: 1fr 1fr;
+  /* Gap between photo and text */
+  gap: 64px;
+  /* Vertically center both columns */
+  align-items: center;
+}
+
+/* .imageWrapper -- container for the agent's portrait */
+.imageWrapper {
+  /* Position relative for CldImage fill mode */
+  position: relative;
+  /* Full width of its grid column */
+  width: 100%;
+  /* 3:4 portrait aspect ratio */
+  aspect-ratio: 3 / 4;
+  /* Clip overflow */
+  overflow: hidden;
+}
+
+/* .agentImage -- the agent's portrait photo */
+.agentImage {
+  /* Cover the wrapper completely */
+  object-fit: cover;
+}
+
+/* .bioContent -- text content container */
+.bioContent {
+  /* Allow natural content flow */
+  display: flex;
+  flex-direction: column;
+}
+
+/* .pageTitle -- main heading "About Ozgul Peksen" */
+.pageTitle {
+  /* Luxury serif font */
+  font-family: var(--font-cormorant);
+  /* Large, prominent heading */
+  font-size: 2.5rem;
+  /* Dark text */
+  color: var(--color-espresso);
+  /* Regular weight */
+  font-weight: 400;
+  /* Space below */
+  margin-bottom: 8px;
+}
+
+/* .pageSubtitle -- subtitle below the main heading */
+.pageSubtitle {
+  /* Warm secondary color */
+  color: var(--color-warm);
+  /* Slightly larger than body */
+  font-size: 1.1rem;
+  /* Space below before agent title */
+  margin-bottom: 24px;
+  /* Readable line height */
+  line-height: 1.6;
+}
+
+/* .agentTitle -- professional title (e.g., "Luxury Real Estate Consultant") */
+.agentTitle {
+  /* Luxury serif font */
+  font-family: var(--font-cormorant);
+  /* Larger than body for emphasis */
+  font-size: 1.3rem;
+  /* Gold accent */
+  color: var(--color-gold);
+  /* Space below before bio */
+  margin-bottom: 24px;
+  /* Elegant letter spacing */
+  letter-spacing: 0.5px;
+}
+
+/* .agentBio -- biography text */
+.agentBio {
+  /* Dark text for readability */
+  color: var(--color-espresso);
+  /* Generous line height */
+  line-height: 1.8;
+  /* Standard body size */
+  font-size: 1rem;
+  /* Preserve line breaks from database */
+  white-space: pre-line;
+}
+
+/* ================================================================== */
+/*  STATS SECTION                                                      */
+/*  Horizontal row of 3 key statistics about the agent                 */
+/* ================================================================== */
+
+/* .statsSection -- wrapper with ivory background */
+.statsSection {
+  /* Light background for visual separation */
+  background: var(--color-ivory);
+  /* Generous vertical padding */
+  padding: 64px 24px;
+}
+
+/* .statsGrid -- horizontal stats row */
+.statsGrid {
+  /* Cap width */
+  max-width: 1280px;
+  /* Center horizontally */
+  margin: 0 auto;
+  /* Horizontal layout */
+  display: grid;
+  /* 3 equal columns for 3 stats */
+  grid-template-columns: repeat(3, 1fr);
+  /* Spacing between stat items */
+  gap: 32px;
+}
+
+/* .statItem -- individual stat card */
+.statItem {
+  /* Center text content */
+  text-align: center;
+  /* Vertical padding */
+  padding: 24px;
+  /* White background */
+  background: #fff;
+  /* Thin gold border */
+  border: 0.5px solid rgba(201, 169, 110, 0.2);
+}
+
+/* .statValue -- the numeric stat value */
+.statValue {
+  /* Luxury serif font */
+  font-family: var(--font-cormorant);
+  /* Large for prominence */
+  font-size: 2.5rem;
+  /* Gold accent */
+  color: var(--color-gold);
+  /* Semibold weight */
+  font-weight: 600;
+  /* Space below */
+  margin-bottom: 8px;
+}
+
+/* .statLabel -- descriptive label below the value */
+.statLabel {
+  /* Warm secondary color */
+  color: var(--color-warm);
+  /* Smaller text */
+  font-size: 0.9rem;
+  /* Uppercase for label style */
+  text-transform: uppercase;
+  /* Elegant spacing */
+  letter-spacing: 1px;
+}
+
+/* ================================================================== */
+/*  CONTACT SECTION                                                    */
+/*  Centered contact form at the bottom of the about page              */
+/* ================================================================== */
+
+/* .contactSection -- wrapper with cream background */
+.contactSection {
+  /* Cream background */
+  background: var(--color-cream);
+  /* Generous vertical padding */
+  padding: 80px 24px;
+}
+
+/* .contactWrapper -- centered, width-constrained form container */
+.contactWrapper {
+  /* Narrow max width for form */
+  max-width: 600px;
+  /* Center horizontally */
+  margin: 0 auto;
+}
+
+/* .contactTitle -- "Contact Us" heading */
+.contactTitle {
+  /* Luxury serif font */
+  font-family: var(--font-cormorant);
+  /* Prominent heading */
+  font-size: 2.5rem;
+  /* Dark text */
+  color: var(--color-espresso);
+  /* Regular weight */
+  font-weight: 400;
+  /* Centered text */
+  text-align: center;
+  /* Space below */
+  margin-bottom: 8px;
+}
+
+/* .contactSubtitle -- descriptive text below the contact heading */
+.contactSubtitle {
+  /* Warm secondary color */
+  color: var(--color-warm);
+  /* Centered text */
+  text-align: center;
+  /* Space below before form */
+  margin-bottom: 48px;
+}
+
+/* ================================================================== */
+/*  RESPONSIVE: TABLET / MOBILE (max-width: 768px)                     */
+/* ================================================================== */
+
+@media (max-width: 768px) {
+  /* Stack photo above bio */
+  .heroGrid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  /* Smaller page title */
+  .pageTitle {
+    font-size: 2rem;
+  }
+
+  /* Stack stats vertically */
+  .statsGrid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  /* Smaller stat values */
+  .statValue {
+    font-size: 2rem;
+  }
+
+  /* Reduced section padding */
+  .heroSection {
+    padding: 32px 16px;
+  }
+
+  /* Reduced stats padding */
+  .statsSection {
+    padding: 48px 16px;
+  }
+
+  /* Reduced contact padding */
+  .contactSection {
+    padding: 48px 16px;
+  }
+
+  /* Smaller contact title */
+  .contactTitle {
+    font-size: 2rem;
+  }
+}

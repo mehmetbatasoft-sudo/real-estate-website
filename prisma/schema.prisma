@@ -1,0 +1,114 @@
+// =============================================================================
+// prisma/schema.prisma — Database schema for Özgül's Realty
+//
+// Defines 4 models:
+// 1. Property — Real estate listings with multilingual descriptions
+// 2. Agent    — Single-agent architecture (always exactly 1 record)
+// 3. Inquiry  — Contact form submissions from visitors
+// 4. Admin    — Admin panel users (single admin, credentials auth)
+//
+// Database: Neon PostgreSQL (cloud-hosted, serverless)
+// ORM: Prisma v7 with parameterized queries (SQL injection safe)
+// =============================================================================
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// =============================================================================
+// Property Model — Real estate listing
+//
+// Multilingual: description (EN) + descriptionTr/Ru/Ar for other languages
+// Images: stored as Cloudinary public IDs in imageIds array
+//         First element [0] is the primary/cover image
+// Price: stored in Euros. UI always shows '€' prefix + .toLocaleString()
+// forSale: true = For Sale, false = For Rent (maps to filter "type" field)
+// =============================================================================
+model Property {
+  id             Int      @id @default(autoincrement())
+  title          String                    // Property title (English)
+  description    String                    // Full description (English — always the fallback)
+  descriptionTr  String?                   // Turkish description (optional)
+  descriptionRu  String?                   // Russian description (optional)
+  descriptionAr  String?                   // Arabic description (optional)
+  price          Float                     // Price in Euros
+  location       String                    // Property location (e.g., "Antalya, Konyaaltı")
+  bedrooms       Int                       // Number of bedrooms
+  bathrooms      Int                       // Number of bathrooms
+  area           Float                     // Area in square meters
+  imageIds       String[]                  // Array of Cloudinary public IDs — [0] is cover image
+  videoId        String?                   // Optional Cloudinary video public ID
+  featured       Boolean  @default(false)  // Show on homepage featured section
+  forSale        Boolean  @default(true)   // true = For Sale, false = For Rent
+  createdAt      DateTime @default(now())  // Auto-set on creation
+  updatedAt      DateTime @updatedAt       // Auto-updated on changes
+}
+
+// =============================================================================
+// Agent Model — Real estate agent profile
+//
+// SINGLE-AGENT ARCHITECTURE: This table always contains exactly 1 record.
+// All public pages use prisma.agent.findFirst().
+// Admin panel uses prisma.agent.findMany() only to list in dashboard tab.
+// There is NO agent creation flow — only editing.
+// Do NOT build multi-agent UI or agent creation forms.
+//
+// Multilingual: bio (EN) + bioTr/Ru/Ar for other languages
+// Image: single Cloudinary public ID (not an array)
+// =============================================================================
+model Agent {
+  id         Int     @id @default(autoincrement())
+  name       String                  // Agent's full name
+  title      String                  // Professional title (e.g., "Luxury Real Estate Consultant")
+  bio        String                  // Biography in English (always the fallback)
+  bioTr      String?                 // Turkish biography (optional)
+  bioRu      String?                 // Russian biography (optional)
+  bioAr      String?                 // Arabic biography (optional)
+  phone      String                  // Contact phone number
+  email      String                  // Contact email address
+  imageId    String                  // Cloudinary public ID — singular, not array
+  experience Int                     // Years of experience
+  listings   Int                     // Number of active listings
+  rating     Float                   // Agent rating (0-5 scale)
+}
+
+// =============================================================================
+// Inquiry Model — Contact form submission
+//
+// Created when a visitor submits the contact form on public pages.
+// Rate limited to 5 requests/minute/IP.
+// Property field stores the property title reference (optional — general inquiries have null).
+// Read status tracked for admin dashboard (unread badge count).
+// =============================================================================
+model Inquiry {
+  id        Int      @id @default(autoincrement())
+  name      String                    // Sender's name
+  email     String                    // Sender's email address
+  phone     String?                   // Sender's phone (optional)
+  message   String                    // Inquiry message body
+  property  String?                   // Property title reference (optional)
+  createdAt DateTime @default(now())  // Submission timestamp
+  read      Boolean  @default(false)  // Read/unread status for admin
+}
+
+// =============================================================================
+// Admin Model — Admin panel user
+//
+// Authentication: NextAuth v5 Credentials provider
+// Password: bcrypt hashed with 12 salt rounds — NEVER stored plain text
+// Created via prisma/seed.ts — run once with `pnpm prisma db seed`
+// Role: currently only "admin" (single role, single user)
+// =============================================================================
+model Admin {
+  id        Int      @id @default(autoincrement())
+  name      String                          // Admin display name
+  email     String   @unique                // Login email — must be unique
+  password  String?                         // bcrypt hashed password (12 salt rounds)
+  image     String?                         // Optional profile image
+  role      String   @default("admin")      // User role (only "admin" for now)
+  createdAt DateTime @default(now())        // Account creation timestamp
+}

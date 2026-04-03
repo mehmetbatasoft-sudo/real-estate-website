@@ -1,0 +1,182 @@
+/**
+ * CookieBanner.module.css — Styles for the CookieBanner component
+ *
+ * Implements the luxury design system for the cookie consent banner:
+ *   - Fixed to the bottom of the viewport, full width
+ *   - Espresso (#2C1A0E) background for strong visual presence
+ *   - Ivory (#F5F0E8) text for high contrast readability
+ *   - Gold (#C9A96E) accents on links and the primary accept button
+ *   - 0.5px gold top border to separate from page content
+ *   - No rounded corners (sharp, architectural aesthetic)
+ *   - Responsive: stacks vertically and centers text on mobile
+ *   - z-index 1001 to sit above all other UI (modals, navbars, etc.)
+ */
+
+/* ------------------------------------------------------------------ */
+/*  Banner container                                                   */
+/* ------------------------------------------------------------------ */
+
+/**
+ * .banner — Fixed-position banner at the bottom of the viewport.
+ * Spans the full width with a high z-index to overlay all content.
+ * Flexbox row layout places text on the left and buttons on the right.
+ * The gold top border provides a subtle luxury accent line.
+ */
+.banner {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--color-espresso, #2C1A0E);
+  color: var(--color-ivory, #F5F0E8);
+  padding: 16px 24px;
+  z-index: 1001;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  border-top: 0.5px solid rgba(201, 169, 110, 0.3); /* gold at 0.3 opacity */
+}
+
+/* ------------------------------------------------------------------ */
+/*  Banner text                                                        */
+/* ------------------------------------------------------------------ */
+
+/**
+ * .text — The main cookie consent message.
+ * Uses flex: 1 to take up all available space, pushing the buttons
+ * to the right edge.  Cormorant Garamond at 0.95rem for readability.
+ */
+.text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.95rem;
+  flex: 1;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* ------------------------------------------------------------------ */
+/*  "Learn More" link                                                  */
+/* ------------------------------------------------------------------ */
+
+/**
+ * .learnMore — Inline link to the full cookie policy page.
+ * Gold color with underline provides clear affordance.
+ */
+.learnMore {
+  color: var(--color-gold, #C9A96E);
+  text-decoration: underline;
+}
+
+/**
+ * .learnMore:hover — Slight opacity reduction on hover for feedback.
+ */
+.learnMore:hover {
+  opacity: 0.85;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Buttons container                                                  */
+/* ------------------------------------------------------------------ */
+
+/**
+ * .buttons — Flex row holding the Accept and Decline buttons.
+ * 12px gap between buttons and flex-shrink: 0 prevents them from
+ * being compressed by the text.
+ */
+.buttons {
+  display: flex;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Accept button (primary action)                                     */
+/* ------------------------------------------------------------------ */
+
+/**
+ * .acceptButton — Primary CTA to accept cookies.
+ * Solid gold background with espresso text makes it the dominant
+ * action, encouraging consent.
+ */
+.acceptButton {
+  padding: 8px 20px;
+  background: var(--color-gold, #C9A96E);
+  color: var(--color-espresso, #2C1A0E);
+  border: none;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.9rem;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+  border-radius: 0; /* no rounded corners */
+}
+
+/**
+ * .acceptButton:hover — Subtle opacity reduction on hover.
+ */
+.acceptButton:hover {
+  opacity: 0.9;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Decline button (secondary action)                                  */
+/* ------------------------------------------------------------------ */
+
+/**
+ * .declineButton — Secondary action to decline cookies.
+ * Transparent background with a thin gold border makes it visually
+ * subordinate to the accept button while remaining accessible.
+ */
+.declineButton {
+  padding: 8px 20px;
+  background: transparent;
+  color: var(--color-ivory, #F5F0E8);
+  border: 0.5px solid rgba(201, 169, 110, 0.3); /* gold at 0.3 opacity */
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.9rem;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+  border-radius: 0; /* no rounded corners */
+}
+
+/**
+ * .declineButton:hover — Subtle opacity reduction on hover.
+ */
+.declineButton:hover {
+  opacity: 0.85;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Mobile responsive (screens <= 640px)                               */
+/* ------------------------------------------------------------------ */
+
+/**
+ * Mobile: Stack the banner vertically and center-align text.
+ * On small screens the horizontal layout would make the text
+ * too narrow and buttons too cramped.
+ */
+@media (max-width: 640px) {
+  .banner {
+    flex-direction: column;
+    text-align: center;
+    padding: 16px;
+  }
+
+  /**
+   * Mobile: Center the text when stacked vertically.
+   */
+  .text {
+    text-align: center;
+  }
+
+  /**
+   * Mobile: Center the button group when stacked vertically.
+   */
+  .buttons {
+    justify-content: center;
+  }
+}

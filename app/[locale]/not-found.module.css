@@ -1,0 +1,87 @@
+/**
+ * not-found.module.css — Styles for the 404 Not Found page
+ *
+ * Provides luxury-branded error page styling:
+ * - Centered content with generous whitespace
+ * - Large decorative error code
+ * - Gold accent divider
+ * - Consistent with the Özgül's Realty design system
+ */
+
+/* Container — centers content vertically and horizontally */
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 48px 24px;
+  background: var(--color-cream);
+  text-align: center;
+}
+
+/* Large 404 error code — decorative heading */
+.errorCode {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 8rem;
+  font-weight: 300;
+  color: var(--color-gold);
+  line-height: 1;
+  margin: 0;
+}
+
+/* Error title — "Page not found" */
+.title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2rem;
+  font-weight: 400;
+  color: var(--color-espresso);
+  margin: 16px 0 8px;
+}
+
+/* Error description text */
+.text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem;
+  color: var(--color-warm);
+  max-width: 400px;
+  line-height: 1.6;
+}
+
+/* Gold accent divider line */
+.divider {
+  width: 60px;
+  height: 1px;
+  background: var(--color-gold);
+  margin: 32px 0;
+}
+
+/* Back to homepage link */
+.homeLink {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+  color: var(--color-gold);
+  text-decoration: none;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 12px 32px;
+  border: 0.5px solid var(--color-gold);
+  transition: all 0.3s ease;
+}
+
+/* Hover: gold background with espresso text */
+.homeLink:hover {
+  background: var(--color-gold);
+  color: var(--color-espresso);
+}
+
+/* Mobile: smaller error code */
+@media (max-width: 768px) {
+  .errorCode {
+    font-size: 5rem;
+  }
+
+  .title {
+    font-size: 1.5rem;
+  }
+}

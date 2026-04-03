@@ -1,0 +1,345 @@
+/**
+ * PropertyForm.module.css — Shared styles for PropertyForm and AgentForm
+ *
+ * This stylesheet is used by both the property create/edit form
+ * (PropertyForm.tsx) and the agent profile edit form (AgentForm.tsx).
+ * Both forms follow the same visual language and reuse these classes.
+ *
+ * Design system:
+ * - Font: Cormorant Garamond via var(--font-cormorant)
+ * - Colors: espresso (#2C1A0E), gold (#C9A96E), ivory (#F5F0E8),
+ *   warm (#8C6B4A), cream (#FDFAF4)
+ * - No border-radius anywhere (luxury sharp-edge aesthetic)
+ * - 0.5px gold borders for inputs and dividers
+ *
+ * Layout structure:
+ * - .form — vertical flex column with 24px gap between sections
+ * - .formGrid — 2-column grid for compact fields (collapses to 1 col on mobile)
+ * - .formGroup — individual field wrapper (label + input stacked vertically)
+ * - .descriptionTabs — horizontal tab bar for language switching
+ * - .toggleGroup — horizontal row for boolean toggle buttons
+ * - .buttonRow — action buttons with space-between alignment
+ *
+ * Mobile strategy (breakpoint: 768px):
+ * - .formGrid collapses from 2 columns to 1 column
+ * - .buttonRow stacks vertically
+ * - Description tabs remain horizontal (small enough to fit)
+ */
+
+/* ================================================================ */
+/* FORM CONTAINER                                                    */
+/* Main form layout — vertical flex with consistent 24px spacing     */
+/* between all child sections (fields, grids, buttons, etc.)         */
+/* ================================================================ */
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* ================================================================ */
+/* FORM TITLE                                                        */
+/* Large heading displayed at the top of the form.                   */
+/* In PropertyForm: "Yeni Emlak Ekle" or "Emlak Duzenle"            */
+/* In AgentForm: "Temsilci Profili Duzenle"                         */
+/* Uses Cormorant Garamond at 1.8rem in espresso color.             */
+/* ================================================================ */
+
+.formTitle {
+  font-family: var(--font-cormorant);
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: var(--color-espresso);
+  margin: 0;
+}
+
+/* ================================================================ */
+/* FORM GRID                                                         */
+/* 2-column grid layout for compact numeric and text fields          */
+/* (price, location, bedrooms, bathrooms, area, etc.)                */
+/* Gap of 16px between grid items. Collapses to 1 column on mobile. */
+/* ================================================================ */
+
+.formGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+/* ================================================================ */
+/* FORM GROUP                                                        */
+/* Individual field wrapper — stacks label above input/textarea      */
+/* vertically with a 6px gap. Used for every form field.             */
+/* ================================================================ */
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* ================================================================ */
+/* LABELS                                                            */
+/* Small uppercase field labels in warm color (#8C6B4A).             */
+/* Cormorant Garamond at 0.85rem with 0.5px letter-spacing.         */
+/* Used for all field labels and toggle group headers.               */
+/* ================================================================ */
+
+.label {
+  font-family: var(--font-cormorant);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-warm);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* ================================================================ */
+/* TEXT INPUT                                                         */
+/* Standard text/number input field.                                 */
+/* White background with thin 0.5px gold/30% opacity border.        */
+/* Cormorant Garamond font in espresso color.                        */
+/* No border-radius (sharp corners per design system).               */
+/* ================================================================ */
+
+.input {
+  padding: 12px;
+  border: 0.5px solid rgba(201, 169, 110, 0.3);
+  background: #ffffff;
+  font-family: var(--font-cormorant);
+  font-size: 1rem;
+  color: var(--color-espresso);
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+/* Focus state — full-opacity gold border for clear focus indication */
+.input:focus {
+  border-color: var(--color-gold);
+}
+
+/* Disabled state — reduced opacity during form submission loading */
+.input:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ================================================================ */
+/* TEXTAREA                                                          */
+/* Multi-line text input for descriptions and bios.                  */
+/* Same visual styling as .input but with min-height of 120px        */
+/* and vertical-only resize to prevent horizontal overflow.          */
+/* ================================================================ */
+
+.textarea {
+  padding: 12px;
+  border: 0.5px solid rgba(201, 169, 110, 0.3);
+  background: #ffffff;
+  font-family: var(--font-cormorant);
+  font-size: 1rem;
+  color: var(--color-espresso);
+  min-height: 120px;
+  resize: vertical;
+  outline: none;
+  line-height: 1.6;
+  transition: border-color 0.2s ease;
+}
+
+/* Focus state — matches .input focus behavior */
+.textarea:focus {
+  border-color: var(--color-gold);
+}
+
+/* Disabled state — matches .input disabled behavior */
+.textarea:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ================================================================ */
+/* DESCRIPTION TABS                                                  */
+/* Horizontal tab bar for switching between language descriptions.    */
+/* Tabs (EN, TR, RU, AR) sit flush against each other with gap: 0.  */
+/* The active tab gets a gold background to indicate selection.      */
+/* ================================================================ */
+
+.descriptionTabs {
+  display: flex;
+  gap: 0;
+}
+
+/* Individual description tab button — transparent background by default */
+.descriptionTab {
+  padding: 8px 16px;
+  border: 0.5px solid rgba(201, 169, 110, 0.2);
+  background: transparent;
+  cursor: pointer;
+  font-family: var(--font-cormorant);
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--color-warm);
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+/* Hover state — subtle gold tint background */
+.descriptionTab:hover {
+  background: rgba(201, 169, 110, 0.05);
+}
+
+/* Active language tab — solid gold background with espresso text */
+.descriptionTabActive {
+  background: var(--color-gold);
+  color: var(--color-espresso);
+  border-color: var(--color-gold);
+}
+
+/* ================================================================ */
+/* TOGGLE GROUP                                                      */
+/* Horizontal row containing a label and toggle buttons.             */
+/* Used for boolean options like "Öne Çıkan" (Featured) and         */
+/* "Satılık"/"Kiralık" (For Sale / For Rent).                       */
+/* ================================================================ */
+
+.toggleGroup {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+/* Individual toggle button — outlined style by default */
+.toggleButton {
+  padding: 8px 16px;
+  border: 0.5px solid rgba(201, 169, 110, 0.2);
+  background: transparent;
+  cursor: pointer;
+  font-family: var(--font-cormorant);
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--color-warm);
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+/* Hover state — subtle gold tint */
+.toggleButton:hover {
+  background: rgba(201, 169, 110, 0.05);
+}
+
+/* Active toggle state — gold background with espresso text */
+.toggleActive {
+  background: var(--color-gold);
+  color: var(--color-espresso);
+  border-color: var(--color-gold);
+}
+
+/* ================================================================ */
+/* SUBMIT BUTTON                                                     */
+/* Primary action button for form submission.                        */
+/* "Kaydet" (Save) in edit mode, "Olustur" (Create) in create mode. */
+/* Gold background with uppercase Cormorant text and 1px spacing.   */
+/* ================================================================ */
+
+.submitButton {
+  padding: 14px 32px;
+  background: var(--color-gold);
+  color: var(--color-espresso);
+  border: none;
+  font-family: var(--font-cormorant);
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+/* Hover state — slight opacity reduction for feedback */
+.submitButton:hover {
+  opacity: 0.9;
+}
+
+/* Disabled state — grayed out during form submission */
+.submitButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ================================================================ */
+/* DELETE BUTTON                                                      */
+/* Destructive action button for property deletion.                  */
+/* Red-outlined transparent button, only shown in edit mode.         */
+/* Uses #c0392b (alizarin crimson) for danger signaling.             */
+/* ================================================================ */
+
+.deleteButton {
+  padding: 10px 20px;
+  background: transparent;
+  color: #c0392b;
+  border: 1px solid #c0392b;
+  font-family: var(--font-cormorant);
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+/* Hover state — fills with red background and white text */
+.deleteButton:hover {
+  background: #c0392b;
+  color: #ffffff;
+}
+
+/* Disabled state — grayed out during deletion */
+.deleteButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ================================================================ */
+/* BUTTON ROW                                                        */
+/* Action buttons container at the bottom of the form.               */
+/* Uses space-between to push submit button left and delete button   */
+/* right. Gap of 16px ensures minimum spacing if both buttons exist. */
+/* ================================================================ */
+
+.buttonRow {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+/* ================================================================ */
+/* ERROR MESSAGE                                                     */
+/* Inline error text displayed when API calls fail.                  */
+/* Red color (#c0392b) for clear visibility.                         */
+/* ================================================================ */
+
+.error {
+  font-family: var(--font-cormorant);
+  font-size: 0.9rem;
+  color: #c0392b;
+  margin: 0;
+}
+
+/* ================================================================ */
+/* MOBILE RESPONSIVE                                                 */
+/* ================================================================ */
+
+/**
+ * Tablet/mobile breakpoint — 768px
+ * - .formGrid collapses from 2 columns to 1 column
+ * - .buttonRow stacks vertically for easier tap targets
+ * - All other elements (description tabs, toggles) remain horizontal
+ *   as they are compact enough to fit on mobile screens
+ */
+@media (max-width: 768px) {
+  /* Grid collapses to single column on narrow screens */
+  .formGrid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Button row stacks vertically on mobile */
+  .buttonRow {
+    flex-direction: column;
+  }
+}

@@ -1,0 +1,414 @@
+/**
+ * detail.module.css -- Property detail page styles for Ozgul's Realty
+ *
+ * This CSS Module provides all styling for the property detail page
+ * (app/[locale]/properties/[id]/page.tsx). It defines styles for:
+ *   1. Page wrapper with navbar clearance padding
+ *   2. Image gallery area
+ *   3. Two-column layout: property details (2/3) + sticky contact form (1/3)
+ *   4. Property info grid (bedrooms, bathrooms, area)
+ *   5. Property description
+ *   6. Similar properties section at the bottom
+ *
+ * Design system tokens used:
+ *   --color-espresso (#2C1A0E) -- headings, body text
+ *   --color-gold     (#C9A96E) -- accents, price, borders
+ *   --color-ivory    (#F5F0E8) -- similar properties background, info grid bg
+ *   --color-warm     (#8C6B4A) -- secondary text, labels
+ *   --color-cream    (#FDFAF4) -- page background
+ *   --font-cormorant           -- 'Cormorant Garamond', serif
+ *
+ * Responsive breakpoints:
+ *   768px  -- tablet/mobile (single column layout, unstick contact form)
+ *
+ * All containers use sharp corners (no border-radius) per brand guidelines.
+ */
+
+/* ================================================================== */
+/*  PAGE WRAPPER                                                       */
+/*  Note: paddingTop for navbar clearance is applied as an inline      */
+/*  style in the component (the ONE allowed inline style per docs).    */
+/* ================================================================== */
+
+/* .page -- main page container */
+.page {
+  /* Minimum viewport height */
+  min-height: 100vh;
+  /* Cream background */
+  background: var(--color-cream);
+}
+
+/* ================================================================== */
+/*  IMAGE GALLERY AREA                                                 */
+/*  Full-width container for the ImageGallery component                */
+/* ================================================================== */
+
+/* .galleryArea -- wrapper around the image carousel */
+.galleryArea {
+  /* Full width, no horizontal padding */
+  width: 100%;
+  /* Cap height to keep gallery visible without scrolling */
+  max-height: 70vh;
+  /* Clip gallery overflow */
+  overflow: hidden;
+}
+
+/* ================================================================== */
+/*  CONTENT LAYOUT                                                     */
+/*  Two-column layout: property details on the left (2/3),             */
+/*  sticky contact form on the right (1/3)                             */
+/* ================================================================== */
+
+/* .contentWrapper -- padded container for the 2-column layout */
+.contentWrapper {
+  /* Cap width */
+  max-width: 1280px;
+  /* Center horizontally */
+  margin: 0 auto;
+  /* Comfortable padding */
+  padding: 48px 24px 80px;
+  /* 2/3 + 1/3 grid layout */
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  /* Gap between content and sidebar */
+  gap: 48px;
+  /* Align sidebar to top of its column */
+  align-items: start;
+}
+
+/* ================================================================== */
+/*  LEFT COLUMN: PROPERTY DETAILS                                      */
+/* ================================================================== */
+
+/* .details -- property information section */
+.details {
+  /* Allow content to flow naturally */
+  min-width: 0;
+}
+
+/* .propertyTitle -- main property title */
+.propertyTitle {
+  /* Luxury serif font */
+  font-family: var(--font-cormorant);
+  /* Large, prominent heading */
+  font-size: 2.5rem;
+  /* Dark text */
+  color: var(--color-espresso);
+  /* Regular weight for elegance */
+  font-weight: 400;
+  /* Space below */
+  margin-bottom: 8px;
+}
+
+/* .propertyLocation -- location text below the title */
+.propertyLocation {
+  /* Warm secondary color */
+  color: var(--color-warm);
+  /* Slightly larger than body */
+  font-size: 1.1rem;
+  /* Space below */
+  margin-bottom: 16px;
+}
+
+/* .propertyPrice -- price display */
+.propertyPrice {
+  /* Gold accent for price prominence */
+  color: var(--color-gold);
+  /* Luxury serif font */
+  font-family: var(--font-cormorant);
+  /* Large price text */
+  font-size: 2rem;
+  /* Semibold weight */
+  font-weight: 600;
+  /* Space below before info grid */
+  margin-bottom: 32px;
+}
+
+/* ================================================================== */
+/*  PROPERTY INFO GRID                                                 */
+/*  Horizontal row of key stats: bedrooms, bathrooms, area             */
+/* ================================================================== */
+
+/* .infoGrid -- horizontal stat cards */
+.infoGrid {
+  /* Horizontal layout */
+  display: flex;
+  /* Spacing between items */
+  gap: 24px;
+  /* Space below before description */
+  margin-bottom: 32px;
+}
+
+/* .infoItem -- individual stat card */
+.infoItem {
+  /* Light background for visual grouping */
+  background: var(--color-ivory);
+  /* Comfortable padding */
+  padding: 16px 24px;
+  /* Thin gold border */
+  border: 0.5px solid rgba(201, 169, 110, 0.2);
+  /* Center text */
+  text-align: center;
+  /* Equal width distribution */
+  flex: 1;
+}
+
+/* .infoLabel -- stat label (e.g., "Bedrooms") */
+.infoLabel {
+  /* Warm secondary color */
+  color: var(--color-warm);
+  /* Smaller text */
+  font-size: 0.85rem;
+  /* Uppercase for label style */
+  text-transform: uppercase;
+  /* Elegant spacing */
+  letter-spacing: 0.5px;
+  /* Space below before value */
+  margin-bottom: 4px;
+}
+
+/* .infoValue -- stat value (e.g., "3") */
+.infoValue {
+  /* Luxury serif font */
+  font-family: var(--font-cormorant);
+  /* Large for prominence */
+  font-size: 1.5rem;
+  /* Dark text */
+  color: var(--color-espresso);
+  /* Semibold weight */
+  font-weight: 600;
+}
+
+/* ================================================================== */
+/*  PROPERTY DESCRIPTION                                               */
+/* ================================================================== */
+
+/* .descriptionTitle -- "Description" heading */
+.descriptionTitle {
+  /* Luxury serif font */
+  font-family: var(--font-cormorant);
+  /* Section heading size */
+  font-size: 1.5rem;
+  /* Dark text */
+  color: var(--color-espresso);
+  /* Regular weight */
+  font-weight: 400;
+  /* Space below */
+  margin-bottom: 16px;
+}
+
+/* .description -- property description paragraph(s) */
+.description {
+  /* Dark text for readability */
+  color: var(--color-espresso);
+  /* Generous line height for comfortable reading */
+  line-height: 1.8;
+  /* Standard body size */
+  font-size: 1rem;
+  /* Preserve whitespace and line breaks from database content */
+  white-space: pre-line;
+}
+
+/* ================================================================== */
+/*  RIGHT COLUMN: STICKY CONTACT FORM                                  */
+/* ================================================================== */
+
+/* .sidebar -- sticky sidebar containing the contact form */
+.sidebar {
+  /* Stick to the top when scrolling */
+  position: sticky;
+  /* Offset from top to account for fixed navbar */
+  top: 100px;
+  /* Self-align to start of grid row */
+  align-self: start;
+}
+
+/* .sidebarTitle -- "Interested?" heading above the contact form */
+.sidebarTitle {
+  /* Luxury serif font */
+  font-family: var(--font-cormorant);
+  /* Section heading size */
+  font-size: 1.5rem;
+  /* Dark text */
+  color: var(--color-espresso);
+  /* Regular weight */
+  font-weight: 400;
+  /* Space below before form */
+  margin-bottom: 16px;
+}
+
+/* ================================================================== */
+/*  SIMILAR PROPERTIES SECTION                                         */
+/*  3-column grid of related property cards at the bottom              */
+/* ================================================================== */
+
+/* .similarSection -- wrapper with ivory background */
+.similarSection {
+  /* Light background for visual separation */
+  background: var(--color-ivory);
+  /* Generous padding */
+  padding: 80px 24px;
+}
+
+/* .similarWrapper -- centered content container */
+.similarWrapper {
+  /* Cap width */
+  max-width: 1280px;
+  /* Center horizontally */
+  margin: 0 auto;
+}
+
+/* .similarTitle -- "Similar Properties" heading */
+.similarTitle {
+  /* Luxury serif font */
+  font-family: var(--font-cormorant);
+  /* Prominent heading */
+  font-size: 2rem;
+  /* Dark text */
+  color: var(--color-espresso);
+  /* Regular weight */
+  font-weight: 400;
+  /* Centered text */
+  text-align: center;
+  /* Space below before grid */
+  margin-bottom: 48px;
+}
+
+/* .similarGrid -- 3-column grid of similar property cards */
+.similarGrid {
+  /* CSS Grid layout */
+  display: grid;
+  /* 3 equal columns */
+  grid-template-columns: repeat(3, 1fr);
+  /* Spacing between cards */
+  gap: 24px;
+}
+
+/* .similarCard -- similar property card (reuses same pattern as listing) */
+.similarCard {
+  /* Thin gold border */
+  border: 0.5px solid rgba(201, 169, 110, 0.2);
+  /* Hide overflow */
+  overflow: hidden;
+  /* Smooth hover animation */
+  transition: transform 0.3s ease;
+  /* Block display for link wrapping */
+  display: block;
+  /* Remove underline */
+  text-decoration: none;
+  /* White surface */
+  background: #fff;
+}
+
+/* .similarCard:hover -- lift on hover */
+.similarCard:hover {
+  transform: translateY(-4px);
+}
+
+/* .similarCardImageWrapper -- image container */
+.similarCardImageWrapper {
+  /* Full width */
+  width: 100%;
+  /* 4:3 aspect ratio */
+  aspect-ratio: 4 / 3;
+  /* Clip overflow */
+  overflow: hidden;
+}
+
+/* .similarCardImage -- property image */
+.similarCardImage {
+  /* Fill wrapper */
+  width: 100%;
+  height: 100%;
+  /* Cover mode */
+  object-fit: cover;
+}
+
+/* .similarCardInfo -- card text content */
+.similarCardInfo {
+  /* Comfortable padding */
+  padding: 20px;
+}
+
+/* .similarCardTitle -- property name */
+.similarCardTitle {
+  /* Luxury serif */
+  font-family: var(--font-cormorant);
+  /* Slightly larger */
+  font-size: 1.2rem;
+  /* Dark text */
+  color: var(--color-espresso);
+  /* Space below */
+  margin-bottom: 8px;
+}
+
+/* .similarCardPrice -- price */
+.similarCardPrice {
+  /* Gold accent */
+  color: var(--color-gold);
+  /* Larger */
+  font-size: 1.1rem;
+  /* Semibold */
+  font-weight: 600;
+}
+
+/* ================================================================== */
+/*  RESPONSIVE: TABLET / MOBILE (max-width: 768px)                     */
+/* ================================================================== */
+
+@media (max-width: 768px) {
+  /* Stack content to single column on smaller screens */
+  .contentWrapper {
+    grid-template-columns: 1fr;
+    /* Reduced gap when stacked */
+    gap: 32px;
+    /* Reduced padding */
+    padding: 32px 16px 48px;
+  }
+
+  /* Unstick the sidebar on mobile (it scrolls normally) */
+  .sidebar {
+    position: static;
+  }
+
+  /* Smaller title on mobile */
+  .propertyTitle {
+    font-size: 2rem;
+  }
+
+  /* Smaller price on mobile */
+  .propertyPrice {
+    font-size: 1.6rem;
+  }
+
+  /* Stack info items vertically on mobile */
+  .infoGrid {
+    flex-wrap: wrap;
+  }
+
+  /* 2-column similar grid on tablet */
+  .similarGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Reduced similar section padding */
+  .similarSection {
+    padding: 48px 16px;
+  }
+}
+
+/* ================================================================== */
+/*  RESPONSIVE: MOBILE (max-width: 480px)                              */
+/* ================================================================== */
+
+@media (max-width: 480px) {
+  /* Single column similar grid on mobile */
+  .similarGrid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Smaller title */
+  .propertyTitle {
+    font-size: 1.8rem;
+  }
+}

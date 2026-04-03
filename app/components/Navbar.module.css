@@ -1,0 +1,403 @@
+/**
+ * Navbar.module.css — Styles for the fixed navigation bar
+ *
+ * This CSS Module provides all styling for the Navbar component including:
+ * - Fixed top navigation with transparent-to-solid scroll transition
+ * - Desktop navigation links with hover effects
+ * - Language switcher dropdown (EN/TR/RU/AR)
+ * - Call-to-action "Get In Touch" button with gold border
+ * - Hamburger icon and fullscreen mobile overlay menu
+ * - RTL (right-to-left) support for Arabic locale via [dir='rtl'] selectors
+ *
+ * Design tokens used (from globals.css @theme inline):
+ *   --color-espresso: #2C1A0E  (dark backgrounds)
+ *   --color-gold: #C9A96E      (accent borders, hover states)
+ *   --color-ivory: #F5F0E8     (text on dark backgrounds)
+ *   --color-warm: #8C6B4A      (secondary/muted text)
+ *   --color-cream: #FDFAF4     (page background)
+ *   --font-cormorant: 'Cormorant Garamond', serif
+ *
+ * Mobile breakpoint: 768px
+ * All borders use the project convention of 0.5px gold, no rounded corners.
+ */
+
+/* ============================================================
+   .navbar — Fixed top navigation bar wrapper
+   Starts transparent, gains background on scroll via .navbarScrolled
+   z-index 1000 ensures it sits above all page content
+   ============================================================ */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  transition: background-color 0.3s ease;
+  /* No background by default — transparent over hero sections */
+  background-color: transparent;
+}
+
+/* ============================================================
+   .navbarScrolled — Applied when user scrolls past 50px
+   Adds a near-opaque espresso background for legibility
+   ============================================================ */
+.navbarScrolled {
+  background-color: rgba(44, 26, 14, 0.95); /* --color-espresso at 95% opacity */
+}
+
+/* ============================================================
+   .container — Centers and constrains nav content
+   max-width 1280px keeps content from stretching on ultra-wide screens
+   Flexbox row with space-between aligns logo left, links right
+   ============================================================ */
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 72px; /* Consistent navbar height */
+}
+
+/* ============================================================
+   .logo — Site branding link "Özgül's Realty"
+   Cormorant Garamond at 1.5rem, gold color, 1px letter-spacing
+   No text decoration; gold color signals the brand accent
+   ============================================================ */
+.logo {
+  font-family: var(--font-cormorant), 'Cormorant Garamond', serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--color-gold);
+  text-decoration: none;
+  letter-spacing: 1px;
+}
+
+/* ============================================================
+   .navLinks — Desktop horizontal link row
+   Flex row with 32px gap between items for comfortable spacing
+   Hidden on mobile via media query at bottom of file
+   ============================================================ */
+.navLinks {
+  display: flex;
+  gap: 32px;
+  align-items: center;
+}
+
+/* ============================================================
+   .navLink — Individual desktop navigation link (Home, Properties, About)
+   Ivory text at 0.95rem for a refined, understated feel
+   Gold hover color provides visual feedback matching the accent
+   ============================================================ */
+.navLink {
+  color: var(--color-ivory);
+  font-family: var(--font-cormorant), 'Cormorant Garamond', serif;
+  font-size: 0.95rem;
+  text-decoration: none;
+  letter-spacing: 0.5px;
+  transition: color 0.3s ease;
+}
+
+/* .navLink hover — text turns gold on mouse-over */
+.navLink:hover {
+  color: var(--color-gold);
+}
+
+/* ============================================================
+   .activeLink — Applied to the nav link matching the current route
+   Gold color + subtle bottom border to indicate active page
+   ============================================================ */
+.activeLink {
+  color: var(--color-gold);
+}
+
+/* ============================================================
+   .languageDropdown — Wrapper for the locale selector
+   position: relative anchors the absolute-positioned dropdown menu
+   ============================================================ */
+.languageDropdown {
+  position: relative;
+  cursor: pointer;
+}
+
+/* ============================================================
+   .languageButton — Clickable button showing current locale (EN/TR/RU/AR)
+   Transparent background with a subtle gold border at 30% opacity
+   Padding 6px 12px gives a compact, refined button shape
+   ============================================================ */
+.languageButton {
+  color: var(--color-ivory);
+  background: transparent;
+  border: 1px solid rgba(201, 169, 110, 0.3); /* --color-gold at 30% opacity */
+  padding: 6px 12px;
+  font-family: var(--font-cormorant), 'Cormorant Garamond', serif;
+  font-size: 0.9rem;
+  cursor: pointer;
+  letter-spacing: 0.5px;
+  transition: border-color 0.3s ease;
+}
+
+/* .languageButton hover — border becomes more visible on hover */
+.languageButton:hover {
+  border-color: rgba(201, 169, 110, 0.6); /* --color-gold at 60% opacity */
+}
+
+/* ============================================================
+   .languageMenu — Dropdown list of available locales
+   Absolute-positioned below the button, right-aligned
+   Espresso background with a faint gold border for consistency
+   ============================================================ */
+.languageMenu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: var(--color-espresso);
+  border: 1px solid rgba(201, 169, 110, 0.2); /* --color-gold at 20% opacity */
+  display: flex;
+  flex-direction: column;
+  min-width: 80px;
+  margin-top: 4px; /* Small gap below the button */
+  z-index: 1001; /* Above the navbar itself */
+}
+
+/* ============================================================
+   .languageOption — Individual locale option in the dropdown (EN, TR, RU, AR)
+   Padding for comfortable click target; ivory text on espresso bg
+   Hover reveals a faint gold tint background
+   ============================================================ */
+.languageOption {
+  padding: 8px 12px;
+  color: var(--color-ivory);
+  cursor: pointer;
+  font-family: var(--font-cormorant), 'Cormorant Garamond', serif;
+  font-size: 0.9rem;
+  background: transparent;
+  border: none;
+  width: 100%;
+  text-align: left;
+  transition: background-color 0.2s ease;
+}
+
+/* .languageOption hover — faint gold tint signals interactivity */
+.languageOption:hover {
+  background-color: rgba(201, 169, 110, 0.1); /* --color-gold at 10% opacity */
+}
+
+/* ============================================================
+   .ctaButton — "Get In Touch" call-to-action button
+   Transparent bg with solid gold border; text in gold
+   Hover inverts to gold bg with espresso text for emphasis
+   No border-radius — matches the project's sharp-corner aesthetic
+   ============================================================ */
+.ctaButton {
+  padding: 10px 24px;
+  background: transparent;
+  border: 1px solid var(--color-gold);
+  color: var(--color-gold);
+  font-family: var(--font-cormorant), 'Cormorant Garamond', serif;
+  font-size: 0.95rem;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+}
+
+/* .ctaButton hover — gold fill with dark text for maximum contrast */
+.ctaButton:hover {
+  background: var(--color-gold);
+  color: var(--color-espresso);
+}
+
+/* ============================================================
+   .hamburger — Mobile menu toggle button (three horizontal bars)
+   Hidden on desktop (display: none); shown at 768px breakpoint
+   Flexbox column layout spaces the three span bars evenly
+   ============================================================ */
+.hamburger {
+  display: none; /* Hidden on desktop */
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  padding: 4px;
+  z-index: 1001; /* Above mobile overlay so it can close the menu */
+}
+
+/* .hamburgerBar — Each of the three horizontal bars in the hamburger icon
+   Width 24px, height 2px creates thin, elegant lines
+   Ivory color for visibility on dark backgrounds
+   ============================================================ */
+.hamburgerBar {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background-color: var(--color-ivory);
+  transition: all 0.3s ease;
+}
+
+/* ============================================================
+   .mobileMenu — Fullscreen overlay menu for mobile navigation
+   Fixed to cover the entire viewport (inset: 0)
+   Espresso background, centered content with generous spacing
+   z-index 999 sits below the hamburger (1001) so it can be closed
+   ============================================================ */
+.mobileMenu {
+  position: fixed;
+  inset: 0;
+  background: var(--color-espresso);
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 32px;
+}
+
+/* ============================================================
+   .mobileLink — Navigation link inside the mobile overlay
+   Larger font (1.5rem) for easy tapping; ivory text, no decoration
+   ============================================================ */
+.mobileLink {
+  color: var(--color-ivory);
+  font-family: var(--font-cormorant), 'Cormorant Garamond', serif;
+  font-size: 1.5rem;
+  text-decoration: none;
+  letter-spacing: 1px;
+  transition: color 0.3s ease;
+}
+
+/* .mobileLink hover — gold accent on hover, same as desktop links */
+.mobileLink:hover {
+  color: var(--color-gold);
+}
+
+/* ============================================================
+   .mobileActiveLink — Active page indicator in mobile menu
+   Gold color signals which page the user is currently on
+   ============================================================ */
+.mobileActiveLink {
+  color: var(--color-gold);
+}
+
+/* ============================================================
+   .mobileCta — "Get In Touch" button inside the mobile menu
+   Same gold-border style as desktop but slightly larger padding
+   ============================================================ */
+.mobileCta {
+  padding: 12px 32px;
+  background: transparent;
+  border: 1px solid var(--color-gold);
+  color: var(--color-gold);
+  font-family: var(--font-cormorant), 'Cormorant Garamond', serif;
+  font-size: 1.2rem;
+  letter-spacing: 1px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+/* .mobileCta hover — same gold fill inversion as desktop CTA */
+.mobileCta:hover {
+  background: var(--color-gold);
+  color: var(--color-espresso);
+}
+
+/* ============================================================
+   .mobileLanguageSection — Language switcher row inside mobile menu
+   Flex row with gap to display locale buttons side by side
+   ============================================================ */
+.mobileLanguageSection {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  margin-top: 8px;
+}
+
+/* ============================================================
+   .mobileLanguageButton — Individual locale button in mobile menu
+   Similar to desktop languageOption but styled as a standalone button
+   ============================================================ */
+.mobileLanguageButton {
+  color: var(--color-ivory);
+  background: transparent;
+  border: 1px solid rgba(201, 169, 110, 0.3);
+  padding: 8px 16px;
+  font-family: var(--font-cormorant), 'Cormorant Garamond', serif;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* .mobileLanguageButton hover — subtle gold tint on hover */
+.mobileLanguageButton:hover {
+  border-color: var(--color-gold);
+  color: var(--color-gold);
+}
+
+/* ============================================================
+   .mobileLanguageButtonActive — Highlights the currently selected locale
+   Gold border + gold text to stand out from other options
+   ============================================================ */
+.mobileLanguageButtonActive {
+  border-color: var(--color-gold);
+  color: var(--color-gold);
+}
+
+/* ============================================================
+   RTL (Right-to-Left) Support for Arabic locale
+   Mirrors layout direction so the logo appears on the right
+   and nav links flow from right to left
+   ============================================================ */
+
+/* RTL: Flip the dropdown menu alignment from right to left */
+[dir='rtl'] .languageMenu {
+  right: auto;
+  left: 0;
+}
+
+/* RTL: Align language option text to the right */
+[dir='rtl'] .languageOption {
+  text-align: right;
+}
+
+/* RTL: Reverse the flex direction of the main container
+   Logo moves to the right, nav links to the left */
+[dir='rtl'] .container {
+  flex-direction: row-reverse;
+}
+
+/* RTL: Reverse the order of desktop nav links */
+[dir='rtl'] .navLinks {
+  flex-direction: row-reverse;
+}
+
+/* ============================================================
+   Mobile Breakpoint — max-width: 768px
+   Hides desktop nav links and shows the hamburger icon
+   ============================================================ */
+@media (max-width: 768px) {
+  /* Hide the desktop navigation links on mobile */
+  .navLinks {
+    display: none;
+  }
+
+  /* Show the hamburger menu icon on mobile */
+  .hamburger {
+    display: flex;
+  }
+
+  /* Reduce container padding on smaller screens */
+  .container {
+    padding: 0 16px;
+  }
+
+  /* Slightly smaller logo on mobile for better fit */
+  .logo {
+    font-size: 1.3rem;
+  }
+}

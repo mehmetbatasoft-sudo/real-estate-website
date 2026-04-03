@@ -1,0 +1,596 @@
+/**
+ * AdminDashboard.module.css — Styles for the Admin Dashboard Component
+ *
+ * Design system:
+ * - Font: Cormorant Garamond (var(--font-cormorant))
+ * - Colors: espresso (#2C1A0E), gold (#C9A96E), ivory (#F5F0E8), warm (#8C6B4A), cream (#FDFAF4)
+ * - No border-radius (luxury aesthetic — sharp edges throughout)
+ * - 0.5px gold borders (thin, elegant dividers)
+ *
+ * Layout structure:
+ * - .dashboard → full-width container with max-width and padding
+ * - .header → flex row with title and action buttons
+ * - .tabs → horizontal tab navigation with gold underline for active
+ * - .content → tab panel content area
+ *
+ * Mobile strategy:
+ * - Tables get horizontal scroll (overflow-x: auto)
+ * - Tabs get horizontal scroll with nowrap
+ * - Stats grid collapses to 1 column
+ * - Inquiry items stack vertically
+ */
+
+/* ================================================================ */
+/* DASHBOARD CONTAINER                                               */
+/* ================================================================ */
+
+/* Main dashboard wrapper — centered with max-width */
+.dashboard {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 32px 24px;
+  font-family: var(--font-cormorant);
+}
+
+/* ================================================================ */
+/* HEADER                                                            */
+/* ================================================================ */
+
+/* Header row — title on left, buttons on right */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 0 24px 0;
+  border-bottom: 0.5px solid rgba(201, 169, 110, 0.2);
+  margin-bottom: 24px;
+}
+
+/* Dashboard title — large Cormorant Garamond heading */
+.title {
+  font-family: var(--font-cormorant);
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--color-espresso);
+  margin: 0;
+}
+
+/* Header action buttons container */
+.headerActions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+/* ================================================================ */
+/* TABS                                                              */
+/* ================================================================ */
+
+/* Tab navigation bar — horizontal with gold border bottom */
+.tabs {
+  display: flex;
+  gap: 0;
+  border-bottom: 1px solid rgba(201, 169, 110, 0.2);
+  margin-bottom: 32px;
+}
+
+/* Individual tab button — transparent with warm text */
+.tab {
+  padding: 12px 24px;
+  cursor: pointer;
+  color: var(--color-warm);
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  font-family: var(--font-cormorant);
+  font-size: 1rem;
+  font-weight: 500;
+  transition: color 0.2s ease, border-bottom-color 0.2s ease;
+}
+
+/* Tab hover state — gold text hint */
+.tab:hover {
+  color: var(--color-gold);
+}
+
+/* Active tab — gold text + gold bottom border */
+.tabActive {
+  color: var(--color-gold);
+  border-bottom-color: var(--color-gold);
+}
+
+/* ================================================================ */
+/* CONTENT AREA                                                      */
+/* ================================================================ */
+
+/* Tab content container */
+.content {
+  min-height: 400px;
+}
+
+/* ================================================================ */
+/* STATS GRID (Overview tab)                                         */
+/* ================================================================ */
+
+/* 3-column grid for stat cards */
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+/* Individual stat card — white background with thin gold border */
+.statCard {
+  padding: 24px;
+  background: #ffffff;
+  border: 0.5px solid rgba(201, 169, 110, 0.2);
+  text-align: center;
+}
+
+/* Stat number — large gold number */
+.statNumber {
+  font-family: var(--font-cormorant);
+  font-size: 2rem;
+  color: var(--color-gold);
+  font-weight: 600;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+/* Stat label — small warm text below the number */
+.statLabel {
+  color: var(--color-warm);
+  font-size: 0.9rem;
+  font-family: var(--font-cormorant);
+}
+
+/* ================================================================ */
+/* RECENT INQUIRIES (Overview tab)                                   */
+/* ================================================================ */
+
+/* Section container for recent inquiries */
+.recentSection {
+  margin-top: 32px;
+}
+
+/* Section heading */
+.sectionTitle {
+  font-family: var(--font-cormorant);
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--color-espresso);
+  margin: 0 0 16px 0;
+}
+
+/* List of recent inquiry items */
+.recentList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Individual recent inquiry card */
+.recentItem {
+  padding: 16px;
+  background: #ffffff;
+  border: 0.5px solid rgba(201, 169, 110, 0.1);
+}
+
+/* Recent item header — name and badge side by side */
+.recentItemHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+/* Sender name in recent list */
+.recentName {
+  font-family: var(--font-cormorant);
+  font-weight: 600;
+  color: var(--color-espresso);
+  font-size: 1rem;
+}
+
+/* Message preview text */
+.recentMessage {
+  font-family: var(--font-cormorant);
+  font-size: 0.9rem;
+  color: var(--color-warm);
+  margin: 0 0 4px 0;
+  line-height: 1.5;
+}
+
+/* Date text in recent list */
+.recentDate {
+  font-family: var(--font-cormorant);
+  font-size: 0.8rem;
+  color: var(--color-warm);
+  opacity: 0.7;
+}
+
+/* ================================================================ */
+/* TABLE (Properties tab)                                            */
+/* ================================================================ */
+
+/* Table wrapper — allows horizontal scroll on mobile */
+.tableWrapper {
+  overflow-x: auto;
+}
+
+/* Properties table — full width with collapsed borders */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+/* Table header cells — ivory background, uppercase labels */
+.tableHeader {
+  background: var(--color-ivory);
+  text-align: left;
+  padding: 12px;
+  color: var(--color-warm);
+  font-family: var(--font-cormorant);
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Table body cells — thin gold border bottom */
+.tableCell {
+  padding: 12px;
+  border-bottom: 0.5px solid rgba(201, 169, 110, 0.1);
+  font-family: var(--font-cormorant);
+  font-size: 0.95rem;
+  color: var(--color-espresso);
+}
+
+/* Edit link in table — styled as a subtle gold link */
+.editLink {
+  background: transparent;
+  border: none;
+  color: var(--color-gold);
+  font-family: var(--font-cormorant);
+  font-size: 0.95rem;
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 0;
+}
+
+/* Edit link hover — slightly darker */
+.editLink:hover {
+  opacity: 0.8;
+}
+
+/* ================================================================ */
+/* PAGINATION (Properties + Inquiries tabs)                          */
+/* ================================================================ */
+
+/* Pagination container — centered row of page buttons */
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 24px;
+}
+
+/* Individual page button — outlined style */
+.pageButton {
+  padding: 8px 16px;
+  border: 0.5px solid rgba(201, 169, 110, 0.2);
+  background: transparent;
+  cursor: pointer;
+  font-family: var(--font-cormorant);
+  font-size: 0.9rem;
+  color: var(--color-espresso);
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+/* Page button hover */
+.pageButton:hover {
+  background: rgba(201, 169, 110, 0.1);
+}
+
+/* Active page button — gold background, espresso text */
+.pageButtonActive {
+  background: var(--color-gold);
+  color: var(--color-espresso);
+  border-color: var(--color-gold);
+}
+
+/* ================================================================ */
+/* BADGES (Read/Unread status)                                       */
+/* ================================================================ */
+
+/* Base badge styles — small pill-like label */
+.badge {
+  padding: 2px 8px;
+  font-family: var(--font-cormorant);
+  font-size: 0.75rem;
+  border-radius: 2px;
+  border: none;
+  cursor: pointer;
+  line-height: 1.4;
+}
+
+/* Unread badge — gold tinted background */
+.badgeUnread {
+  background: rgba(201, 169, 110, 0.2);
+  color: var(--color-gold);
+}
+
+/* Read badge — ivory background with warm text */
+.badgeRead {
+  background: var(--color-ivory);
+  color: var(--color-warm);
+}
+
+/* ================================================================ */
+/* INQUIRY LIST (Inquiries tab)                                      */
+/* ================================================================ */
+
+/* Inquiry list container — vertical stack */
+.inquiryList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Individual inquiry card */
+.inquiryItem {
+  padding: 20px;
+  background: #ffffff;
+  border: 0.5px solid rgba(201, 169, 110, 0.1);
+}
+
+/* Inquiry header — info on left, meta on right */
+.inquiryHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+  gap: 16px;
+}
+
+/* Inquiry sender info — name + email stacked */
+.inquiryInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+/* Sender name */
+.inquiryName {
+  font-family: var(--font-cormorant);
+  font-weight: 600;
+  color: var(--color-espresso);
+  font-size: 1.05rem;
+}
+
+/* Sender email */
+.inquiryEmail {
+  font-family: var(--font-cormorant);
+  font-size: 0.85rem;
+  color: var(--color-warm);
+}
+
+/* Inquiry metadata — property, date, badge */
+.inquiryMeta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+/* Property reference tag */
+.inquiryProperty {
+  font-family: var(--font-cormorant);
+  font-size: 0.8rem;
+  color: var(--color-warm);
+  padding: 2px 8px;
+  background: var(--color-ivory);
+}
+
+/* Inquiry date */
+.inquiryDate {
+  font-family: var(--font-cormorant);
+  font-size: 0.8rem;
+  color: var(--color-warm);
+  opacity: 0.7;
+}
+
+/* Inquiry message body */
+.inquiryMessage {
+  font-family: var(--font-cormorant);
+  font-size: 0.95rem;
+  color: var(--color-espresso);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ================================================================ */
+/* AGENT CARD (Agent Profile tab)                                    */
+/* ================================================================ */
+
+/* Agent profile card — white background */
+.agentCard {
+  padding: 32px;
+  background: #ffffff;
+  border: 0.5px solid rgba(201, 169, 110, 0.2);
+}
+
+/* Agent name heading */
+.agentName {
+  font-family: var(--font-cormorant);
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: var(--color-espresso);
+  margin: 0 0 4px 0;
+}
+
+/* Agent professional title */
+.agentTitle {
+  font-family: var(--font-cormorant);
+  font-size: 1.1rem;
+  color: var(--color-warm);
+  margin: 0 0 24px 0;
+}
+
+/* Agent details grid — 2 columns of key-value pairs */
+.agentDetails {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+/* Individual detail item */
+.agentDetail {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* Detail label — small, uppercase, warm color */
+.agentDetailLabel {
+  font-family: var(--font-cormorant);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-warm);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Detail value — normal size, espresso color */
+.agentDetailValue {
+  font-family: var(--font-cormorant);
+  font-size: 1rem;
+  color: var(--color-espresso);
+}
+
+/* Agent bio section */
+.agentBio {
+  margin-bottom: 24px;
+}
+
+/* Bio text content */
+.agentBioText {
+  font-family: var(--font-cormorant);
+  font-size: 0.95rem;
+  color: var(--color-espresso);
+  line-height: 1.6;
+  margin: 8px 0 0 0;
+}
+
+/* ================================================================ */
+/* BUTTONS                                                           */
+/* ================================================================ */
+
+/* Add button — gold background, espresso text (used for "Emlak Ekle" and "Profili Duzenle") */
+.addButton {
+  padding: 10px 20px;
+  background: var(--color-gold);
+  color: var(--color-espresso);
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-cormorant);
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: opacity 0.2s ease;
+}
+
+/* Add button hover */
+.addButton:hover {
+  opacity: 0.9;
+}
+
+/* Sign out button — transparent with gold border, warm text */
+.signOutButton {
+  padding: 8px 16px;
+  background: transparent;
+  border: 0.5px solid rgba(201, 169, 110, 0.3);
+  color: var(--color-warm);
+  cursor: pointer;
+  font-family: var(--font-cormorant);
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: border-color 0.2s ease;
+}
+
+/* Sign out button hover */
+.signOutButton:hover {
+  border-color: var(--color-gold);
+}
+
+/* ================================================================ */
+/* EMPTY STATE                                                       */
+/* ================================================================ */
+
+/* Empty state message — centered, warm color */
+.emptyState {
+  font-family: var(--font-cormorant);
+  font-size: 1rem;
+  color: var(--color-warm);
+  text-align: center;
+  padding: 48px 24px;
+}
+
+/* ================================================================ */
+/* MOBILE RESPONSIVE                                                 */
+/* ================================================================ */
+
+/**
+ * Tablet breakpoint — 768px
+ * - Stats grid: 1 column
+ * - Agent details: 1 column
+ * - Header: stack vertically
+ */
+@media (max-width: 768px) {
+  /* Stack header vertically on mobile */
+  .header {
+    flex-direction: column;
+    gap: 16px;
+    align-items: flex-start;
+  }
+
+  /* Stats grid collapses to 1 column */
+  .statsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Tabs scroll horizontally with no wrapping */
+  .tabs {
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Agent details: 1 column */
+  .agentDetails {
+    grid-template-columns: 1fr;
+  }
+
+  /* Agent card: less padding */
+  .agentCard {
+    padding: 20px;
+  }
+
+  /* Inquiry header stacks vertically */
+  .inquiryHeader {
+    flex-direction: column;
+  }
+
+  /* Inquiry meta wraps */
+  .inquiryMeta {
+    flex-wrap: wrap;
+  }
+
+  /* Dashboard container: less padding */
+  .dashboard {
+    padding: 20px 16px;
+  }
+}

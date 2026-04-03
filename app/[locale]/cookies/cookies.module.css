@@ -1,0 +1,263 @@
+/**
+ * cookies.module.css -- Cookie Policy page styles for Ozgul's Realty
+ *
+ * This CSS Module provides all styling for the Cookie Policy page
+ * (app/[locale]/cookies/page.tsx). It defines styles for:
+ *   1. Page wrapper with navbar clearance and cream background
+ *   2. Page header with centered title and subtitle
+ *   3. Content area with narrowed max-width for readability
+ *   4. Policy sections with gold bottom-border separators
+ *   5. Cookie inventory table (3 columns: name, purpose, duration)
+ *   6. Contact section at the bottom
+ *
+ * Design system tokens used:
+ *   --color-espresso (#2C1A0E) -- headings, body text, table cell text
+ *   --color-gold     (#C9A96E) -- section title accents (not directly used,
+ *                                  but gold tones via rgba for borders)
+ *   --color-ivory    (#F5F0E8) -- table header background
+ *   --color-warm     (#8C6B4A) -- subtitle text, table header text
+ *   --color-cream    (#FDFAF4) -- page background
+ *   --font-cormorant           -- 'Cormorant Garamond', serif
+ *
+ * Responsive breakpoints:
+ *   768px -- tablet/mobile (smaller title, tighter table padding)
+ *
+ * All containers use sharp corners (no border-radius) per brand guidelines.
+ * Gold borders use 0.5px width with partial opacity for subtlety.
+ */
+
+/* ================================================================== */
+/*  PAGE WRAPPER                                                       */
+/*  Top-level container with navbar clearance and cream background     */
+/* ================================================================== */
+
+/* .page -- main page container */
+.page {
+  /* Minimum full viewport height */
+  min-height: 100vh;
+  /* Cream page background for luxury feel */
+  background: var(--color-cream);
+  /* Top padding clears the fixed navbar (approx 80px height) */
+  padding-top: 80px;
+  /* Bottom padding for breathing room before the browser chrome */
+  padding-bottom: 80px;
+}
+
+/* ================================================================== */
+/*  PAGE HEADER                                                        */
+/*  Centered title ("Cookie Policy") and subtitle                      */
+/* ================================================================== */
+
+/* .header -- centered header area with title and subtitle */
+.header {
+  /* Center text alignment */
+  text-align: center;
+  /* Generous vertical padding */
+  padding: 48px 24px;
+  /* Narrower max-width for readability of legal text */
+  max-width: 800px;
+  /* Center horizontally */
+  margin: 0 auto;
+}
+
+/* .title -- main page heading "Cookie Policy" */
+.title {
+  /* Luxury serif font via CSS variable set in layout */
+  font-family: var(--font-cormorant);
+  /* Prominent heading size */
+  font-size: 2.5rem;
+  /* Regular weight for elegance */
+  font-weight: 400;
+  /* Dark espresso text */
+  color: var(--color-espresso);
+  /* Space below before subtitle */
+  margin: 0 0 12px;
+}
+
+/* .subtitle -- descriptive text below the title */
+.subtitle {
+  /* Luxury serif font for consistency */
+  font-family: var(--font-cormorant);
+  /* Slightly larger than body text */
+  font-size: 1.1rem;
+  /* Warm secondary color for visual hierarchy */
+  color: var(--color-warm);
+}
+
+/* ================================================================== */
+/*  CONTENT AREA                                                       */
+/*  Centered, width-constrained container for all policy sections      */
+/* ================================================================== */
+
+/* .content -- padded content wrapper */
+.content {
+  /* Narrower max-width keeps legal text scannable */
+  max-width: 800px;
+  /* Center horizontally */
+  margin: 0 auto;
+  /* Horizontal padding for edge spacing */
+  padding: 0 24px;
+}
+
+/* ================================================================== */
+/*  POLICY SECTION                                                     */
+/*  Reusable section block separated by thin gold bottom borders       */
+/*  Used for "What Are Cookies", "Cookies We Use", and "Contact"       */
+/* ================================================================== */
+
+/* .section -- individual policy section */
+.section {
+  /* Space below each section */
+  margin-bottom: 40px;
+  /* Bottom padding before the separator border */
+  padding-bottom: 40px;
+  /* Thin gold border separator between sections */
+  border-bottom: 0.5px solid rgba(201, 169, 110, 0.2);
+}
+
+/* .section:last-child -- remove the bottom border on the last section */
+.section:last-child {
+  border-bottom: none;
+}
+
+/* .sectionTitle -- section heading (e.g., "Cookies We Use") */
+.sectionTitle {
+  /* Luxury serif font */
+  font-family: var(--font-cormorant);
+  /* Section heading size */
+  font-size: 1.5rem;
+  /* Medium weight for emphasis without being too heavy */
+  font-weight: 500;
+  /* Dark espresso text */
+  color: var(--color-espresso);
+  /* Space below before body content */
+  margin: 0 0 16px;
+}
+
+/* ================================================================== */
+/*  BODY TEXT                                                           */
+/*  General paragraph text used within sections for descriptions       */
+/* ================================================================== */
+
+/* .text -- body text paragraph within a section */
+.text {
+  /* Luxury serif font for consistency */
+  font-family: var(--font-cormorant);
+  /* Slightly larger than standard body for readability */
+  font-size: 1.05rem;
+  /* Dark text for readability */
+  color: var(--color-espresso);
+  /* Generous line height for comfortable reading */
+  line-height: 1.8;
+  /* Space below before next element (e.g., the table) */
+  margin-bottom: 24px;
+}
+
+/* ================================================================== */
+/*  COOKIE INVENTORY TABLE                                             */
+/*  3-column table listing all cookies used by the website             */
+/*  Columns: Cookie Name | Purpose | Duration                         */
+/*  Styled with ivory header row and thin gold cell borders            */
+/* ================================================================== */
+
+/* .table -- the cookie inventory table element */
+.table {
+  /* Full width of the content container */
+  width: 100%;
+  /* Collapse borders for clean cell alignment */
+  border-collapse: collapse;
+  /* Space above to separate from the description text */
+  margin-top: 16px;
+}
+
+/* .tableHeader -- header row cells (th elements) */
+.tableHeader {
+  /* Luxury serif font */
+  font-family: var(--font-cormorant);
+  /* Smaller text for header labels */
+  font-size: 0.85rem;
+  /* Warm secondary color for de-emphasis */
+  color: var(--color-warm);
+  /* Uppercase for label style */
+  text-transform: uppercase;
+  /* Elegant letter spacing */
+  letter-spacing: 0.5px;
+  /* Left-align header text */
+  text-align: left;
+  /* Comfortable padding inside header cells */
+  padding: 12px 16px;
+  /* Ivory background to distinguish from data rows */
+  background: var(--color-ivory);
+  /* Thin gold border below the header row */
+  border-bottom: 0.5px solid rgba(201, 169, 110, 0.2);
+}
+
+/* .tableCell -- data row cells (td elements) */
+.tableCell {
+  /* Luxury serif font */
+  font-family: var(--font-cormorant);
+  /* Standard body size for readability */
+  font-size: 1rem;
+  /* Dark text */
+  color: var(--color-espresso);
+  /* Comfortable padding inside data cells */
+  padding: 16px;
+  /* Very subtle gold border between rows */
+  border-bottom: 0.5px solid rgba(201, 169, 110, 0.1);
+}
+
+/* ================================================================== */
+/*  COOKIE NAME CELL EMPHASIS                                          */
+/*  The first column (cookie technical name) uses a monospace-like     */
+/*  styling to distinguish it as a technical identifier                 */
+/* ================================================================== */
+
+/* .cookieName -- technical cookie identifier in the first column */
+.cookieName {
+  /* Luxury serif font (keeping consistent; no monospace per brand) */
+  font-family: var(--font-cormorant);
+  /* Standard body size */
+  font-size: 1rem;
+  /* Dark text */
+  color: var(--color-espresso);
+  /* Comfortable padding */
+  padding: 16px;
+  /* Subtle row border */
+  border-bottom: 0.5px solid rgba(201, 169, 110, 0.1);
+  /* Semibold to distinguish the cookie name from descriptions */
+  font-weight: 600;
+}
+
+/* ================================================================== */
+/*  RESPONSIVE: TABLET / MOBILE (max-width: 768px)                     */
+/*  Reduces font sizes and table padding for smaller screens           */
+/* ================================================================== */
+
+@media (max-width: 768px) {
+  /* Smaller page title on mobile */
+  .title {
+    font-size: 2rem;
+  }
+
+  /* Slightly smaller table text */
+  .table {
+    font-size: 0.9rem;
+  }
+
+  /* Tighter padding in table cells */
+  .tableCell,
+  .tableHeader,
+  .cookieName {
+    padding: 8px 12px;
+  }
+
+  /* Reduced header padding */
+  .header {
+    padding: 32px 16px;
+  }
+
+  /* Reduced content padding */
+  .content {
+    padding: 0 16px;
+  }
+}

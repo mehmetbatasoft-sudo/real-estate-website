@@ -1,0 +1,290 @@
+/**
+ * privacy.module.css -- Privacy Policy page styles for Ozgul's Realty
+ *
+ * This CSS Module provides all styling for the Privacy Policy page
+ * (app/[locale]/privacy/page.tsx). It defines styles for:
+ *   1. Page wrapper with navbar clearance and cream background
+ *   2. Page header with centered title and subtitle
+ *   3. Content area with narrowed max-width for readability
+ *   4. Policy sections (KVKK + GDPR) with ivory background cards
+ *   5. Individual policy items with labels and body text
+ *   6. Rights list with styled list items
+ *   7. Contact section at the bottom with separator border
+ *
+ * Design system tokens used:
+ *   --color-espresso (#2C1A0E) -- headings, body text
+ *   --color-gold     (#C9A96E) -- section heading accent borders
+ *   --color-ivory    (#F5F0E8) -- section card backgrounds
+ *   --color-warm     (#8C6B4A) -- secondary text, labels, contact text
+ *   --color-cream    (#FDFAF4) -- page background
+ *   --font-cormorant           -- 'Cormorant Garamond', serif
+ *
+ * Responsive breakpoints:
+ *   768px -- tablet/mobile (reduced padding, smaller headings)
+ *
+ * All containers use sharp corners (no border-radius) per brand guidelines.
+ * Gold borders use 0.5px width with partial opacity.
+ */
+
+/* ================================================================== */
+/*  PAGE WRAPPER                                                       */
+/*  Top-level container with navbar clearance and cream background     */
+/* ================================================================== */
+
+/* .page -- main page container */
+.page {
+  /* Minimum full viewport height */
+  min-height: 100vh;
+  /* Cream page background for luxury feel */
+  background: var(--color-cream);
+  /* Top padding clears the fixed navbar (approx 80px height) */
+  padding-top: 80px;
+}
+
+/* ================================================================== */
+/*  PAGE HEADER                                                        */
+/*  Centered title ("Privacy Policy") and subtitle                     */
+/* ================================================================== */
+
+/* .header -- centered header area with title and subtitle */
+.header {
+  /* Generous vertical padding above, reduced below */
+  padding: 64px 24px 32px;
+  /* Narrower max-width for readability of legal text */
+  max-width: 800px;
+  /* Center horizontally */
+  margin: 0 auto;
+  /* Center text alignment */
+  text-align: center;
+}
+
+/* .title -- main page heading "Privacy Policy" */
+.title {
+  /* Luxury serif font */
+  font-family: var(--font-cormorant);
+  /* Prominent heading size */
+  font-size: 2.5rem;
+  /* Dark espresso text */
+  color: var(--color-espresso);
+  /* Regular weight for elegance */
+  font-weight: 400;
+  /* Space below before subtitle */
+  margin-bottom: 12px;
+}
+
+/* .subtitle -- descriptive text below the title */
+.subtitle {
+  /* Warm secondary color for visual hierarchy */
+  color: var(--color-warm);
+  /* Readable line height for multi-line text */
+  line-height: 1.6;
+  /* Standard body size */
+  font-size: 1rem;
+}
+
+/* ================================================================== */
+/*  CONTENT AREA                                                       */
+/*  Centered, width-constrained container for all policy sections      */
+/* ================================================================== */
+
+/* .content -- padded content wrapper */
+.content {
+  /* Horizontal padding with generous bottom padding */
+  padding: 0 24px 80px;
+  /* Narrower max-width keeps legal text scannable */
+  max-width: 800px;
+  /* Center horizontally */
+  margin: 0 auto;
+}
+
+/* ================================================================== */
+/*  POLICY SECTION                                                     */
+/*  Reusable card-style section for KVKK, GDPR, and other blocks      */
+/*  Each section has an ivory background and thin gold border           */
+/* ================================================================== */
+
+/* .section -- individual policy section card */
+.section {
+  /* Space between stacked sections */
+  margin-bottom: 48px;
+  /* Ivory background for visual grouping and separation */
+  background: var(--color-ivory);
+  /* Comfortable padding inside the card */
+  padding: 32px;
+  /* Thin gold border matching the design system */
+  border: 0.5px solid rgba(201, 169, 110, 0.2);
+}
+
+/* .sectionTitle -- section heading (e.g., "KVKK Compliance") */
+.sectionTitle {
+  /* Luxury serif font */
+  font-family: var(--font-cormorant);
+  /* Section heading size -- prominent but not overwhelming */
+  font-size: 1.8rem;
+  /* Dark text */
+  color: var(--color-espresso);
+  /* Regular weight for refined look */
+  font-weight: 400;
+  /* Space below before body content */
+  margin-bottom: 24px;
+  /* Gold bottom border accent line */
+  border-bottom: 1px solid var(--color-gold);
+  /* Padding below text before the gold border */
+  padding-bottom: 12px;
+}
+
+/* ================================================================== */
+/*  POLICY ITEM                                                        */
+/*  Individual labeled paragraph within a section (e.g.,               */
+/*  "Data Controller: Ozgul Peksen...")                                */
+/* ================================================================== */
+
+/* .item -- wrapper for a single label + text pair */
+.item {
+  /* Space between consecutive items */
+  margin-bottom: 24px;
+}
+
+/* .item:last-child -- remove bottom margin on the last item */
+.item:last-child {
+  margin-bottom: 0;
+}
+
+/* .itemLabel -- bold label text (e.g., "Data Controller", "Legal Basis") */
+.itemLabel {
+  /* Luxury serif font for label emphasis */
+  font-family: var(--font-cormorant);
+  /* Slightly larger than body text for hierarchy */
+  font-size: 1.2rem;
+  /* Dark text */
+  color: var(--color-espresso);
+  /* Semibold weight to distinguish from body text */
+  font-weight: 600;
+  /* Space below before the description text */
+  margin-bottom: 8px;
+}
+
+/* .itemText -- body text content for a policy item */
+.itemText {
+  /* Dark text for readability */
+  color: var(--color-espresso);
+  /* Generous line height for comfortable reading of legal text */
+  line-height: 1.8;
+  /* Slightly smaller than standard body for dense legal content */
+  font-size: 0.95rem;
+}
+
+/* ================================================================== */
+/*  BODY TEXT                                                           */
+/*  General paragraph text used within sections for descriptions       */
+/* ================================================================== */
+
+/* .text -- general body text within a section */
+.text {
+  /* Dark text for readability */
+  color: var(--color-espresso);
+  /* Generous line height for comfortable reading */
+  line-height: 1.8;
+  /* Slightly smaller than standard body */
+  font-size: 0.95rem;
+  /* Space below before next element */
+  margin-bottom: 16px;
+}
+
+/* ================================================================== */
+/*  RIGHTS LIST                                                        */
+/*  Styled unordered list for user rights and data collection items    */
+/* ================================================================== */
+
+/* .list -- styled bullet list for rights and collected data */
+.list {
+  /* Remove default list style */
+  list-style: none;
+  /* Remove default padding */
+  padding: 0;
+  /* Remove default margin */
+  margin: 0;
+}
+
+/* .list li -- individual list item styled with a gold bullet */
+.list li {
+  /* Dark text for readability */
+  color: var(--color-espresso);
+  /* Generous line height */
+  line-height: 1.8;
+  /* Slightly smaller text for list items */
+  font-size: 0.95rem;
+  /* Indent text to make room for the custom bullet */
+  padding-left: 20px;
+  /* Position relative for the ::before pseudo-element bullet */
+  position: relative;
+  /* Space between list items */
+  margin-bottom: 8px;
+}
+
+/* .list li::before -- custom gold bullet point */
+.list li::before {
+  /* Unicode bullet character */
+  content: '\2022';
+  /* Gold accent color matching the design system */
+  color: var(--color-gold);
+  /* Position the bullet to the left of the text */
+  position: absolute;
+  left: 0;
+}
+
+/* ================================================================== */
+/*  CONTACT SECTION                                                    */
+/*  Footer-like contact information at the bottom of the policy page   */
+/*  Separated from content above by a thin gold border                 */
+/* ================================================================== */
+
+/* .contactSection -- contact info block at the bottom */
+.contactSection {
+  /* Thin gold border separator above */
+  border-top: 0.5px solid rgba(201, 169, 110, 0.2);
+  /* Padding above to separate from content */
+  padding-top: 32px;
+  /* Center text alignment */
+  text-align: center;
+}
+
+/* .contactText -- contact instruction text */
+.contactText {
+  /* Warm secondary color */
+  color: var(--color-warm);
+  /* Readable line height */
+  line-height: 1.6;
+}
+
+/* ================================================================== */
+/*  RESPONSIVE: TABLET / MOBILE (max-width: 768px)                     */
+/*  Reduces padding, font sizes, and spacing for smaller screens       */
+/* ================================================================== */
+
+@media (max-width: 768px) {
+  /* Smaller page title on mobile */
+  .title {
+    font-size: 2rem;
+  }
+
+  /* Reduced header padding on mobile */
+  .header {
+    padding: 32px 16px 24px;
+  }
+
+  /* Reduced content padding on mobile */
+  .content {
+    padding: 0 16px 48px;
+  }
+
+  /* Reduced section padding inside cards */
+  .section {
+    padding: 24px 16px;
+  }
+
+  /* Smaller section heading on mobile */
+  .sectionTitle {
+    font-size: 1.5rem;
+  }
+}

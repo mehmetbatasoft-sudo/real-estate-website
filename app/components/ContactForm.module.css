@@ -1,0 +1,235 @@
+/**
+ * ContactForm.module.css — Styles for the ContactForm component
+ *
+ * Implements the luxury design system for the contact inquiry form:
+ *   - Cormorant Garamond serif font throughout
+ *   - Espresso (#2C1A0E) text, gold (#C9A96E) accents, ivory (#F5F0E8) backgrounds
+ *   - 0.5px gold borders with 0.3 opacity on inputs
+ *   - No rounded corners (sharp, architectural aesthetic)
+ *   - RTL support for Arabic locale via [dir='rtl'] overrides
+ *   - Mobile-first responsive design
+ */
+
+/* ------------------------------------------------------------------ */
+/*  Form container                                                     */
+/* ------------------------------------------------------------------ */
+
+/**
+ * .form — Flex column layout for the entire form.
+ * 20px gap between each form group keeps fields visually separated
+ * without excessive whitespace.
+ */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Form group (label + input wrapper)                                 */
+/* ------------------------------------------------------------------ */
+
+/**
+ * .formGroup — Wraps a label and its associated input/textarea.
+ * Flex column with a tight 6px gap so the label sits close to its field.
+ */
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Label                                                              */
+/* ------------------------------------------------------------------ */
+
+/**
+ * .label — Styled label above each form field.
+ * Uses uppercase tracking and the warm (#8C6B4A) color for a
+ * refined, understated look consistent with the luxury palette.
+ */
+.label {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.9rem;
+  color: var(--color-warm, #8C6B4A);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Text input                                                         */
+/* ------------------------------------------------------------------ */
+
+/**
+ * .input — Standard single-line text input (name, email, phone).
+ * Transparent background lets the page background show through.
+ * Gold border at low opacity becomes fully gold on focus for a
+ * subtle interactive highlight.
+ */
+.input {
+  padding: 12px 16px;
+  border: 0.5px solid rgba(201, 169, 110, 0.3); /* gold at 0.3 opacity */
+  background: transparent;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+  color: var(--color-espresso, #2C1A0E);
+  transition: border-color 0.3s ease;
+  outline: none;
+  border-radius: 0; /* no rounded corners — architectural aesthetic */
+}
+
+/**
+ * .input:focus — Elevates the border to full gold on focus.
+ * Provides clear visual feedback without disrupting the minimal design.
+ */
+.input:focus {
+  border-color: var(--color-gold, #C9A96E);
+}
+
+/* ------------------------------------------------------------------ */
+/*  Textarea                                                           */
+/* ------------------------------------------------------------------ */
+
+/**
+ * .textarea — Multi-line message input.
+ * Shares all input styles plus a minimum height for comfortable
+ * message composition.  Only vertical resize is allowed to prevent
+ * layout breakage.
+ */
+.textarea {
+  padding: 12px 16px;
+  border: 0.5px solid rgba(201, 169, 110, 0.3); /* gold at 0.3 opacity */
+  background: transparent;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+  color: var(--color-espresso, #2C1A0E);
+  transition: border-color 0.3s ease;
+  outline: none;
+  border-radius: 0; /* no rounded corners */
+  min-height: 120px;
+  resize: vertical;
+}
+
+/**
+ * .textarea:focus — Full gold border on focus, matching the input style.
+ */
+.textarea:focus {
+  border-color: var(--color-gold, #C9A96E);
+}
+
+/* ------------------------------------------------------------------ */
+/*  Submit button                                                      */
+/* ------------------------------------------------------------------ */
+
+/**
+ * .submitButton — The primary call-to-action button.
+ * Gold background with espresso text creates a warm, inviting accent.
+ * Uppercase tracking and generous padding give it a commanding presence.
+ */
+.submitButton {
+  padding: 14px 32px;
+  background: var(--color-gold, #C9A96E);
+  color: var(--color-espresso, #2C1A0E);
+  border: none;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+  border-radius: 0; /* no rounded corners */
+}
+
+/**
+ * .submitButton:hover — Slight opacity reduction on hover
+ * for a subtle interactive state.
+ */
+.submitButton:hover {
+  opacity: 0.9;
+}
+
+/**
+ * .submitButton:disabled — Reduced opacity and not-allowed cursor
+ * when the form is submitting to prevent duplicate submissions.
+ */
+.submitButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Feedback messages                                                  */
+/* ------------------------------------------------------------------ */
+
+/**
+ * .successMessage — Shown after a successful form submission.
+ * Light gold background with a bold gold left border accent
+ * communicates positive confirmation.
+ */
+.successMessage {
+  padding: 16px;
+  background: rgba(201, 169, 110, 0.1); /* gold at 0.1 opacity */
+  border-left: 3px solid var(--color-gold, #C9A96E);
+  color: var(--color-espresso, #2C1A0E);
+}
+
+/**
+ * .errorMessage — Shown when the form submission fails.
+ * Light red background with a bold red left border accent
+ * clearly indicates an error state.
+ */
+.errorMessage {
+  padding: 16px;
+  background: rgba(220, 38, 38, 0.05); /* red at 0.05 opacity */
+  border-left: 3px solid #dc2626;
+  color: #dc2626;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Contact row (name + email side by side)                            */
+/* ------------------------------------------------------------------ */
+
+/**
+ * .contactRow — Two-column grid for name and email fields.
+ * Keeps the form compact on desktop while stacking on mobile.
+ */
+.contactRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+/* ------------------------------------------------------------------ */
+/*  RTL support (Arabic locale)                                        */
+/* ------------------------------------------------------------------ */
+
+/**
+ * RTL: Swap border-left to border-right for success/error messages.
+ * The left-border accent would appear on the wrong side in RTL layouts.
+ */
+[dir='rtl'] .successMessage {
+  border-left: none;
+  border-right: 3px solid var(--color-gold, #C9A96E);
+}
+
+/**
+ * RTL: Swap border-left to border-right for error messages.
+ */
+[dir='rtl'] .errorMessage {
+  border-left: none;
+  border-right: 3px solid #dc2626;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Mobile responsive (screens <= 640px)                               */
+/* ------------------------------------------------------------------ */
+
+/**
+ * Mobile: Stack the name/email row into a single column.
+ * On small screens a two-column layout would make inputs too narrow.
+ */
+@media (max-width: 640px) {
+  .contactRow {
+    grid-template-columns: 1fr;
+  }
+}

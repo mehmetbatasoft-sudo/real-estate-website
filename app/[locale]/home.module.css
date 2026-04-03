@@ -1,0 +1,547 @@
+/**
+ * home.module.css -- Homepage styles for Ozgul's Realty
+ *
+ * This CSS Module provides all styling for the homepage (app/[locale]/page.tsx).
+ * It defines styles for 4 major sections:
+ *   1. Hero section -- full-viewport overlay with title, subtitle, CTA buttons
+ *   2. Featured Properties -- 3-column card grid with hover animations
+ *   3. Agent section -- 2-column grid with photo and bio
+ *   4. Contact section -- centered contact form wrapper
+ *
+ * Design system tokens used:
+ *   --color-espresso (#2C1A0E)  -- headings, card text, dark backgrounds
+ *   --color-gold     (#C9A96E)  -- accents, borders, buttons, links
+ *   --color-ivory    (#F5F0E8)  -- light section backgrounds
+ *   --color-warm     (#8C6B4A)  -- secondary/muted text
+ *   --color-cream    (#FDFAF4)  -- page background, contact section bg
+ *   --font-cormorant            -- 'Cormorant Garamond', serif
+ *
+ * Responsive breakpoints:
+ *   768px  -- tablet (2-column property grid, stacked agent grid)
+ *   480px  -- mobile (1-column property grid, smaller hero text)
+ *
+ * All containers use sharp corners (no border-radius) per brand guidelines.
+ * Gold borders use 0.5px width with partial opacity.
+ */
+
+/* ================================================================== */
+/*  HERO SECTION                                                       */
+/*  Overlays the HeroImage component with title, subtitle, and CTAs.  */
+/*  Uses absolute positioning over the hero wrapper (position:relative) */
+/* ================================================================== */
+
+/* .heroSection -- wrapper around the HeroImage + overlay content */
+.heroSection {
+  /* Position relative so .heroContent can sit absolutely on top */
+  position: relative;
+  /* Full viewport height for immersive hero experience */
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* .heroContent -- absolute overlay containing hero text and buttons */
+.heroContent {
+  /* Cover the entire hero area */
+  position: absolute;
+  inset: 0;
+  /* Sit above the HeroImage and its dark overlay */
+  z-index: 2;
+  /* Center content vertically, align left horizontally */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* Horizontal padding for breathing room */
+  padding: 0 48px;
+  /* Cap content width at design system max */
+  max-width: 1280px;
+  /* Center the max-width container on wide screens */
+  margin: 0 auto;
+  /* Allow the content to stretch to full width within the absolute parent */
+  width: 100%;
+  /* Ensure pointer events work for buttons/links */
+  pointer-events: none;
+}
+
+/* .heroTitle -- main headline displayed over the hero image */
+.heroTitle {
+  /* Luxury serif font */
+  font-family: var(--font-cormorant);
+  /* Large, prominent heading */
+  font-size: 4rem;
+  /* Ivory text for contrast against dark overlay */
+  color: var(--color-ivory);
+  /* Light weight for elegant, editorial feel */
+  font-weight: 300;
+  /* Tight line height for large display text */
+  line-height: 1.1;
+  /* Space between title and subtitle */
+  margin-bottom: 16px;
+  /* Allow text selection and interaction */
+  pointer-events: auto;
+}
+
+/* .heroSubtitle -- secondary text below the main title */
+.heroSubtitle {
+  /* Slightly larger than body text */
+  font-size: 1.4rem;
+  /* Ivory with reduced opacity for visual hierarchy */
+  color: var(--color-ivory);
+  opacity: 0.8;
+  /* Light weight to match the editorial aesthetic */
+  font-weight: 300;
+  /* Space between subtitle and CTA buttons */
+  margin-bottom: 32px;
+  /* Allow text selection */
+  pointer-events: auto;
+}
+
+/* .heroButtons -- flex container for CTA buttons */
+.heroButtons {
+  /* Horizontal layout with gap between buttons */
+  display: flex;
+  gap: 16px;
+  /* Re-enable pointer events for clickable buttons */
+  pointer-events: auto;
+}
+
+/* .heroCta -- base styles shared by both CTA buttons */
+.heroCta {
+  /* Comfortable click target padding */
+  padding: 14px 32px;
+  /* Luxury serif font for buttons */
+  font-family: var(--font-cormorant);
+  /* Readable button text size */
+  font-size: 1rem;
+  /* Spaced-out uppercase for sophistication */
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  /* Interactive cursor */
+  cursor: pointer;
+  /* Remove default link underline */
+  text-decoration: none;
+  /* Smooth hover transitions */
+  transition: opacity 0.3s ease;
+}
+
+/* .heroCta:hover -- subtle fade on hover for both button variants */
+.heroCta:hover {
+  opacity: 0.85;
+}
+
+/* .heroCtaPrimary -- filled gold button (primary CTA) */
+.heroCtaPrimary {
+  /* Gold background with dark text for maximum contrast */
+  background: var(--color-gold);
+  color: var(--color-espresso);
+  /* No border on the filled variant */
+  border: none;
+}
+
+/* .heroCtaSecondary -- outlined button (secondary CTA) */
+.heroCtaSecondary {
+  /* Transparent background lets the hero image show through */
+  background: transparent;
+  /* Ivory text for contrast */
+  color: var(--color-ivory);
+  /* Gold border to match the design system accent */
+  border: 1px solid var(--color-gold);
+}
+
+/* ================================================================== */
+/*  SECTION -- Reusable section wrapper used by Featured + Contact     */
+/*  Centers content and provides consistent vertical padding           */
+/* ================================================================== */
+
+/* .section -- standard content section padding and centering */
+.section {
+  /* Generous vertical padding for luxury spacing */
+  padding: 80px 24px;
+  /* Cap content width */
+  max-width: 1280px;
+  /* Center horizontally */
+  margin: 0 auto;
+}
+
+/* .sectionTitle -- section heading (e.g., "Featured Properties") */
+.sectionTitle {
+  /* Luxury serif font */
+  font-family: var(--font-cormorant);
+  /* Prominent but not overwhelming size */
+  font-size: 2.5rem;
+  /* Dark espresso for readability */
+  color: var(--color-espresso);
+  /* Regular weight for refined look */
+  font-weight: 400;
+  /* Centered text alignment */
+  text-align: center;
+  /* Tight spacing to subtitle below */
+  margin-bottom: 8px;
+}
+
+/* .sectionSubtitle -- descriptive text below section title */
+.sectionSubtitle {
+  /* Warm brown for secondary hierarchy */
+  color: var(--color-warm);
+  /* Centered alignment */
+  text-align: center;
+  /* Space below before section content */
+  margin-bottom: 48px;
+}
+
+/* ================================================================== */
+/*  FEATURED PROPERTIES GRID                                           */
+/*  3-column responsive grid of property cards with hover effects      */
+/* ================================================================== */
+
+/* .propertiesGrid -- 3-column grid for property cards */
+.propertiesGrid {
+  /* CSS Grid for equal-width columns */
+  display: grid;
+  /* 3 equal columns on desktop */
+  grid-template-columns: repeat(3, 1fr);
+  /* Consistent spacing between cards */
+  gap: 24px;
+}
+
+/* .propertyCard -- individual property listing card */
+.propertyCard {
+  /* Thin gold border with low opacity for subtlety */
+  border: 0.5px solid rgba(201, 169, 110, 0.2);
+  /* Hide image overflow (sharp corners, no border-radius) */
+  overflow: hidden;
+  /* Smooth hover lift animation */
+  transition: transform 0.3s ease;
+  /* Block display for link wrapping */
+  display: block;
+  /* Remove link underline */
+  text-decoration: none;
+}
+
+/* .propertyCard:hover -- lift card on hover for interactive feel */
+.propertyCard:hover {
+  /* Subtle upward movement creates depth */
+  transform: translateY(-4px);
+}
+
+/* .propertyImageWrapper -- container for the property image */
+.propertyImageWrapper {
+  /* Full width image */
+  width: 100%;
+  /* Consistent 4:3 aspect ratio for all property images */
+  aspect-ratio: 4 / 3;
+  /* Clip image to container bounds */
+  overflow: hidden;
+}
+
+/* .propertyCardImage -- the property image itself */
+.propertyCardImage {
+  /* Fill the wrapper completely */
+  width: 100%;
+  height: 100%;
+  /* Cover mode ensures no whitespace */
+  object-fit: cover;
+}
+
+/* .propertyInfo -- text content area below the property image */
+.propertyInfo {
+  /* Comfortable padding around text */
+  padding: 20px;
+}
+
+/* .propertyTitle -- property name/title in the card */
+.propertyTitle {
+  /* Luxury serif font for headings */
+  font-family: var(--font-cormorant);
+  /* Slightly larger than body for prominence */
+  font-size: 1.3rem;
+  /* Dark text for readability */
+  color: var(--color-espresso);
+  /* Space below before location text */
+  margin-bottom: 8px;
+}
+
+/* .propertyLocation -- location text (e.g., "Antalya, Konyaalti") */
+.propertyLocation {
+  /* Warm secondary color for de-emphasis */
+  color: var(--color-warm);
+  /* Slightly smaller than body text */
+  font-size: 0.9rem;
+  /* Space below before price */
+  margin-bottom: 8px;
+}
+
+/* .propertyPrice -- price display with Euro symbol */
+.propertyPrice {
+  /* Gold accent color draws attention to price */
+  color: var(--color-gold);
+  /* Slightly larger for emphasis */
+  font-size: 1.2rem;
+  /* Semibold weight for importance */
+  font-weight: 600;
+  /* Space below before "View Details" link */
+  margin-bottom: 12px;
+}
+
+/* .viewDetails -- "View Details" call-to-action link on each card */
+.viewDetails {
+  /* Gold accent matching the brand */
+  color: var(--color-gold);
+  /* Clean, no underline */
+  text-decoration: none;
+  /* Smaller, refined text */
+  font-size: 0.9rem;
+  /* Slight letter spacing for elegance */
+  letter-spacing: 0.5px;
+  /* Uppercase for consistency with CTA style */
+  text-transform: uppercase;
+}
+
+/* .viewAllLink -- link to the full properties listing below the grid */
+.viewAllLink {
+  /* Full-width block for centered alignment */
+  display: block;
+  /* Center the text */
+  text-align: center;
+  /* Gold accent color */
+  color: var(--color-gold);
+  /* Space above to separate from the grid */
+  margin-top: 32px;
+  /* Elegant letter spacing */
+  letter-spacing: 0.5px;
+  /* Remove default underline */
+  text-decoration: none;
+  /* Subtle bottom border as a design accent */
+  border-bottom: 1px solid var(--color-gold);
+  /* Inline-block so the border hugs the text width */
+  display: inline-block;
+  /* Luxury serif font */
+  font-family: var(--font-cormorant);
+  /* Slightly larger than body */
+  font-size: 1.1rem;
+}
+
+/* .viewAllWrapper -- centers the viewAllLink horizontally */
+.viewAllWrapper {
+  text-align: center;
+}
+
+/* ================================================================== */
+/*  AGENT SECTION                                                      */
+/*  2-column layout: agent photo on left, bio + link on right          */
+/*  Uses ivory background to differentiate from other sections         */
+/* ================================================================== */
+
+/* .agentSection -- wrapper with ivory background */
+.agentSection {
+  /* Light background for visual separation */
+  background: var(--color-ivory);
+  /* Generous vertical padding */
+  padding: 80px 24px;
+}
+
+/* .agentGrid -- 2-column grid for photo + bio content */
+.agentGrid {
+  /* Cap width to design system max */
+  max-width: 1280px;
+  /* Center horizontally */
+  margin: 0 auto;
+  /* CSS Grid for equal-width columns */
+  display: grid;
+  /* Two equal columns */
+  grid-template-columns: 1fr 1fr;
+  /* Generous gap between photo and bio */
+  gap: 48px;
+  /* Vertically center both columns */
+  align-items: center;
+}
+
+/* .agentImageWrapper -- container for the agent's portrait */
+.agentImageWrapper {
+  /* Position relative for CldImage fill mode */
+  position: relative;
+  /* Full width of its grid column */
+  width: 100%;
+  /* 3:4 portrait aspect ratio */
+  aspect-ratio: 3 / 4;
+  /* Clip any overflow */
+  overflow: hidden;
+}
+
+/* .agentImage -- the agent's portrait photo */
+.agentImage {
+  /* Fill the wrapper completely */
+  width: 100%;
+  height: 100%;
+  /* Cover mode to fill without distortion */
+  object-fit: cover;
+}
+
+/* .agentName -- agent's full name */
+.agentName {
+  /* Luxury serif font */
+  font-family: var(--font-cormorant);
+  /* Large, prominent name */
+  font-size: 2rem;
+  /* Dark text */
+  color: var(--color-espresso);
+  /* Space below before title */
+  margin-bottom: 8px;
+}
+
+/* .agentTitle -- professional title (e.g., "Luxury Real Estate Consultant") */
+.agentTitle {
+  /* Warm secondary color */
+  color: var(--color-warm);
+  /* Space below before bio text */
+  margin-bottom: 16px;
+  /* Slightly larger than body for importance */
+  font-size: 1.1rem;
+}
+
+/* .agentBio -- agent's biography text */
+.agentBio {
+  /* Dark text for readability */
+  color: var(--color-espresso);
+  /* Generous line height for comfortable reading */
+  line-height: 1.8;
+  /* Space below before the "Learn More" link */
+  margin-bottom: 24px;
+  /* Standard body font size */
+  font-size: 1rem;
+}
+
+/* .agentLink -- "Learn More" link to the about page */
+.agentLink {
+  /* Gold accent for CTA links */
+  color: var(--color-gold);
+  /* Elegant letter spacing */
+  letter-spacing: 0.5px;
+  /* Clean, no underline by default */
+  text-decoration: none;
+  /* Serif font for consistency */
+  font-family: var(--font-cormorant);
+  /* Slightly larger for clickability */
+  font-size: 1.1rem;
+  /* Uppercase for CTA styling */
+  text-transform: uppercase;
+  /* Subtle bottom border accent */
+  border-bottom: 1px solid var(--color-gold);
+  /* Inline-block for border to hug text */
+  display: inline-block;
+  /* Padding below for visual balance */
+  padding-bottom: 2px;
+}
+
+/* ================================================================== */
+/*  CONTACT SECTION                                                    */
+/*  Cream background section wrapping the ContactForm component        */
+/* ================================================================== */
+
+/* .contactSection -- wrapper with cream background */
+.contactSection {
+  /* Cream background for warmth */
+  background: var(--color-cream);
+  /* Generous vertical padding */
+  padding: 80px 24px;
+}
+
+/* .contactWrapper -- centers and constrains the contact form width */
+.contactWrapper {
+  /* Narrow max width for readable form layout */
+  max-width: 600px;
+  /* Center horizontally */
+  margin: 0 auto;
+}
+
+/* ================================================================== */
+/*  RESPONSIVE: TABLET (max-width: 768px)                              */
+/*  - Property grid drops to 2 columns                                 */
+/*  - Agent grid becomes single column (stacked)                       */
+/*  - Hero text shrinks slightly                                       */
+/* ================================================================== */
+
+@media (max-width: 768px) {
+  /* 2-column property grid on tablets */
+  .propertiesGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Stack agent photo above bio on tablets */
+  .agentGrid {
+    grid-template-columns: 1fr;
+    /* Reduce gap when stacked */
+    gap: 32px;
+  }
+
+  /* Reduce hero title for smaller screens */
+  .heroTitle {
+    font-size: 3rem;
+  }
+
+  /* Slightly smaller subtitle */
+  .heroSubtitle {
+    font-size: 1.2rem;
+  }
+
+  /* Reduce hero padding on tablets */
+  .heroContent {
+    padding: 0 32px;
+  }
+}
+
+/* ================================================================== */
+/*  RESPONSIVE: MOBILE (max-width: 480px)                              */
+/*  - Property grid drops to 1 column                                  */
+/*  - Hero text further reduced                                        */
+/*  - CTA buttons stack vertically                                     */
+/*  - Section padding reduced                                          */
+/* ================================================================== */
+
+@media (max-width: 480px) {
+  /* Single column property grid on mobile */
+  .propertiesGrid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Smaller hero title for mobile */
+  .heroTitle {
+    font-size: 2.2rem;
+  }
+
+  /* Smaller subtitle */
+  .heroSubtitle {
+    font-size: 1rem;
+  }
+
+  /* Reduce hero padding on mobile */
+  .heroContent {
+    padding: 0 20px;
+  }
+
+  /* Stack CTA buttons vertically on mobile */
+  .heroButtons {
+    flex-direction: column;
+    /* Center buttons when stacked */
+    align-items: flex-start;
+  }
+
+  /* Reduce section padding on mobile */
+  .section {
+    padding: 48px 16px;
+  }
+
+  /* Reduce section title size */
+  .sectionTitle {
+    font-size: 2rem;
+  }
+
+  /* Reduce agent section padding */
+  .agentSection {
+    padding: 48px 16px;
+  }
+
+  /* Reduce contact section padding */
+  .contactSection {
+    padding: 48px 16px;
+  }
+}

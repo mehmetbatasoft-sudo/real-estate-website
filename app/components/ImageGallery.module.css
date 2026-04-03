@@ -1,0 +1,197 @@
+/**
+ * ImageGallery.module.css
+ * =======================
+ * CSS Module for the ImageGallery carousel client component.
+ *
+ * Layout overview:
+ *   .galleryContainer
+ *     .viewport            (overflow hidden — Embla scroll area)
+ *       .container          (flex row of slides)
+ *         .slide             (each image occupies 100 % width)
+ *     .prevButton / .nextButton   (navigation arrows)
+ *     .counter              (image position indicator, e.g. "1 / 5")
+ *   .thumbnails             (horizontal scrollable strip below the carousel)
+ *     .thumbnail / .thumbnailActive
+ *   .placeholder            (shown when there are zero images)
+ *
+ * Design-system tokens:
+ *   --color-espresso (#2C1A0E) — nav button background, counter background
+ *   --color-gold     (#C9A96E) — active thumbnail border
+ *   --color-ivory    (#F5F0E8) — nav button / counter text, placeholder bg
+ *   --color-warm     (#8C6B4A) — placeholder text
+ *   --color-cream    (#FDFAF4) — (available for future use)
+ *   Font: 'Cormorant Garamond', serif
+ *
+ * No border-radius on containers — sharp corners per brand guidelines.
+ * 0.5px gold border used on the placeholder container.
+ */
+
+/* ------------------------------------------------------------------ */
+/*  .galleryContainer                                                  */
+/*  Root wrapper. Relative positioning so arrows + counter can be      */
+/*  absolutely positioned inside it.                                   */
+/* ------------------------------------------------------------------ */
+.galleryContainer {
+  position: relative;  /* Positioning context for arrows / counter */
+  width: 100%;         /* Span full width of parent                */
+}
+
+/* ------------------------------------------------------------------ */
+/*  .viewport                                                          */
+/*  The visible window of the carousel. Overflow is hidden so only    */
+/*  the current slide is visible; Embla handles the translateX.        */
+/* ------------------------------------------------------------------ */
+.viewport {
+  overflow: hidden;      /* Hide slides that are off-screen       */
+  position: relative;    /* Context for the fill-mode CldImage    */
+  aspect-ratio: 16 / 10; /* Consistent landscape frame            */
+}
+
+/* ------------------------------------------------------------------ */
+/*  .container                                                         */
+/*  The inner flex track that Embla translates horizontally.           */
+/*  Each child .slide is 100 % wide, so translating by -100 % moves  */
+/*  to the next image.                                                 */
+/* ------------------------------------------------------------------ */
+.container {
+  display: flex;   /* Lay slides out in a horizontal row */
+  height: 100%;    /* Fill the viewport height           */
+}
+
+/* ------------------------------------------------------------------ */
+/*  .slide                                                             */
+/*  A single slide in the carousel. flex: 0 0 100% ensures it takes   */
+/*  exactly 100 % of the viewport width and does not shrink or grow.  */
+/*  min-width: 0 prevents flex items from overflowing in some edge     */
+/*  cases. Position relative so the fill-mode CldImage can cover it.  */
+/* ------------------------------------------------------------------ */
+.slide {
+  flex: 0 0 100%;      /* Fixed at full viewport width            */
+  min-width: 0;        /* Prevent flex overflow quirks            */
+  position: relative;  /* Context for CldImage fill               */
+}
+
+/* ------------------------------------------------------------------ */
+/*  .navButton                                                         */
+/*  Shared styles for Previous / Next arrow buttons. Semi-transparent  */
+/*  espresso background keeps the buttons visible over any photo.      */
+/* ------------------------------------------------------------------ */
+.navButton {
+  position: absolute;                       /* Overlay on top of carousel */
+  top: 50%;                                  /* Vertically centred        */
+  transform: translateY(-50%);               /* Correct for own height    */
+  background: rgba(44, 26, 14, 0.7);        /* espresso at 70 % opacity  */
+  color: var(--color-ivory, #F5F0E8);        /* Light text / icon colour  */
+  border: none;                              /* Remove default border     */
+  padding: 12px;                             /* Touch-friendly hit area   */
+  cursor: pointer;                           /* Indicate interactivity    */
+  z-index: 2;                                /* Sit above images          */
+  font-family: 'Cormorant Garamond', serif;  /* Brand font for arrow glyphs */
+  font-size: 1.25rem;                        /* Readable arrow size       */
+  line-height: 1;                            /* Tight line-height         */
+  transition: background 0.2s ease;          /* Smooth hover transition   */
+}
+
+/* Hover state: deepen the background to near-opaque espresso */
+.navButton:hover {
+  background: rgba(44, 26, 14, 0.9); /* espresso at 90 % opacity */
+}
+
+/* ------------------------------------------------------------------ */
+/*  .prevButton / .nextButton                                          */
+/*  Position-specific overrides for left and right arrow buttons.      */
+/* ------------------------------------------------------------------ */
+.prevButton {
+  left: 12px;  /* 12 px inset from left edge of viewport */
+}
+
+.nextButton {
+  right: 12px; /* 12 px inset from right edge of viewport */
+}
+
+/* ------------------------------------------------------------------ */
+/*  .counter                                                           */
+/*  "1 / 5" indicator anchored to the bottom-right of the viewport.    */
+/*  Uses espresso background at 70 % opacity for subtle contrast.      */
+/* ------------------------------------------------------------------ */
+.counter {
+  position: absolute;                     /* Overlay on carousel       */
+  bottom: 12px;                           /* 12 px from bottom edge    */
+  right: 12px;                            /* 12 px from right edge     */
+  background: rgba(44, 26, 14, 0.7);     /* espresso at 70 % opacity  */
+  color: var(--color-ivory, #F5F0E8);    /* Light text colour          */
+  padding: 4px 12px;                      /* Compact pill-like padding */
+  font-size: 0.85rem;                     /* Slightly smaller than body */
+  font-family: 'Cormorant Garamond', serif; /* Brand serif font        */
+  z-index: 2;                             /* Above images              */
+}
+
+/* ------------------------------------------------------------------ */
+/*  .thumbnails                                                        */
+/*  Horizontal strip of clickable thumbnail images below the carousel. */
+/*  Scrolls horizontally when there are more thumbnails than fit.      */
+/* ------------------------------------------------------------------ */
+.thumbnails {
+  display: flex;       /* Horizontal row                         */
+  gap: 8px;            /* Space between each thumbnail           */
+  margin-top: 12px;    /* Separate from main carousel            */
+  overflow-x: auto;    /* Allow horizontal scrolling if needed   */
+  padding-bottom: 4px; /* Prevent scrollbar from clipping border */
+}
+
+/* ------------------------------------------------------------------ */
+/*  .thumbnail                                                         */
+/*  Individual thumbnail in the strip. Dimmed by default; becomes      */
+/*  fully opaque + gold-bordered when active.                          */
+/* ------------------------------------------------------------------ */
+.thumbnail {
+  width: 80px;                       /* Fixed thumbnail width         */
+  height: 60px;                      /* Fixed thumbnail height        */
+  cursor: pointer;                   /* Indicate clickability         */
+  opacity: 0.5;                      /* Dimmed when inactive          */
+  border: 2px solid transparent;     /* Reserve space for active border */
+  transition: opacity 0.2s ease,
+              border-color 0.2s ease; /* Smooth state transitions     */
+  position: relative;                /* For CldImage fill mode        */
+  flex-shrink: 0;                    /* Never shrink below 80 px      */
+}
+
+/* ------------------------------------------------------------------ */
+/*  .thumbnailActive                                                   */
+/*  Applied alongside .thumbnail for the currently selected image.     */
+/*  Full opacity + gold border make it stand out in the strip.         */
+/* ------------------------------------------------------------------ */
+.thumbnailActive {
+  opacity: 1;                                      /* Full brightness */
+  border-color: var(--color-gold, #C9A96E);        /* Gold accent     */
+}
+
+/* ------------------------------------------------------------------ */
+/*  .placeholder                                                       */
+/*  Shown when there are zero images to display. Maintains the same    */
+/*  aspect ratio as the carousel so the page layout doesn't collapse.  */
+/* ------------------------------------------------------------------ */
+.placeholder {
+  aspect-ratio: 16 / 10;                            /* Match carousel aspect ratio */
+  background: var(--color-ivory, #F5F0E8);           /* Soft ivory background       */
+  display: flex;                                     /* Centre content both axes    */
+  align-items: center;
+  justify-content: center;
+  color: var(--color-warm, #8C6B4A);                 /* Warm brown text             */
+  font-family: 'Cormorant Garamond', serif;          /* Brand serif font            */
+  font-size: 1rem;                                   /* Standard body size          */
+  letter-spacing: 0.08em;                            /* Slight tracking             */
+  border: 0.5px solid var(--color-gold, #C9A96E);   /* Thin gold border            */
+}
+
+/* ------------------------------------------------------------------ */
+/*  Mobile-specific overrides                                          */
+/*  On smaller screens thumbnails shrink to 60 px wide so more fit in */
+/*  the visible strip without excessive horizontal scrolling.          */
+/* ------------------------------------------------------------------ */
+@media (max-width: 768px) {
+  .thumbnail {
+    width: 60px;   /* Narrower thumbnails on mobile */
+    height: 45px;  /* Proportional height reduction */
+  }
+}

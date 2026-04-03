@@ -1,0 +1,126 @@
+/**
+ * loading.module.css — Skeleton loading styles for properties page
+ *
+ * Provides animated placeholder cards that match the real properties grid.
+ * Uses a shimmer animation for the loading effect.
+ * All colors from the design system.
+ */
+
+/* Shimmer animation for skeleton loading effect */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Container — matches the properties page layout */
+.container {
+  padding: 120px 24px 80px;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+/* Page title skeleton */
+.titleSkeleton {
+  width: 300px;
+  height: 40px;
+  margin: 0 auto 12px;
+  background: linear-gradient(90deg, var(--color-ivory) 25%, #ebe6dd 50%, var(--color-ivory) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* Subtitle skeleton */
+.subtitleSkeleton {
+  width: 200px;
+  height: 20px;
+  margin: 0 auto 48px;
+  background: linear-gradient(90deg, var(--color-ivory) 25%, #ebe6dd 50%, var(--color-ivory) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* Filter bar skeleton */
+.filterSkeleton {
+  height: 80px;
+  margin-bottom: 32px;
+  background: linear-gradient(90deg, var(--color-ivory) 25%, #ebe6dd 50%, var(--color-ivory) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* Property grid — matches the actual 3-column grid */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+/* Individual card skeleton */
+.card {
+  border: 0.5px solid rgba(201, 169, 110, 0.1);
+  overflow: hidden;
+}
+
+/* Image placeholder */
+.imageSkeleton {
+  aspect-ratio: 4/3;
+  background: linear-gradient(90deg, var(--color-ivory) 25%, #ebe6dd 50%, var(--color-ivory) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* Card text content area */
+.cardContent {
+  padding: 20px;
+}
+
+/* Text line skeleton — full width */
+.textSkeleton {
+  height: 20px;
+  width: 80%;
+  margin-bottom: 12px;
+  background: linear-gradient(90deg, var(--color-ivory) 25%, #ebe6dd 50%, var(--color-ivory) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* Short text skeleton — location */
+.textSkeletonShort {
+  height: 16px;
+  width: 50%;
+  margin-bottom: 12px;
+  background: linear-gradient(90deg, var(--color-ivory) 25%, #ebe6dd 50%, var(--color-ivory) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* Price skeleton */
+.textSkeletonPrice {
+  height: 24px;
+  width: 35%;
+  background: linear-gradient(90deg, var(--color-ivory) 25%, #ebe6dd 50%, var(--color-ivory) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* Tablet: 2 columns */
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Mobile: 1 column */
+@media (max-width: 480px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .titleSkeleton {
+    width: 200px;
+  }
+}

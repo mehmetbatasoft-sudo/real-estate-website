@@ -1,0 +1,103 @@
+/**
+ * error.module.css — Styles for the 500 Error page
+ *
+ * Provides luxury-branded error page styling:
+ * - Centered layout with cream background
+ * - Try Again and Go Home action buttons
+ * - Gold accent colors matching the design system
+ */
+
+/* Container — centers content vertically and horizontally */
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 48px 24px;
+  background: var(--color-cream);
+  text-align: center;
+}
+
+/* Error icon — circular with gold border */
+.icon {
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--color-gold);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 3rem;
+  color: var(--color-gold);
+  margin-bottom: 24px;
+}
+
+/* Error title */
+.title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2rem;
+  font-weight: 400;
+  color: var(--color-espresso);
+  margin: 0 0 8px;
+}
+
+/* Error description text */
+.text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem;
+  color: var(--color-warm);
+  max-width: 400px;
+  line-height: 1.6;
+}
+
+/* Gold divider line */
+.divider {
+  width: 60px;
+  height: 1px;
+  background: var(--color-gold);
+  margin: 32px 0;
+}
+
+/* Button container */
+.buttons {
+  display: flex;
+  gap: 16px;
+}
+
+/* Try Again button — gold filled */
+.tryAgain {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+  padding: 12px 32px;
+  background: var(--color-gold);
+  color: var(--color-espresso);
+  border: none;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+}
+
+.tryAgain:hover {
+  opacity: 0.9;
+}
+
+/* Go Home link — gold outline */
+.homeLink {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+  padding: 12px 32px;
+  background: transparent;
+  color: var(--color-gold);
+  border: 0.5px solid var(--color-gold);
+  text-decoration: none;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+}
+
+.homeLink:hover {
+  background: var(--color-gold);
+  color: var(--color-espresso);
+}

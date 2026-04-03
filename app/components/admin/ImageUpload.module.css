@@ -1,0 +1,209 @@
+/**
+ * ImageUpload.module.css — Styles for the Drag-and-Drop Image Uploader
+ *
+ * Styles for the ImageUpload.tsx component, which provides drag-and-drop
+ * and click-to-browse image upload functionality with Cloudinary backend.
+ *
+ * Design system:
+ * - Font: Cormorant Garamond via var(--font-cormorant)
+ * - Colors: espresso (#2C1A0E), gold (#C9A96E), ivory (#F5F0E8),
+ *   warm (#8C6B4A), cream (#FDFAF4)
+ * - No border-radius on any elements (luxury sharp-edge aesthetic)
+ * - 2px dashed gold border on the dropzone (visual drag-and-drop affordance)
+ * - 0.5px solid gold border on preview items (subtle image frame)
+ *
+ * Layout structure:
+ * - .container — top-level wrapper with margin-top spacing
+ * - .dropzone — full-width dashed border area for drag-and-drop
+ * - .previews — responsive auto-fill grid of thumbnail images
+ * - .previewItem — individual thumbnail with relative positioning
+ *   for the absolutely-positioned remove button and primary badge
+ *
+ * States:
+ * - .dropzoneActive — applied when a file is being dragged over
+ * - .uploading — applied to .container during file upload
+ *   (reduces opacity and disables pointer events)
+ */
+
+/* ================================================================ */
+/* CONTAINER                                                         */
+/* Top-level wrapper for the entire upload component.                */
+/* margin-top provides spacing from the label above.                 */
+/* ================================================================ */
+
+.container {
+  margin-top: 8px;
+}
+
+/* ================================================================ */
+/* DROPZONE                                                          */
+/* The drag-and-drop target area. Uses a 2px dashed border in       */
+/* gold/30% opacity to visually communicate "drop files here".       */
+/* Padding provides a comfortable target area. Cursor is pointer     */
+/* to indicate the area is also clickable.                           */
+/* ================================================================ */
+
+.dropzone {
+  border: 2px dashed rgba(201, 169, 110, 0.3);
+  padding: 32px;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+/* Hover state — subtle border color increase for click feedback */
+.dropzone:hover {
+  border-color: rgba(201, 169, 110, 0.5);
+}
+
+/**
+ * Active/dragging state — applied when a file is being dragged over
+ * the dropzone. Full gold border color and a very subtle gold
+ * background tint (5% opacity) for clear visual feedback.
+ */
+.dropzoneActive {
+  border-color: var(--color-gold);
+  background: rgba(201, 169, 110, 0.05);
+}
+
+/**
+ * Dropzone instruction text — Cormorant Garamond in warm color.
+ * Shows either "Fotograflari surukleyip birakin..." (idle) or
+ * "X dosya yukleniyor..." (during upload).
+ */
+.dropzoneText {
+  font-family: var(--font-cormorant);
+  font-size: 0.95rem;
+  color: var(--color-warm);
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* ================================================================ */
+/* UPLOAD ERROR                                                      */
+/* Error message displayed below the dropzone when an upload fails.  */
+/* Uses #c0392b (alizarin crimson) for danger signaling.             */
+/* ================================================================ */
+
+.uploadError {
+  font-family: var(--font-cormorant);
+  font-size: 0.9rem;
+  color: #c0392b;
+  margin: 8px 0 0 0;
+}
+
+/* ================================================================ */
+/* IMAGE PREVIEWS GRID                                               */
+/* Responsive grid layout for uploaded image thumbnails.             */
+/* auto-fill with minmax(100px, 1fr) creates as many columns as     */
+/* will fit at minimum 100px width, expanding to fill available      */
+/* space. Gap of 12px between thumbnails. margin-top for spacing     */
+/* from the dropzone above.                                          */
+/* ================================================================ */
+
+.previews {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 12px;
+  margin-top: 16px;
+}
+
+/* ================================================================ */
+/* INDIVIDUAL PREVIEW ITEM                                           */
+/* Container for a single image thumbnail. Uses position: relative   */
+/* so the absolutely-positioned remove button and primary badge      */
+/* can be placed relative to this container. aspect-ratio 4/3        */
+/* ensures consistent proportions. overflow: hidden clips the image  */
+/* to the container bounds. Thin 0.5px gold border provides a        */
+/* subtle frame around each thumbnail.                               */
+/* ================================================================ */
+
+.previewItem {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border: 0.5px solid rgba(201, 169, 110, 0.1);
+}
+
+/* ================================================================ */
+/* PREVIEW IMAGE                                                     */
+/* The actual image element inside each preview item.                */
+/* width/height 100% fills the container, object-fit: cover ensures  */
+/* the image covers the area without distortion (crops if needed).   */
+/* ================================================================ */
+
+.previewImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ================================================================ */
+/* REMOVE BUTTON                                                     */
+/* Small x button positioned in the top-right corner of each        */
+/* preview item. Uses a semi-transparent espresso background         */
+/* (rgba with 0.8 opacity) so the image is slightly visible behind. */
+/* Ivory color for the x symbol. 24x24px fixed size.                */
+/* ================================================================ */
+
+.removeButton {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  background: rgba(44, 26, 14, 0.8);
+  color: var(--color-ivory);
+  border: none;
+  width: 24px;
+  height: 24px;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  line-height: 1;
+  transition: opacity 0.2s ease;
+}
+
+/* Hover state — slightly more transparent for feedback */
+.removeButton:hover {
+  opacity: 0.8;
+}
+
+/* ================================================================ */
+/* PRIMARY BADGE                                                     */
+/* "Ana" (Primary) label positioned in the bottom-left corner of    */
+/* the first image [0]. Gold background with espresso text.          */
+/* Small font size (0.7rem) and compact padding to avoid obscuring  */
+/* too much of the thumbnail. Cormorant Garamond font for           */
+/* consistency with the rest of the admin UI.                        */
+/* ================================================================ */
+
+.primaryBadge {
+  position: absolute;
+  bottom: 4px;
+  left: 4px;
+  background: var(--color-gold);
+  color: var(--color-espresso);
+  padding: 2px 6px;
+  font-size: 0.7rem;
+  font-family: var(--font-cormorant);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* ================================================================ */
+/* UPLOADING STATE                                                   */
+/* Applied to the .container when files are being uploaded.          */
+/* Reduces opacity to 0.6 for a visual "loading" indicator and      */
+/* disables pointer-events to prevent interaction during upload.     */
+/* This prevents the user from clicking the dropzone or remove       */
+/* buttons while files are being processed.                          */
+/* ================================================================ */
+
+.uploading {
+  opacity: 0.6;
+  pointer-events: none;
+}
