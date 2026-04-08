@@ -52,8 +52,8 @@
   inset: 0;             /* Stretch to all four edges of .heroWrapper    */
   background: linear-gradient(
     to bottom,
-    rgba(0, 0, 0, 0.3),  /* Lighter at the top                         */
-    rgba(0, 0, 0, 0.5)   /* Darker at the bottom for better CTA contrast */
+    rgba(0, 0, 0, 0.1),  /* Very light tint at the top                 */
+    rgba(0, 0, 0, 0.25)  /* Subtle darkening at bottom for text contrast */
   );
   /* pointer-events: none would go here if interactive children were
      placed inside the wrapper — currently not needed. */
