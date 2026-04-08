@@ -121,6 +121,7 @@
 .languageDropdown {
   position: relative;
   cursor: pointer;
+  text-align: center;
 }
 
 /* ============================================================
@@ -153,16 +154,20 @@
 .languageMenu {
   position: absolute;
   top: 100%;
-  right: 0;
-  background: rgba(155, 149, 120, 0.95);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  left: 50%;
+  transform: translateX(-50%);
+  background: transparent;
+  border: none;
   display: flex;
   flex-direction: column;
   min-width: 100px;
   margin-top: 8px;
   z-index: 1001;
   animation: dropdownFade 0.2s ease;
+}
+
+.navbarScrolled .languageMenu {
+  background: #ffffff;
 }
 
 /* ============================================================
@@ -181,12 +186,19 @@
   width: 100%;
   text-align: center;
   letter-spacing: 1px;
-  transition: background-color 0.2s ease;
+  transition: background-color 0.2s ease, color 0.3s ease;
 }
 
-/* .languageOption hover — white tint for clear interactivity */
 .languageOption:hover {
   background-color: rgba(255, 255, 255, 0.15);
+}
+
+.navbarScrolled .languageOption {
+  color: #333333;
+}
+
+.navbarScrolled .languageOption:hover {
+  background-color: rgba(0, 0, 0, 0.05);
 }
 
 /* Fade-in animation for the dropdown */
