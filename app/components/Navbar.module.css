@@ -34,7 +34,7 @@
   z-index: 1000;
   transition: background-color 0.3s ease;
   /* Muted olive-gold background */
-  background-color: #8B7D5E;
+  background-color: #C9A96E;
   border-bottom: 1px solid rgba(201, 169, 110, 0.3);
 }
 
@@ -43,7 +43,7 @@
    Adds a near-opaque espresso background for legibility
    ============================================================ */
 .navbarScrolled {
-  background-color: #8B7D5E;
+  background-color: #C9A96E;
 }
 
 /* ============================================================
