@@ -33,8 +33,8 @@
   width: 100%;
   z-index: 1000;
   transition: background-color 0.3s ease;
-  /* Solid warm brown background */
-  background-color: var(--color-warm);
+  /* Muted olive-gold background */
+  background-color: #8B7D5E;
   border-bottom: 1px solid rgba(201, 169, 110, 0.3);
 }
 
@@ -43,7 +43,7 @@
    Adds a near-opaque espresso background for legibility
    ============================================================ */
 .navbarScrolled {
-  background-color: var(--color-warm);
+  background-color: #8B7D5E;
 }
 
 /* ============================================================
@@ -70,7 +70,6 @@
   font-family: var(--font-cormorant), 'Cormorant Garamond', serif;
   font-size: 2.4rem;
   font-weight: 600;
-  font-style: italic;
   color: #ffffff;
   text-decoration: none;
   letter-spacing: 1px;
