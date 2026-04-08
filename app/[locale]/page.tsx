@@ -156,13 +156,7 @@ export default async function HomePage() {
             ============================================================ */}
         <section className={styles.heroSection}>
           {/* Background image -- uses first featured property's image or fallback */}
-          <HeroImage
-            publicId={
-              featuredProperties.length > 0 && featuredProperties[0].imageIds.length > 0
-                ? featuredProperties[0].imageIds[0]
-                : undefined
-            }
-          />
+          <HeroImage publicId="pexel-photo-antalya" />
 
           {/* Overlay content -- positioned absolute over the hero image */}
           <div className={styles.heroContent}>
