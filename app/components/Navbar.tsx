@@ -258,13 +258,13 @@ export default function Navbar() {
               {/* Dropdown menu — only rendered when open */}
               {languageDropdownOpen && (
                 <div className={styles.languageMenu} role="listbox">
-                  {SUPPORTED_LOCALES.map((loc) => (
+                  {SUPPORTED_LOCALES.filter((loc) => loc !== locale).map((loc) => (
                     <button
                       key={loc}
                       className={styles.languageOption}
                       onClick={() => handleLocaleSwitch(loc)}
                       role="option"
-                      aria-selected={locale === loc}
+                      aria-selected={false}
                       type="button"
                     >
                       {LOCALE_LABELS[loc]}
