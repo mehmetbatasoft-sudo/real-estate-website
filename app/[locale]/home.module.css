@@ -46,10 +46,12 @@
   inset: 0;
   /* Sit above the HeroImage and its dark overlay */
   z-index: 2;
-  /* Center content vertically, align left horizontally */
+  /* Center content both vertically and horizontally */
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
+  text-align: center;
   /* Horizontal padding for breathing room */
   padding: 0 48px;
   /* Cap content width at design system max */
