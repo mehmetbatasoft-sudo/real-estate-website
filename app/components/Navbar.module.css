@@ -134,7 +134,7 @@
   border: none;
   padding: 6px 12px;
   font-family: var(--font-cormorant), 'Cormorant Garamond', serif;
-  font-size: 0.9rem;
+  font-size: 1.5rem;
   cursor: pointer;
   letter-spacing: 0.5px;
   transition: border-color 0.3s ease;
@@ -198,7 +198,7 @@
   border: 1px solid rgba(255, 255, 255, 0.5);
   color: #ffffff;
   font-family: var(--font-cormorant), 'Cormorant Garamond', serif;
-  font-size: 0.95rem;
+  font-size: 1.5rem;
   letter-spacing: 1px;
   cursor: pointer;
   transition: all 0.3s ease;
