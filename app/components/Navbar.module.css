@@ -127,9 +127,9 @@
    Padding 6px 12px gives a compact, refined button shape
    ============================================================ */
 .languageButton {
-  color: var(--color-ivory);
-  background: transparent;
-  border: 1px solid rgba(201, 169, 110, 0.3); /* --color-gold at 30% opacity */
+  color: var(--color-espresso);
+  background: var(--color-gold);
+  border: 1px solid var(--color-gold);
   padding: 6px 12px;
   font-family: var(--font-cormorant), 'Cormorant Garamond', serif;
   font-size: 0.9rem;
