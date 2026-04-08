@@ -13,10 +13,12 @@
     "closeMenu": "Menüyü kapat"
   },
   "hero": {
-    "title": "Antalya'da Lüks Gayrimenkul Deneyimi",
-    "subtitle": "Antalya, Türkiye'nin en prestijli lokasyonlarında hayalinizdeki evi bulun",
-    "ctaProperties": "Emlakları Keşfet",
-    "ctaContact": "İletişime Geç"
+    "tagline": "Lüks Gayrimenkul · Antalya",
+    "title": "Hayalinizdeki\nEvi Bulun",
+    "subtitle": "Antalya'nın kalbinde özenle seçilmiş lüks mülkler",
+    "ctaProperties": "Emlakları Görüntüle",
+    "ctaContact": "Bize Ulaşın",
+    "scrollDown": "Aşağı Kaydır"
   },
   "properties": {
     "title": "Emlak Portföyümüz",

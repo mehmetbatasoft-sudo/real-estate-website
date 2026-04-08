@@ -13,10 +13,12 @@
     "closeMenu": "إغلاق القائمة"
   },
   "hero": {
-    "title": "عقارات فاخرة",
-    "subtitle": "أنطاليا، تركيا",
-    "ctaProperties": "استكشف العقارات",
-    "ctaContact": "تواصل معنا"
+    "tagline": "عقارات فاخرة · أنطاليا",
+    "title": "اعثر على\nمنزل أحلامك",
+    "subtitle": "عقارات فاخرة مختارة بعناية في قلب أنطاليا",
+    "ctaProperties": "عرض العقارات",
+    "ctaContact": "اتصل بنا",
+    "scrollDown": "مرر لأسفل"
   },
   "properties": {
     "title": "العقارات",

@@ -13,10 +13,12 @@
     "closeMenu": "Close menu"
   },
   "hero": {
-    "title": "Luxury Real Estate",
-    "subtitle": "Antalya, Turkey",
-    "ctaProperties": "Explore Properties",
-    "ctaContact": "Get In Touch"
+    "tagline": "Luxury Real Estate · Antalya",
+    "title": "Find Your\nDream Home",
+    "subtitle": "Handpicked luxury properties in the heart of Antalya",
+    "ctaProperties": "View Properties",
+    "ctaContact": "Contact Us",
+    "scrollDown": "Scroll Down"
   },
   "properties": {
     "title": "Properties",

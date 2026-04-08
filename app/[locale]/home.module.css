@@ -64,6 +64,21 @@
   pointer-events: none;
 }
 
+/* .heroTagline -- small uppercase label above the main heading */
+.heroTagline {
+  /* Spaced-out uppercase for sophistication */
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  /* Small, understated size */
+  font-size: 0.85rem;
+  /* White with slight transparency */
+  color: rgba(255, 255, 255, 0.8);
+  /* Space below before the main title */
+  margin-bottom: 20px;
+  /* Allow text selection */
+  pointer-events: auto;
+}
+
 /* .heroTitle -- main headline displayed over the hero image */
 .heroTitle {
   /* Luxury serif font */
@@ -72,10 +87,14 @@
   font-size: 4rem;
   /* White text for contrast against dark background */
   color: #ffffff;
-  /* Light weight for elegant, editorial feel */
+  /* Italic for elegant editorial feel per reference design */
+  font-style: italic;
+  /* Light weight for elegant feel */
   font-weight: 300;
   /* Tight line height for large display text */
   line-height: 1.1;
+  /* Allow \n in translation strings to create line breaks */
+  white-space: pre-line;
   /* Space between title and subtitle */
   margin-bottom: 16px;
   /* Allow text selection and interaction */
@@ -94,6 +113,20 @@
   /* Space between subtitle and CTA buttons */
   margin-bottom: 32px;
   /* Allow text selection */
+  pointer-events: auto;
+}
+
+/* .heroScroll -- scroll indicator text at the bottom of the hero */
+.heroScroll {
+  /* Position at the bottom of the hero area */
+  margin-top: 48px;
+  /* Small uppercase style */
+  font-size: 0.75rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  /* White with transparency so it's subtle */
+  color: rgba(255, 255, 255, 0.5);
+  /* Allow interaction */
   pointer-events: auto;
 }
 
@@ -475,6 +508,12 @@
     gap: 32px;
   }
 
+  /* Smaller tagline on tablets */
+  .heroTagline {
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+  }
+
   /* Reduce hero title for smaller screens */
   .heroTitle {
     font-size: 3rem;
@@ -503,6 +542,12 @@
   /* Single column property grid on mobile */
   .propertiesGrid {
     grid-template-columns: 1fr;
+  }
+
+  /* Smaller tagline on mobile */
+  .heroTagline {
+    font-size: 0.7rem;
+    letter-spacing: 1.5px;
   }
 
   /* Smaller hero title for mobile */

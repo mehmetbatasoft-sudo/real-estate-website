@@ -160,19 +160,24 @@ export default async function HomePage() {
 
           {/* Overlay content -- positioned absolute over the hero image */}
           <div className={styles.heroContent}>
-            {/* Main headline -- translated per locale */}
+            {/* Tagline -- small uppercase label above the main heading */}
+            <p className={styles.heroTagline}>
+              {tHero('tagline')}
+            </p>
+
+            {/* Main headline -- large italic serif */}
             <h1 className={styles.heroTitle}>
               {tHero('title')}
             </h1>
 
-            {/* Subtitle -- translated per locale */}
+            {/* Subtitle -- descriptive line below heading */}
             <p className={styles.heroSubtitle}>
               {tHero('subtitle')}
             </p>
 
             {/* CTA buttons row */}
             <div className={styles.heroButtons}>
-              {/* Primary CTA -- scrolls to the featured properties section */}
+              {/* Primary CTA -- links to properties */}
               <a
                 href="#properties"
                 className={`${styles.heroCta} ${styles.heroCtaPrimary}`}
@@ -180,7 +185,7 @@ export default async function HomePage() {
                 {tHero('ctaProperties')}
               </a>
 
-              {/* Secondary CTA -- scrolls to the contact form section */}
+              {/* Secondary CTA -- links to contact form */}
               <a
                 href="#contact"
                 className={`${styles.heroCta} ${styles.heroCtaSecondary}`}
@@ -188,6 +193,11 @@ export default async function HomePage() {
                 {tHero('ctaContact')}
               </a>
             </div>
+
+            {/* Scroll indicator at the bottom */}
+            <p className={styles.heroScroll}>
+              {tHero('scrollDown')}
+            </p>
           </div>
         </section>
 
