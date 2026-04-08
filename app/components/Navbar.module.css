@@ -130,7 +130,7 @@
    ============================================================ */
 .languageButton {
   color: #ffffff;
-  background: rgba(44, 26, 14, 0.4);
+  background: transparent;
   border: 1px solid rgba(255, 255, 255, 0.3);
   padding: 6px 12px;
   font-family: var(--font-cormorant), 'Cormorant Garamond', serif;
