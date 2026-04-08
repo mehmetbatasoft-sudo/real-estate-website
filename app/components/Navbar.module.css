@@ -154,8 +154,8 @@
   position: absolute;
   top: 100%;
   right: 0;
-  background: var(--color-espresso);
-  border: 1px solid rgba(201, 169, 110, 0.2); /* --color-gold at 20% opacity */
+  background: #9B9578;
+  border: 1px solid rgba(155, 149, 120, 0.3);
   display: flex;
   flex-direction: column;
   min-width: 80px;
