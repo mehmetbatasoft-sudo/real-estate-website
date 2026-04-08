@@ -69,7 +69,6 @@
   font-family: var(--font-cormorant), 'Cormorant Garamond', serif;
   font-size: 2.4rem;
   font-weight: 600;
-  font-style: italic;
   color: var(--color-gold);
   text-decoration: none;
   letter-spacing: 1px;
@@ -193,9 +192,9 @@
    ============================================================ */
 .ctaButton {
   padding: 10px 24px;
-  background: transparent;
+  background: var(--color-gold);
   border: 1px solid var(--color-gold);
-  color: var(--color-gold);
+  color: var(--color-espresso);
   font-family: var(--font-cormorant), 'Cormorant Garamond', serif;
   font-size: 0.95rem;
   letter-spacing: 1px;
