@@ -32,10 +32,10 @@
   left: 0;
   width: 100%;
   z-index: 1000;
-  transition: background-color 0.3s ease;
-  /* Muted olive-gold background */
-  background-color: #C9A96E;
-  border-bottom: 1px solid rgba(201, 169, 110, 0.3);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+  /* Transparent at top of page */
+  background-color: transparent;
+  border-bottom: 1px solid transparent;
 }
 
 /* ============================================================
@@ -43,7 +43,8 @@
    Adds a near-opaque espresso background for legibility
    ============================================================ */
 .navbarScrolled {
-  background-color: #C9A96E;
+  background-color: #6B7F4E;
+  border-bottom: 1px solid rgba(107, 127, 78, 0.3);
 }
 
 /* ============================================================
