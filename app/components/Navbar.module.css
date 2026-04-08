@@ -69,6 +69,7 @@
   font-family: var(--font-cormorant), 'Cormorant Garamond', serif;
   font-size: 1.5rem;
   font-weight: 600;
+  font-style: italic;
   color: var(--color-gold);
   text-decoration: none;
   letter-spacing: 1px;
