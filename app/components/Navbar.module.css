@@ -43,8 +43,8 @@
    Adds a near-opaque espresso background for legibility
    ============================================================ */
 .navbarScrolled {
-  background-color: #CED6B2;
-  border-bottom: 1px solid rgba(206, 214, 178, 0.3);
+  background-color: #9B9578;
+  border-bottom: 1px solid rgba(155, 149, 120, 0.3);
 }
 
 /* ============================================================
