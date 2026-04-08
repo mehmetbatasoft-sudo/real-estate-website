@@ -131,7 +131,7 @@
 .languageButton {
   color: #ffffff;
   background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  border: none;
   padding: 6px 12px;
   font-family: var(--font-cormorant), 'Cormorant Garamond', serif;
   font-size: 0.9rem;
