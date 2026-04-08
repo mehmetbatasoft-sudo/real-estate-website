@@ -70,8 +70,8 @@
   font-family: var(--font-cormorant);
   /* Large, prominent heading */
   font-size: 4rem;
-  /* Dark espresso text for contrast against bright background */
-  color: var(--color-espresso);
+  /* White text for contrast against dark background */
+  color: #ffffff;
   /* Light weight for elegant, editorial feel */
   font-weight: 300;
   /* Tight line height for large display text */
@@ -86,8 +86,9 @@
 .heroSubtitle {
   /* Slightly larger than body text */
   font-size: 1.4rem;
-  /* Warm brown for visual hierarchy against bright background */
-  color: var(--color-warm);
+  /* Light ivory for subtitle against dark background */
+  color: var(--color-ivory);
+  opacity: 0.9;
   /* Light weight to match the editorial aesthetic */
   font-weight: 300;
   /* Space between subtitle and CTA buttons */
@@ -142,8 +143,8 @@
 .heroCtaSecondary {
   /* Transparent background lets the hero image show through */
   background: transparent;
-  /* Espresso text for contrast against bright background */
-  color: var(--color-espresso);
+  /* White text for contrast against dark background */
+  color: #ffffff;
   /* Gold border to match the design system accent */
   border: 1px solid var(--color-gold);
 }
