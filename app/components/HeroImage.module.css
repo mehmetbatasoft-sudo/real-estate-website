@@ -50,11 +50,7 @@
 .overlay {
   position: absolute;   /* Removed from normal flow, layered over image */
   inset: 0;             /* Stretch to all four edges of .heroWrapper    */
-  background: linear-gradient(
-    to bottom,
-    rgba(0, 0, 0, 0.1),  /* Very light tint at the top                 */
-    rgba(0, 0, 0, 0.25)  /* Subtle darkening at bottom for text contrast */
-  );
+  background: none;
   /* pointer-events: none would go here if interactive children were
      placed inside the wrapper — currently not needed. */
 }
