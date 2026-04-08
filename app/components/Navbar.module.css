@@ -251,7 +251,7 @@
 .mobileMenu {
   position: fixed;
   inset: 0;
-  background: var(--color-espresso);
+  background: #9B9578;
   z-index: 999;
   display: flex;
   flex-direction: column;
