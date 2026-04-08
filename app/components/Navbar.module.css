@@ -33,8 +33,9 @@
   width: 100%;
   z-index: 1000;
   transition: background-color 0.3s ease;
-  /* No background by default — transparent over hero sections */
-  background-color: transparent;
+  /* Solid warm brown background */
+  background-color: var(--color-warm);
+  border-bottom: 1px solid rgba(201, 169, 110, 0.3);
 }
 
 /* ============================================================
@@ -42,7 +43,7 @@
    Adds a near-opaque espresso background for legibility
    ============================================================ */
 .navbarScrolled {
-  background-color: rgba(44, 26, 14, 0.95); /* --color-espresso at 95% opacity */
+  background-color: var(--color-warm);
 }
 
 /* ============================================================
@@ -69,7 +70,8 @@
   font-family: var(--font-cormorant), 'Cormorant Garamond', serif;
   font-size: 2.4rem;
   font-weight: 600;
-  color: var(--color-gold);
+  font-style: italic;
+  color: #ffffff;
   text-decoration: none;
   letter-spacing: 1px;
 }
@@ -91,7 +93,7 @@
    Gold hover color provides visual feedback matching the accent
    ============================================================ */
 .navLink {
-  color: var(--color-ivory);
+  color: #ffffff;
   font-family: var(--font-cormorant), 'Cormorant Garamond', serif;
   font-size: 1.5rem;
   text-decoration: none;
@@ -127,9 +129,9 @@
    Padding 6px 12px gives a compact, refined button shape
    ============================================================ */
 .languageButton {
-  color: var(--color-espresso);
-  background: var(--color-gold);
-  border: 1px solid var(--color-gold);
+  color: #ffffff;
+  background: rgba(44, 26, 14, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.3);
   padding: 6px 12px;
   font-family: var(--font-cormorant), 'Cormorant Garamond', serif;
   font-size: 0.9rem;
@@ -192,9 +194,9 @@
    ============================================================ */
 .ctaButton {
   padding: 10px 24px;
-  background: var(--color-gold);
-  border: 1px solid var(--color-gold);
-  color: var(--color-espresso);
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  color: #ffffff;
   font-family: var(--font-cormorant), 'Cormorant Garamond', serif;
   font-size: 0.95rem;
   letter-spacing: 1px;

@@ -198,7 +198,6 @@ export default function Navbar() {
    * labelKey: translation key under the 'nav' namespace
    */
   const NAV_LINKS = [
-    { href: '/', labelKey: 'home' },
     { href: '/properties', labelKey: 'properties' },
     { href: '/about', labelKey: 'about' },
   ] as const;
