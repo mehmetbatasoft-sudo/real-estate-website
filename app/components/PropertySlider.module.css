@@ -30,6 +30,14 @@
    - overflow-x: auto enables scrolling
    - scroll-snap-type: x mandatory makes snapping precise
    - Hide scrollbar for a cleaner luxury appearance
+   - ZERO horizontal padding: any horizontal padding combined with
+     scroll-snap-align: start causes the scroller to land at
+     scrollLeft = padding-left, which pushes the first card flush
+     against the container's visible left edge but leaves padding-left
+     worth of empty space on the right between the last visible card
+     and the container edge — breaking left/right symmetry.
+   - Small vertical padding keeps the property cards' 4px hover lift
+     (translateY(-4px)) from being clipped by overflow-y: hidden.
    ============================================================ */
 .scrollContainer {
   display: flex;
@@ -38,8 +46,7 @@
   overflow-y: hidden;
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
-  /* Add small horizontal padding so cards don't touch the nav buttons */
-  padding: 4px 4px 16px 4px;
+  padding: 4px 0;
   /* Hide scrollbars across browsers */
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* IE/Edge legacy */
