@@ -2,21 +2,21 @@
  * app/[locale]/about/page.tsx -- About page for Ozgul's Realty
  *
  * This SERVER component displays the real estate agent's profile, including
- * their portrait photo, professional title, multilingual biography, key
- * statistics, and a contact form for direct inquiries.
+ * their portrait photo, professional title, multilingual biography, and a
+ * contact form for direct inquiries.
  *
- * Page structure (4 sections):
+ * Page structure (2 sections):
  *   1. Agent Hero -- 2-column layout with portrait photo (left) and
  *      biographical information (right): name, subtitle, professional title,
  *      and multilingual bio text.
  *
- *   2. Stats Section -- 3-column grid showing key metrics:
- *      - Years of experience
- *      - Number of active listings
- *      - Client rating (out of 5)
- *
- *   3. Contact Section -- Centered ContactForm for visitor inquiries,
+ *   2. Contact Section -- Centered ContactForm for visitor inquiries,
  *      with an id="contact" anchor for same-page smooth scrolling.
+ *
+ * Removed (previously section 2):
+ *   - Stats Section (years of experience + active listings + client rating)
+ *     was removed per design direction. The columns still exist in the DB
+ *     for backwards compatibility but are no longer surfaced on this page.
  *
  * Data fetching:
  *   - Agent profile: prisma.agent.findFirst() (single-agent architecture)
@@ -68,7 +68,7 @@ export async function generateMetadata() {
  * AboutPage -- agent profile and contact page server component
  *
  * Fetches the agent's profile data, resolves the multilingual biography,
- * and renders the hero section, stats, and contact form.
+ * and renders the hero section and contact form.
  *
  * @returns The fully rendered about page JSX
  */
@@ -182,51 +182,7 @@ export default async function AboutPage() {
         )}
 
         {/* ============================================================
-            SECTION 2: STATS
-            Three key metrics about the agent displayed in a horizontal
-            grid with ivory background for visual separation.
-            Only rendered if agent data exists.
-            ============================================================ */}
-        {agent && (
-          <AnimatedSection>
-            <section className={styles.statsSection}>
-              <div className={styles.statsGrid}>
-                {/* Experience stat -- years of industry experience */}
-                <div className={styles.statItem}>
-                  <div className={styles.statValue}>
-                    {agent.experience}+
-                  </div>
-                  <div className={styles.statLabel}>
-                    {tAbout('yearsExperience')}
-                  </div>
-                </div>
-
-                {/* Listings stat -- number of active property listings */}
-                <div className={styles.statItem}>
-                  <div className={styles.statValue}>
-                    {agent.listings}
-                  </div>
-                  <div className={styles.statLabel}>
-                    {tAbout('activeListings')}
-                  </div>
-                </div>
-
-                {/* Rating stat -- client satisfaction rating out of 5 */}
-                <div className={styles.statItem}>
-                  <div className={styles.statValue}>
-                    {agent.rating}/5
-                  </div>
-                  <div className={styles.statLabel}>
-                    {tAbout('clientRating')}
-                  </div>
-                </div>
-              </div>
-            </section>
-          </AnimatedSection>
-        )}
-
-        {/* ============================================================
-            SECTION 3: CONTACT
+            SECTION 2: CONTACT
             Centered contact form for direct agent inquiries.
             ID="contact" enables smooth scrolling from navigation links.
             ============================================================ */}

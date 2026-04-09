@@ -26,8 +26,6 @@
  * - Redirects to login page after signing out
  */
 
-'use client'
-
 import { useState, useMemo } from 'react'
 import { signOut } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
@@ -73,8 +71,12 @@ interface Inquiry {
 }
 
 /**
- * Agent type — matches the Prisma Agent model
- * Single-agent architecture — always exactly 1 record
+ * Agent type — matches the serialized Prisma Agent model.
+ * Single-agent architecture — always exactly 1 record.
+ *
+ * Note: experience and rating still exist on the DB table but are no longer
+ * surfaced by the admin panel or the public about page, so they are
+ * intentionally omitted from this local interface.
  */
 interface Agent {
   id: number
@@ -87,9 +89,7 @@ interface Agent {
   phone: string
   email: string
   imageId: string
-  experience: number
   listings: number
-  rating: number
 }
 
 /**
@@ -573,20 +573,10 @@ export default function AdminDashboard({
                     <span className={styles.agentDetailLabel}>Telefon</span>
                     <span className={styles.agentDetailValue}>{agent.phone}</span>
                   </div>
-                  {/* Experience */}
-                  <div className={styles.agentDetail}>
-                    <span className={styles.agentDetailLabel}>Deneyim</span>
-                    <span className={styles.agentDetailValue}>{agent.experience} yıl</span>
-                  </div>
                   {/* Listings count */}
                   <div className={styles.agentDetail}>
                     <span className={styles.agentDetailLabel}>İlanlar</span>
                     <span className={styles.agentDetailValue}>{agent.listings}</span>
-                  </div>
-                  {/* Rating */}
-                  <div className={styles.agentDetail}>
-                    <span className={styles.agentDetailLabel}>Puan</span>
-                    <span className={styles.agentDetailValue}>{agent.rating}/5</span>
                   </div>
                 </div>
 

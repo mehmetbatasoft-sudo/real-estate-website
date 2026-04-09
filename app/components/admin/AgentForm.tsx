@@ -12,10 +12,13 @@
  * Form sections:
  * - Personal info: "Ad Soyad" (name), "Ünvan" (title)
  * - Contact: "Telefon" (phone), "E-posta" (email)
- * - Stats: "Deneyim (Yıl)" (experience), "Aktif İlanlar" (listings),
- *   "Puan" (rating)
+ * - Stats: "Aktif İlanlar" (listings)
  * - Bio tabs: EN, TR, RU, AR (4 separate textareas for multilingual bios)
  * - Single photo upload via ImageUpload component (multiple=false)
+ *
+ * Removed fields (still present in the DB for backwards compatibility):
+ * - Deneyim / experience — no longer surfaced in the admin or about page
+ * - Puan / rating — no longer surfaced in the admin or about page
  *
  * Navigation:
  * - Uses useRouter from '@/i18n/navigation' for locale-aware routing
@@ -36,8 +39,6 @@
  * - 0.5px gold borders, no rounded corners (luxury aesthetic)
  */
 
-'use client'
-
 import { useState, FormEvent } from 'react'
 import { useRouter } from '@/i18n/navigation'
 import ImageUpload from './ImageUpload'
@@ -47,6 +48,10 @@ import styles from './PropertyForm.module.css'
  * Agent type — matches the serialized Prisma Agent model.
  * Required prop since AgentForm is always in edit mode and
  * receives the existing agent data from the parent server component.
+ *
+ * Note: the Prisma Agent model still has `experience` and `rating` columns
+ * for backwards compatibility, but they are intentionally omitted here — the
+ * form no longer edits them and the about page no longer displays them.
  */
 interface Agent {
   /** Unique database identifier */
@@ -69,12 +74,8 @@ interface Agent {
   email: string
   /** Cloudinary public ID for the agent portrait photo */
   imageId: string
-  /** Years of experience — "Deneyim (Yıl)" in Turkish */
-  experience: number
   /** Number of active listings — "Aktif İlanlar" in Turkish */
   listings: number
-  /** Agent rating out of 5 — "Puan" in Turkish */
-  rating: number
 }
 
 /**
@@ -136,14 +137,8 @@ export default function AgentForm({ agent }: AgentFormProps) {
   /** Email address — "E-posta" label */
   const [email, setEmail] = useState(agent.email)
 
-  /** Years of experience — "Deneyim (Yıl)" label, stored as string for input */
-  const [experience, setExperience] = useState(agent.experience.toString())
-
   /** Active listings count — "Aktif İlanlar" label, stored as string for input */
   const [listings, setListings] = useState(agent.listings.toString())
-
-  /** Rating out of 5 — "Puan" label, stored as string for input */
-  const [rating, setRating] = useState(agent.rating.toString())
 
   /**
    * Multilingual biography fields.
@@ -248,9 +243,7 @@ export default function AgentForm({ agent }: AgentFormProps) {
         title,
         phone,
         email,
-        experience,
         listings,
-        rating,
         bio,
         bioTr: bioTr || null,
         bioRu: bioRu || null,
@@ -342,9 +335,9 @@ export default function AgentForm({ agent }: AgentFormProps) {
       </div>
 
       {/* ============================================================ */}
-      {/* 2-COLUMN GRID — Contact info and professional stats           */}
-      {/* Phone, Email, Experience, Listings, Rating arranged in a      */}
-      {/* compact grid. Collapses to 1 column on mobile via CSS.        */}
+      {/* 2-COLUMN GRID — Contact info and active listings count        */}
+      {/* Phone, Email, Listings arranged in a compact grid. Collapses  */}
+      {/* to 1 column on mobile via CSS.                                */}
       {/* ============================================================ */}
       <div className={styles.formGrid}>
         {/* Phone number — "Telefon" */}
@@ -381,22 +374,6 @@ export default function AgentForm({ agent }: AgentFormProps) {
           />
         </div>
 
-        {/* Years of experience — "Deneyim (Yıl)" */}
-        <div className={styles.formGroup}>
-          <label htmlFor="agent-experience" className={styles.label}>
-            Deneyim (Yıl)
-          </label>
-          <input
-            id="agent-experience"
-            type="number"
-            value={experience}
-            onChange={(e) => setExperience(e.target.value)}
-            className={styles.input}
-            disabled={isLoading}
-            min="0"
-          />
-        </div>
-
         {/* Active listings count — "Aktif İlanlar" */}
         <div className={styles.formGroup}>
           <label htmlFor="agent-listings" className={styles.label}>
@@ -410,24 +387,6 @@ export default function AgentForm({ agent }: AgentFormProps) {
             className={styles.input}
             disabled={isLoading}
             min="0"
-          />
-        </div>
-
-        {/* Rating out of 5 — "Puan" */}
-        <div className={styles.formGroup}>
-          <label htmlFor="agent-rating" className={styles.label}>
-            Puan
-          </label>
-          <input
-            id="agent-rating"
-            type="number"
-            value={rating}
-            onChange={(e) => setRating(e.target.value)}
-            className={styles.input}
-            disabled={isLoading}
-            min="0"
-            max="5"
-            step="0.1"
           />
         </div>
       </div>

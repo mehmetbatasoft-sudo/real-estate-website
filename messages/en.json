@@ -48,10 +48,7 @@
     "experience": "Experience",
     "listings": "Listings",
     "rating": "Rating",
-    "contactAgent": "Contact Agent",
-    "yearsExperience": "Years of Experience",
-    "activeListings": "Active Listings",
-    "clientRating": "Client Rating"
+    "contactAgent": "Contact Agent"
   },
   "contact": {
     "title": "Contact Us",

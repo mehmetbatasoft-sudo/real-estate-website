@@ -5,13 +5,11 @@
  * (app/[locale]/about/page.tsx). It defines styles for:
  *   1. Page wrapper with navbar clearance
  *   2. Agent hero section (2-column: photo + bio)
- *   3. Stats row (experience, listings, rating)
- *   4. Contact section at the bottom
+ *   3. Contact section at the bottom
  *
  * Design system tokens used:
  *   --color-espresso (#2C1A0E) -- headings, body text
- *   --color-gold     (#C9A96E) -- accents, stat values, borders
- *   --color-ivory    (#F5F0E8) -- stats background, section bg
+ *   --color-gold     (#C9A96E) -- accents, borders
  *   --color-warm     (#8C6B4A) -- secondary text, labels
  *   --color-cream    (#FDFAF4) -- page background, contact section
  *   --font-cormorant           -- 'Cormorant Garamond', serif
@@ -20,6 +18,10 @@
  *   768px  -- tablet/mobile (single column, stacked layout)
  *
  * All containers use sharp corners (no border-radius) per brand guidelines.
+ *
+ * Removed: the former Stats Section (experience + listings + rating) was
+ * taken out per design direction. The .statsSection/.statsGrid/.statItem/
+ * .statValue/.statLabel classes are no longer referenced from the JSX.
  */
 
 /* ================================================================== */
@@ -141,71 +143,6 @@
 }
 
 /* ================================================================== */
-/*  STATS SECTION                                                      */
-/*  Horizontal row of 3 key statistics about the agent                 */
-/* ================================================================== */
-
-/* .statsSection -- wrapper with ivory background */
-.statsSection {
-  /* Light background for visual separation */
-  background: var(--color-ivory);
-  /* Generous vertical padding */
-  padding: 64px 24px;
-}
-
-/* .statsGrid -- horizontal stats row */
-.statsGrid {
-  /* Cap width */
-  max-width: 1280px;
-  /* Center horizontally */
-  margin: 0 auto;
-  /* Horizontal layout */
-  display: grid;
-  /* 3 equal columns for 3 stats */
-  grid-template-columns: repeat(3, 1fr);
-  /* Spacing between stat items */
-  gap: 32px;
-}
-
-/* .statItem -- individual stat card */
-.statItem {
-  /* Center text content */
-  text-align: center;
-  /* Vertical padding */
-  padding: 24px;
-  /* White background */
-  background: #fff;
-  /* Thin gold border */
-  border: 0.5px solid rgba(201, 169, 110, 0.2);
-}
-
-/* .statValue -- the numeric stat value */
-.statValue {
-  /* Luxury serif font */
-  font-family: var(--font-cormorant);
-  /* Large for prominence */
-  font-size: 2.5rem;
-  /* Gold accent */
-  color: var(--color-gold);
-  /* Semibold weight */
-  font-weight: 600;
-  /* Space below */
-  margin-bottom: 8px;
-}
-
-/* .statLabel -- descriptive label below the value */
-.statLabel {
-  /* Warm secondary color */
-  color: var(--color-warm);
-  /* Smaller text */
-  font-size: 0.9rem;
-  /* Uppercase for label style */
-  text-transform: uppercase;
-  /* Elegant spacing */
-  letter-spacing: 1px;
-}
-
-/* ================================================================== */
 /*  CONTACT SECTION                                                    */
 /*  Centered contact form at the bottom of the about page              */
 /* ================================================================== */
@@ -268,25 +205,9 @@
     font-size: 2rem;
   }
 
-  /* Stack stats vertically */
-  .statsGrid {
-    grid-template-columns: 1fr;
-    gap: 16px;
-  }
-
-  /* Smaller stat values */
-  .statValue {
-    font-size: 2rem;
-  }
-
   /* Reduced section padding */
   .heroSection {
     padding: 32px 16px;
-  }
-
-  /* Reduced stats padding */
-  .statsSection {
-    padding: 48px 16px;
   }
 
   /* Reduced contact padding */

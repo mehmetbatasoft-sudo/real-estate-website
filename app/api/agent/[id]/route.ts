@@ -39,6 +39,10 @@ export async function PUT(
 
     /* Update the agent profile in the database */
     /* Empty bio strings are saved as null to indicate "not translated" */
+    /* Note: experience and rating columns are intentionally NOT written here.
+       They still exist on the Agent table for backwards compatibility, but the
+       admin panel and about page no longer surface them, so we simply leave
+       whatever value is already stored untouched. listings is still editable. */
     const agent = await prisma.agent.update({
       where: { id: parseInt(id) },
       data: {
@@ -51,9 +55,7 @@ export async function PUT(
         phone: body.phone,
         email: body.email,
         imageId: body.imageId,
-        experience: parseInt(body.experience) || 0,
         listings: parseInt(body.listings) || 0,
-        rating: parseFloat(body.rating) || 0,
       },
     })
 
