@@ -93,6 +93,45 @@ export default function PropertySlider({ children }: PropertySliderProps) {
     };
   }, [updateScrollButtons]);
 
+  /**
+   * Effect: smart wheel handler that fixes the "invisible barrier" bug.
+   *
+   * Before this handler existed the container used `data-lenis-prevent` to
+   * keep Lenis's smooth-scroll from hijacking horizontal trackpad swipes.
+   * Unfortunately that made Lenis ignore ALL wheel events on the slider,
+   * and because the container is overflow-y: hidden the browser had nowhere
+   * to put vertical wheel deltas -- so pointing the mouse at the slider and
+   * scrolling up/down would mysteriously fail to move the page.
+   *
+   * The fix: handle wheel events ourselves and only intercept events where
+   * the user's intent is clearly horizontal. Vertical intent is allowed to
+   * bubble up to Lenis's window-level handler so the page scrolls normally.
+   *
+   * Intent detection: if |deltaX| > |deltaY| the user is swiping sideways
+   * (trackpad two-finger swipe, Shift+Wheel, or horizontal-only mouse).
+   * In that case we preventDefault + stopPropagation and manually drive
+   * the container's scrollLeft so Lenis never sees the event. Otherwise we
+   * do nothing and Lenis handles page scrolling as usual.
+   */
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+
+    const handleWheel = (e: WheelEvent) => {
+      /* Vertical intent (including plain mouse wheel): let Lenis handle it */
+      if (Math.abs(e.deltaX) <= Math.abs(e.deltaY)) return;
+
+      /* Horizontal intent: stop Lenis from seeing this event and scroll ourselves */
+      e.preventDefault();
+      e.stopPropagation();
+      el.scrollLeft += e.deltaX;
+    };
+
+    /* passive: false is required because we call preventDefault */
+    el.addEventListener('wheel', handleWheel, { passive: false });
+    return () => el.removeEventListener('wheel', handleWheel);
+  }, []);
+
   return (
     <div className={styles.sliderWrapper}>
       {/* Previous button — scrolls one "page" to the left */}
@@ -106,13 +145,14 @@ export default function PropertySlider({ children }: PropertySliderProps) {
         <span aria-hidden="true">&larr;</span>
       </button>
 
-      {/* Scroll container — holds all the property cards
-          data-lenis-prevent tells Lenis smooth-scroll to ignore this
-          element so native horizontal scrolling (and scrollBy) works. */}
+      {/* Scroll container — holds all the property cards.
+          Horizontal intent (trackpad swipes, Shift+Wheel) is handled by the
+          smart wheel handler in the useEffect above; vertical wheel events
+          bubble up to Lenis so the page scrolls normally even when the
+          mouse is hovering over the slider. */}
       <div
         ref={scrollRef}
         className={styles.scrollContainer}
-        data-lenis-prevent
       >
         {children}
       </div>
