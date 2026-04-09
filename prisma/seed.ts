@@ -100,7 +100,9 @@ async function main() {
         descriptionAr: 'فيلا فاخرة من 4 غرف نوم مع إطلالة بانورامية على البحر الأبيض المتوسط وحوض سباحة لا متناهي وهندسة معمارية حديثة.',
         price: 1500000,
         location: 'Kalkan, Antalya',
+        /* Turkish convention: 4+1 means 4 bedrooms + 1 salon */
         bedrooms: 4,
+        livingRooms: 1,
         bathrooms: 3,
         area: 350,
         imageIds: [],
@@ -119,7 +121,9 @@ async function main() {
         descriptionAr: 'شقة بنتهاوس حصرية مع 3 غرف نوم وشرفة خاصة وإطلالات خلابة على ساحل أنطاليا.',
         price: 850000,
         location: 'Lara, Antalya',
+        /* Turkish convention: 3+1 means 3 bedrooms + 1 salon */
         bedrooms: 3,
+        livingRooms: 1,
         bathrooms: 2,
         area: 220,
         imageIds: [],
@@ -138,7 +142,9 @@ async function main() {
         descriptionAr: 'شقة جميلة من غرفتي نوم مباشرة على شاطئ كونيالتي. مفروشة بالكامل مع أجهزة راقية وحوض سباحة مشترك وأمن على مدار الساعة.',
         price: 420000,
         location: 'Konyaaltı, Antalya',
+        /* Turkish convention: 2+1 means 2 bedrooms + 1 salon */
         bedrooms: 2,
+        livingRooms: 1,
         bathrooms: 1,
         area: 120,
         imageIds: [],
@@ -157,7 +163,9 @@ async function main() {
         descriptionAr: 'فيلا ساحرة من 3 غرف نوم مع حديقة جميلة ومسبح خاص. قريبة من ملاعب الجولف العالمية. متاحة للإيجار طويل الأمد.',
         price: 3500,
         location: 'Belek, Antalya',
+        /* Turkish convention: 3+1 means 3 bedrooms + 1 salon */
         bedrooms: 3,
+        livingRooms: 1,
         bathrooms: 2,
         area: 200,
         imageIds: [],
@@ -176,7 +184,9 @@ async function main() {
         descriptionAr: 'دوبلكس واسع من 5 غرف نوم في قلب أنطاليا. يتميز بأرضيات رخامية وأسقف عالية وشرفة على السطح مع إطلالات على المدينة والجبال.',
         price: 750000,
         location: 'Antalya Center',
+        /* Turkish convention: 5+2 means 5 bedrooms + 2 salons (larger duplex) */
         bedrooms: 5,
+        livingRooms: 2,
         bathrooms: 3,
         area: 300,
         imageIds: [],

@@ -37,9 +37,18 @@ model Property {
   descriptionAr  String?                   // Arabic description (optional)
   price          Float                     // Price in Euros
   location       String                    // Property location (e.g., "Antalya, Konyaaltı")
-  bedrooms       Int                       // Number of bedrooms
+  // -----------------------------------------------------------------
+  // Turkish "X+Y" room convention (sahibinden.com style)
+  // bedrooms    = number of bedrooms (the X in X+Y, e.g. 3 in "3+1")
+  // livingRooms = number of living rooms / salons (the Y in X+Y, e.g. 1)
+  // Display:    "{bedrooms}+{livingRooms}"   =>   "3+1"
+  // The name "bedrooms" is retained for API backwards compatibility —
+  // it now semantically means "rooms" under the Turkish convention.
+  // -----------------------------------------------------------------
+  bedrooms       Int                       // Number of bedrooms (X in "X+Y")
+  livingRooms    Int      @default(1)      // Number of living rooms / salons (Y in "X+Y")
   bathrooms      Int                       // Number of bathrooms
-  area           Float                     // Area in square meters
+  area           Float                     // Area in square meters (brüt m²)
   imageIds       String[]                  // Array of Cloudinary public IDs — [0] is cover image
   videoId        String?                   // Optional Cloudinary video public ID
   featured       Boolean  @default(false)  // Show on homepage featured section

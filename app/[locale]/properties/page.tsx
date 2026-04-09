@@ -301,11 +301,21 @@ export default async function PropertiesPage({
                         &euro;{property.price.toLocaleString()}
                       </p>
 
-                      {/* Property meta: bedrooms, bathrooms, area */}
+                      {/* Property meta — Turkish "X+Y" room convention:
+                          - {bedrooms}+{livingRooms} renders as "3+1"
+                          - {bathrooms} banyo (bathroom count)
+                          - {area} m² (gross area in square meters)
+                          sahibinden.com / hepsiemlak.com style. */}
                       <div className={styles.cardMeta}>
-                        <span>{property.bedrooms} {t('bedrooms')}</span>
-                        <span>{property.bathrooms} {t('bathrooms')}</span>
-                        <span>{property.area} {t('sqm')}</span>
+                        <span>
+                          {property.bedrooms}+{property.livingRooms} {t('rooms')}
+                        </span>
+                        <span>
+                          {property.bathrooms} {t('bathrooms')}
+                        </span>
+                        <span>
+                          {property.area} {t('sqm')}
+                        </span>
                       </div>
 
                       {/* View Details link */}

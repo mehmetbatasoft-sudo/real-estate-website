@@ -167,6 +167,30 @@
 }
 
 /* ================================================================ */
+/* ROOM PREVIEW                                                      */
+/* Read-only display of the combined "X+Y" (Oda + Salon) value       */
+/* shown beside the two numeric inputs on PropertyForm. Acts as a    */
+/* live preview of how the stat will render on public pages.         */
+/* Styled to match .input visually (same border + font) but with    */
+/* center alignment, ivory background, and bolder gold text so it   */
+/* reads as read-only rather than editable.                          */
+/* ================================================================ */
+
+.roomPreview {
+  padding: 12px;
+  border: 0.5px solid rgba(201, 169, 110, 0.3);
+  background: var(--color-ivory);
+  font-family: var(--font-cormorant);
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--color-gold);
+  text-align: center;
+  letter-spacing: 0.5px;
+  /* Match the intrinsic line-height of .input so heights line up */
+  line-height: 1.5;
+}
+
+/* ================================================================ */
 /* DESCRIPTION TABS                                                  */
 /* Horizontal tab bar for switching between language descriptions.    */
 /* Tabs (EN, TR, RU, AR) sit flush against each other with gap: 0.  */

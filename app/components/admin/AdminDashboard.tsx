@@ -44,7 +44,9 @@ interface Property {
   descriptionAr: string | null
   price: number
   location: string
+  /* Turkish "X+Y" room convention — bedrooms is X, livingRooms is Y */
   bedrooms: number
+  livingRooms: number
   bathrooms: number
   area: number
   imageIds: string[]

@@ -255,10 +255,13 @@ const PropertiesFilter: React.FC = () => {
           />
         </div>
 
-        {/* Bedrooms filter — number input for minimum bedroom count */}
+        {/* Rooms filter — number input for minimum room count
+            (Turkish "oda sayısı" — the X in the X+Y convention).
+            The URL param is still `bedrooms` for backwards compatibility
+            with any existing bookmarks/shared links. */}
         <div className={styles.filterGroup}>
           <label htmlFor="filter-bedrooms" className={styles.filterLabel}>
-            {t('bedrooms')}
+            {t('rooms')}
           </label>
           <input
             id="filter-bedrooms"

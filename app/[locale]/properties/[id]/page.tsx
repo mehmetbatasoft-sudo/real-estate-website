@@ -259,15 +259,20 @@ export default async function PropertyDetailPage({
             </FadeIn>
 
             {/* --------------------------------------------------------
-                PROPERTY STATS GRID
-                Key metrics: bedrooms, bathrooms, area in sqm
+                PROPERTY STATS GRID — Turkish "X+Y" room convention
+                - Oda Sayısı: X+Y (e.g. "3+1" = 3 bedrooms + 1 salon)
+                  sahibinden.com / hepsiemlak.com style
+                - Banyo Sayısı: bathroom count
+                - Brüt Alan: gross area in square meters
                 -------------------------------------------------------- */}
             <FadeIn delay={0.1}>
               <div className={styles.infoGrid}>
-                {/* Bedrooms stat */}
+                {/* Rooms stat — X+Y format (sahibinden.com style) */}
                 <div className={styles.infoItem}>
-                  <div className={styles.infoLabel}>{t('bedrooms')}</div>
-                  <div className={styles.infoValue}>{property.bedrooms}</div>
+                  <div className={styles.infoLabel}>{t('rooms')}</div>
+                  <div className={styles.infoValue}>
+                    {property.bedrooms}+{property.livingRooms}
+                  </div>
                 </div>
 
                 {/* Bathrooms stat */}

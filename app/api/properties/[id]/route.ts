@@ -91,7 +91,12 @@ export async function PUT(
         descriptionAr: body.descriptionAr || null,
         price: parseFloat(body.price),
         location: body.location,
+        /* Turkish "X+Y" convention:
+           bedrooms    = X (number of bedrooms)
+           livingRooms = Y (number of salons)
+           livingRooms defaults to 1 when omitted (the most common value) */
         bedrooms: parseInt(body.bedrooms) || 0,
+        livingRooms: parseInt(body.livingRooms) || 1,
         bathrooms: parseInt(body.bathrooms) || 0,
         area: parseFloat(body.area) || 0,
         imageIds: body.imageIds || [],

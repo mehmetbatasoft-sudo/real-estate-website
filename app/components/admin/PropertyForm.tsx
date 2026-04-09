@@ -61,8 +61,14 @@ interface Property {
   price: number
   /** Human-readable location string, e.g. "Antalya, Konyaalti" */
   location: string
-  /** Number of bedrooms */
+  /**
+   * Turkish "X+Y" room convention (sahibinden.com style).
+   * bedrooms    = X (number of bedrooms — the "Oda" count)
+   * livingRooms = Y (number of salons — the "Salon" count)
+   * Displayed as "{bedrooms}+{livingRooms}", e.g. "3+1"
+   */
   bedrooms: number
+  livingRooms: number
   /** Number of bathrooms */
   bathrooms: number
   /** Area in square meters */
@@ -139,13 +145,20 @@ export default function PropertyForm({ property }: PropertyFormProps) {
   /** Location text — free-form, e.g. "Antalya, Konyaalti" */
   const [location, setLocation] = useState(property?.location || '')
 
-  /** Number of bedrooms — string for input binding */
-  const [bedrooms, setBedrooms] = useState(property?.bedrooms?.toString() || '0')
+  /**
+   * Turkish "X+Y" room convention — Oda ("bedrooms", X) and Salon ("livingRooms", Y).
+   * The preview below the two inputs renders them as "X+Y", e.g. "3+1".
+   * Defaults:
+   *   - bedrooms (Oda)     = '3' (most common Turkish apartment)
+   *   - livingRooms (Salon) = '1' (nearly every unit has a single salon)
+   */
+  const [bedrooms, setBedrooms] = useState(property?.bedrooms?.toString() || '3')
+  const [livingRooms, setLivingRooms] = useState(property?.livingRooms?.toString() || '1')
 
   /** Number of bathrooms — string for input binding */
-  const [bathrooms, setBathrooms] = useState(property?.bathrooms?.toString() || '0')
+  const [bathrooms, setBathrooms] = useState(property?.bathrooms?.toString() || '1')
 
-  /** Area in square meters — string for input binding */
+  /** Brüt area in square meters — string for input binding */
   const [area, setArea] = useState(property?.area?.toString() || '0')
 
   /**
@@ -258,7 +271,9 @@ export default function PropertyForm({ property }: PropertyFormProps) {
         title,
         price,
         location,
+        /* Turkish "X+Y" convention (e.g. "3+1" = 3 bedrooms + 1 salon) */
         bedrooms,
+        livingRooms,
         bathrooms,
         area,
         description,
@@ -430,10 +445,13 @@ export default function PropertyForm({ property }: PropertyFormProps) {
           />
         </div>
 
-        {/* Bedrooms count */}
+        {/* ========================================================
+            Oda Sayısı (bedrooms) — the "X" in the Turkish X+Y format
+            e.g. 3+1 means 3 bedrooms + 1 salon. Sahibinden.com style.
+            ======================================================== */}
         <div className={styles.formGroup}>
           <label htmlFor="bedrooms" className={styles.label}>
-            Yatak Odası
+            Oda Sayısı
           </label>
           <input
             id="bedrooms"
@@ -443,13 +461,46 @@ export default function PropertyForm({ property }: PropertyFormProps) {
             className={styles.input}
             disabled={isLoading}
             min="0"
+            placeholder="Örn: 3"
           />
         </div>
 
-        {/* Bathrooms count */}
+        {/* ========================================================
+            Salon Sayısı (livingRooms) — the "Y" in X+Y.
+            Usually 1 for apartments, 2 for duplexes / büyük daireler.
+            ======================================================== */}
+        <div className={styles.formGroup}>
+          <label htmlFor="livingRooms" className={styles.label}>
+            Salon Sayısı
+          </label>
+          <input
+            id="livingRooms"
+            type="number"
+            value={livingRooms}
+            onChange={(e) => setLivingRooms(e.target.value)}
+            className={styles.input}
+            disabled={isLoading}
+            min="0"
+            placeholder="Örn: 1"
+          />
+        </div>
+
+        {/* ========================================================
+            X+Y preview — read-only label showing how the stat will
+            be rendered on the public site. Updates live as the
+            Oda/Salon inputs change.
+            ======================================================== */}
+        <div className={styles.formGroup}>
+          <label className={styles.label}>Oda + Salon</label>
+          <div className={styles.roomPreview}>
+            {(parseInt(bedrooms) || 0)}+{(parseInt(livingRooms) || 0)}
+          </div>
+        </div>
+
+        {/* Bathrooms count — "Banyo Sayısı" (separate from rooms) */}
         <div className={styles.formGroup}>
           <label htmlFor="bathrooms" className={styles.label}>
-            Banyo
+            Banyo Sayısı
           </label>
           <input
             id="bathrooms"
@@ -459,13 +510,14 @@ export default function PropertyForm({ property }: PropertyFormProps) {
             className={styles.input}
             disabled={isLoading}
             min="0"
+            placeholder="Örn: 2"
           />
         </div>
 
-        {/* Area in square meters */}
+        {/* Area in square meters — "Brüt Alan" (gross area in m²) */}
         <div className={styles.formGroup}>
           <label htmlFor="area" className={styles.label}>
-            Alan (m²)
+            Brüt Alan (m²)
           </label>
           <input
             id="area"
@@ -476,6 +528,7 @@ export default function PropertyForm({ property }: PropertyFormProps) {
             disabled={isLoading}
             min="0"
             step="0.01"
+            placeholder="Örn: 150"
           />
         </div>
       </div>
