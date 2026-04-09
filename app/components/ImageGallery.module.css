@@ -40,11 +40,23 @@
 /*  .viewport                                                          */
 /*  The visible window of the carousel. Overflow is hidden so only    */
 /*  the current slide is visible; Embla handles the translateX.        */
+/*                                                                     */
+/*  Height formula: min(62.5vw, 75vh)                                 */
+/*    - 62.5vw preserves a 16:10 landscape frame (100 / 1.6 = 62.5)   */
+/*      on narrow / medium browsers where the viewport isn't tall.    */
+/*    - 75vh caps the height on WIDE MONITORS so the gallery never    */
+/*      grows taller than ~75 % of the browser window. Without this   */
+/*      cap, a 1920-wide window would force a 1200-tall gallery — too */
+/*      tall for a 1080 screen, which pushed the bottom of portrait   */
+/*      photos below the fold and felt like cropping.                 */
+/*  The smaller of the two values wins, so the gallery is always fully */
+/*  visible on any viewport size without manual scrolling.             */
 /* ------------------------------------------------------------------ */
 .viewport {
-  overflow: hidden;      /* Hide slides that are off-screen       */
-  position: relative;    /* Context for the fill-mode CldImage    */
-  aspect-ratio: 16 / 10; /* Consistent landscape frame            */
+  overflow: hidden;                 /* Hide slides that are off-screen */
+  position: relative;               /* Context for fill-mode CldImage  */
+  width: 100%;                      /* Always span full parent width   */
+  height: min(62.5vw, 75vh);        /* 16:10 but capped at 75 % window */
 }
 
 /* ------------------------------------------------------------------ */
@@ -183,7 +195,8 @@
 /*  aspect ratio as the carousel so the page layout doesn't collapse.  */
 /* ------------------------------------------------------------------ */
 .placeholder {
-  aspect-ratio: 16 / 10;                            /* Match carousel aspect ratio */
+  width: 100%;                                       /* Full parent width           */
+  height: min(62.5vw, 75vh);                         /* Match .viewport height calc */
   background: var(--color-ivory, #F5F0E8);           /* Soft ivory background       */
   display: flex;                                     /* Centre content both axes    */
   align-items: center;
