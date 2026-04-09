@@ -194,10 +194,10 @@ export default async function HomePage() {
               </a>
             </div>
 
-            {/* Scroll indicator at the bottom */}
-            <p className={styles.heroScroll}>
+            {/* Scroll indicator at the bottom -- links to the next section */}
+            <a href="#properties" className={styles.heroScroll}>
               {tHero('scrollDown')}
-            </p>
+            </a>
           </div>
         </section>
 

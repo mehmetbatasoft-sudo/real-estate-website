@@ -126,8 +126,32 @@
   text-transform: uppercase;
   /* White with transparency so it's subtle */
   color: rgba(255, 255, 255, 0.5);
+  /* Remove underline since this is now a link */
+  text-decoration: none;
+  /* Interactive cursor to show it's clickable */
+  cursor: pointer;
   /* Allow interaction */
   pointer-events: auto;
+  /* Gentle up-and-down motion to hint at scrolling */
+  animation: heroScrollBounce 2s ease-in-out infinite;
+  /* Smooth color transition on hover */
+  transition: color 0.3s ease;
+}
+
+/* .heroScroll hover -- becomes fully opaque on hover */
+.heroScroll:hover {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* Gentle bounce keyframes for the scroll indicator */
+@keyframes heroScrollBounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(6px);
+  }
 }
 
 /* .heroButtons -- flex container for CTA buttons */
