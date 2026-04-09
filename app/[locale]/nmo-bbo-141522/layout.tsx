@@ -21,7 +21,13 @@ import { Metadata } from 'next'
 /**
  * Admin panel metadata
  * Title is in Turkish since the admin UI is entirely Turkish
- * This overrides the locale layout's title template for admin pages
+ * This overrides the locale layout's title template for admin pages.
+ *
+ * title.absolute: bypasses the parent locale layout's title template
+ *   ('%s — Özgül\'s Realty'). Without absolute, Next.js would compose the
+ *   plain string with the template and render "Admin Panel — Özgül's Realty
+ *   — Özgül's Realty" (duplicated suffix). absolute sets the tab title
+ *   verbatim and ignores any inherited template.
  *
  * Robots: hard noindex/nofollow. Defense-in-depth alongside the existing
  * robots.txt Disallow rule, covering the case where a stray link accidentally
@@ -29,7 +35,9 @@ import { Metadata } from 'next'
  * also keeps admin-only Cloudinary previews out of Google Images.
  */
 export const metadata: Metadata = {
-  title: 'Admin Panel — Özgül\'s Realty',
+  title: {
+    absolute: 'Admin Panel — Özgül\'s Realty',
+  },
   robots: {
     index: false,
     follow: false,
