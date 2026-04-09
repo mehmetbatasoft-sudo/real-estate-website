@@ -77,10 +77,11 @@
 }
 
 /* .logoImage — the Cloudinary logo image
-   Fills the navbar height while keeping proportional width */
+   Sits inside the 88px navbar with 12px of breathing room above and
+   below so the mark never touches the top / bottom edges. */
 .logoImage {
-  height: 88px;
-  max-height: 100%;
+  height: 64px;
+  max-height: calc(100% - 24px);
   width: auto;
   display: block;
   object-fit: contain;
@@ -450,8 +451,10 @@
     padding: 0 16px;
   }
 
-  /* Slightly smaller logo on mobile for better fit */
+  /* Slightly smaller logo on mobile for better fit — leaves padding
+     around the mark so it never touches the navbar edges. */
   .logoImage {
-    height: 100%;
+    height: 52px;
+    max-height: calc(100% - 20px);
   }
 }
