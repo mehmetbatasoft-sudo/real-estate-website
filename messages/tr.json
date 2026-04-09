@@ -110,6 +110,7 @@
     "notFoundText": "Aradığınız sayfa mevcut değil veya taşınmış olabilir. Lütfen adresi kontrol edin veya ana sayfaya dönün.",
     "backToHome": "Ana Sayfaya Dön",
     "serverError": "Sunucu Hatası",
+    "serverErrorText": "Beklenmeyen bir hata oluştu. Lütfen tekrar deneyin veya ana sayfaya dönün.",
     "tryAgain": "Tekrar Dene"
   },
   "admin": {

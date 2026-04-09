@@ -22,9 +22,24 @@ import { Metadata } from 'next'
  * Admin panel metadata
  * Title is in Turkish since the admin UI is entirely Turkish
  * This overrides the locale layout's title template for admin pages
+ *
+ * Robots: hard noindex/nofollow. Defense-in-depth alongside the existing
+ * robots.txt Disallow rule, covering the case where a stray link accidentally
+ * exposes an admin URL to a crawler that ignores robots.txt. googleBot.noimageindex
+ * also keeps admin-only Cloudinary previews out of Google Images.
  */
 export const metadata: Metadata = {
   title: 'Admin Panel — Özgül\'s Realty',
+  robots: {
+    index: false,
+    follow: false,
+    nocache: true,
+    googleBot: {
+      index: false,
+      follow: false,
+      noimageindex: true,
+    },
+  },
 }
 
 /**

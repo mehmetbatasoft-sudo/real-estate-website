@@ -68,6 +68,25 @@ interface SearchParams {
 }
 
 /**
+ * generateMetadata -- SEO title + description for the properties listing page.
+ *
+ * Mirrors the pattern established by app/[locale]/about/page.tsx so every
+ * public page has a localized browser-tab title and Open Graph description.
+ *
+ * The title ("Properties") is composed with the locale layout's
+ * "%s — Özgül's Realty" template, producing e.g. "Properties — Özgül's Realty".
+ * The description is pulled from the same "properties.subtitle" string that
+ * already appears on the page body, keeping SEO copy in sync with the UI.
+ */
+export async function generateMetadata() {
+  const t = await getTranslations('properties')
+  return {
+    title: t('title'),
+    description: t('subtitle'),
+  }
+}
+
+/**
  * PropertiesPage -- main property listing server component
  *
  * Reads URL searchParams, queries the database with dynamic filters,
