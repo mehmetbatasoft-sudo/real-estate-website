@@ -26,8 +26,9 @@
  * These are used throughout all CSS Module files
  */
 @theme inline {
-  /* Font family — Cormorant Garamond for all headings and body text */
+  /* Font families — Cormorant Garamond for headings, Inter for body/UI */
   --font-cormorant: 'Cormorant Garamond', serif;
+  --font-inter: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 
   /* Color palette — luxury, minimal, editorial aesthetic */
   --color-espresso: #2C1A0E;  /* Primary dark — backgrounds, headings, nav */
@@ -45,6 +46,17 @@
 body {
   overflow-x: hidden;
   max-width: 100vw;
+  /* Inter is the default body font for all UI and paragraph text */
+  font-family: var(--font-inter);
+  /* Comfortable line height for body readability */
+  line-height: 1.6;
+  /* Subtle font rendering improvements */
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Headings use Cormorant Garamond for classic luxury elegance */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-cormorant);
 }
 
 /**

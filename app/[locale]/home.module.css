@@ -66,11 +66,14 @@
 
 /* .heroTagline -- small uppercase label above the main heading */
 .heroTagline {
+  /* Modern sans-serif for labels */
+  font-family: var(--font-inter);
+  font-weight: 400;
   /* Spaced-out uppercase for sophistication */
   letter-spacing: 3px;
   text-transform: uppercase;
   /* Small, understated size */
-  font-size: 0.85rem;
+  font-size: 0.75rem;
   /* White with slight transparency */
   color: rgba(255, 255, 255, 0.8);
   /* Space below before the main title */
@@ -120,8 +123,11 @@
 .heroScroll {
   /* Position at the bottom of the hero area */
   margin-top: 48px;
+  /* Modern sans-serif for labels */
+  font-family: var(--font-inter);
+  font-weight: 400;
   /* Small uppercase style */
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   letter-spacing: 2px;
   text-transform: uppercase;
   /* White with transparency so it's subtle */
@@ -162,8 +168,11 @@
   text-align: center;
   /* Generous top margin to separate from content above */
   margin-top: 64px;
+  /* Modern sans-serif for labels */
+  font-family: var(--font-inter);
+  font-weight: 400;
   /* Small uppercase style matching the hero indicator */
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   letter-spacing: 2px;
   text-transform: uppercase;
   /* Warm brown with transparency -- readable on light backgrounds */
@@ -196,12 +205,13 @@
 .heroCta {
   /* Comfortable click target padding */
   padding: 14px 32px;
-  /* Luxury serif font for buttons */
-  font-family: var(--font-cormorant);
+  /* Modern sans-serif for UI buttons */
+  font-family: var(--font-inter);
   /* Readable button text size */
-  font-size: 1rem;
+  font-size: 0.9rem;
+  font-weight: 500;
   /* Spaced-out uppercase for sophistication */
-  letter-spacing: 1px;
+  letter-spacing: 1.5px;
   text-transform: uppercase;
   /* Interactive cursor */
   cursor: pointer;
@@ -386,8 +396,6 @@
 
 /* .viewAllLink -- link to the full properties listing below the grid */
 .viewAllLink {
-  /* Full-width block for centered alignment */
-  display: block;
   /* Center the text */
   text-align: center;
   /* Gold accent color */
@@ -395,17 +403,20 @@
   /* Space above to separate from the grid */
   margin-top: 32px;
   /* Elegant letter spacing */
-  letter-spacing: 0.5px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
   /* Remove default underline */
   text-decoration: none;
   /* Subtle bottom border as a design accent */
   border-bottom: 1px solid var(--color-gold);
   /* Inline-block so the border hugs the text width */
   display: inline-block;
-  /* Luxury serif font */
-  font-family: var(--font-cormorant);
-  /* Slightly larger than body */
-  font-size: 1.1rem;
+  /* Modern sans-serif for UI links */
+  font-family: var(--font-inter);
+  font-size: 0.9rem;
+  font-weight: 500;
+  /* Small padding so the border doesn't hug the text too tightly */
+  padding-bottom: 2px;
 }
 
 /* .viewAllWrapper -- centers the viewAllLink horizontally */
@@ -503,13 +514,14 @@
   /* Gold accent for CTA links */
   color: var(--color-gold);
   /* Elegant letter spacing */
-  letter-spacing: 0.5px;
+  letter-spacing: 1.5px;
   /* Clean, no underline by default */
   text-decoration: none;
-  /* Serif font for consistency */
-  font-family: var(--font-cormorant);
-  /* Slightly larger for clickability */
-  font-size: 1.1rem;
+  /* Modern sans-serif for UI links */
+  font-family: var(--font-inter);
+  /* Refined button text size */
+  font-size: 0.9rem;
+  font-weight: 500;
   /* Uppercase for CTA styling */
   text-transform: uppercase;
   /* Subtle bottom border accent */

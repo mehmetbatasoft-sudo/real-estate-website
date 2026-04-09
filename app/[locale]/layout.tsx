@@ -13,7 +13,7 @@
  * Note: The Navbar component self-hides on admin routes.
  */
 
-import { Cormorant_Garamond } from 'next/font/google'
+import { Cormorant_Garamond, Inter } from 'next/font/google'
 import { notFound } from 'next/navigation'
 import { NextIntlClientProvider, hasLocale } from 'next-intl'
 import { getMessages } from 'next-intl/server'
@@ -29,6 +29,18 @@ const cormorant = Cormorant_Garamond({
   weight: ['300', '400', '500', '600', '700'],
   style: ['normal', 'italic'],
   variable: '--font-cormorant',
+  display: 'swap',
+})
+
+/**
+ * Load Inter — modern, highly readable sans-serif for body text and UI
+ * Used for navigation, buttons, forms, and paragraph copy
+ * Pairs with Cormorant Garamond (headings) for a classic luxury look
+ */
+const inter = Inter({
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '600'],
+  variable: '--font-inter',
   display: 'swap',
 })
 
@@ -75,7 +87,7 @@ export default async function LocaleLayout({
     <html
       lang={locale}
       dir={isRTL ? 'rtl' : 'ltr'}
-      className={cormorant.variable}
+      className={`${cormorant.variable} ${inter.variable}`}
     >
       {/* Body with overflow-x hidden to prevent horizontal scroll */}
       <body style={{ overflowX: 'hidden', maxWidth: '100vw' }}>
