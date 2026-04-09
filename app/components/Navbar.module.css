@@ -59,7 +59,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 140px;
+  height: 88px;
 }
 
 /* ============================================================
@@ -71,11 +71,17 @@
   display: flex;
   align-items: center;
   text-decoration: none;
+  /* Allow the logo image to overflow the navbar bounds
+     since its transparent padding extends beyond the visible mark */
+  overflow: visible;
 }
 
-/* .logoImage — the Cloudinary logo image */
+/* .logoImage — the Cloudinary logo image
+   Height is intentionally larger than the navbar so the visible
+   (black) mark appears correctly sized while transparent padding
+   overflows above/below the navbar. */
 .logoImage {
-  height: 140px;
+  height: 180px;
   width: auto;
   display: block;
   object-fit: contain;
@@ -170,7 +176,7 @@
   display: flex;
   flex-direction: column;
   min-width: 100px;
-  margin-top: 54px;
+  margin-top: 28px;
   z-index: 1001;
   animation: dropdownFade 0.2s ease;
 }
@@ -447,6 +453,6 @@
 
   /* Slightly smaller logo on mobile for better fit */
   .logoImage {
-    height: 80px;
+    height: 110px;
   }
 }
