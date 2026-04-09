@@ -1,11 +1,11 @@
 /**
  * app/lib/cloudinary.ts — Cloudinary v2 configuration singleton for Özgül's Realty
  *
- * Configures the Cloudinary SDK for server-side image uploads.
- * Used by the upload API route (app/api/upload/route.ts) to:
- * - Upload property images to the 'properties/' folder
- * - Upload agent profile photos
- * - Delete orphaned images when properties are removed
+ * Configures the Cloudinary SDK for server-side operations:
+ * - Generating signed upload envelopes in app/api/upload/sign/route.ts
+ *   (the admin panel then POSTs files DIRECTLY to Cloudinary from the
+ *   browser, bypassing Vercel's 4.5MB request-body ceiling)
+ * - Deleting orphaned images when properties are removed
  *
  * Client-side image display uses next-cloudinary's CldImage component
  * with NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME (no API key needed on client).
