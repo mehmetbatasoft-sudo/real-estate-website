@@ -59,7 +59,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 88px;
+  height: 140px;
 }
 
 /* ============================================================
@@ -75,7 +75,7 @@
 
 /* .logoImage — the Cloudinary logo image */
 .logoImage {
-  height: 56px;
+  height: 140px;
   width: auto;
   display: block;
   object-fit: contain;
@@ -170,7 +170,7 @@
   display: flex;
   flex-direction: column;
   min-width: 100px;
-  margin-top: 28px;
+  margin-top: 54px;
   z-index: 1001;
   animation: dropdownFade 0.2s ease;
 }
@@ -447,6 +447,6 @@
 
   /* Slightly smaller logo on mobile for better fit */
   .logoImage {
-    height: 40px;
+    height: 80px;
   }
 }
