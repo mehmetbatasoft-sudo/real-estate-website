@@ -1,0 +1,154 @@
+/**
+ * PropertySlider.module.css — Styles for the horizontal property carousel
+ *
+ * Provides:
+ * - A horizontally-scrolling flex container with CSS scroll-snap
+ * - Fixed sizing for direct children so 3 cards fit on desktop,
+ *   2 on tablet, 1 on mobile
+ * - Hidden native scrollbars for a cleaner luxury look
+ * - Circular prev/next navigation buttons positioned on the sides
+ * - Disabled state styling for buttons when at start/end
+ */
+
+/* ============================================================
+   .sliderWrapper — positioning context for prev/next buttons
+   Relative positioning anchors the absolute-positioned buttons
+   ============================================================ */
+.sliderWrapper {
+  position: relative;
+  width: 100%;
+}
+
+/* ============================================================
+   .scrollContainer — the horizontal scroll area holding the cards
+   - Flex row with a gap between cards
+   - overflow-x: auto enables scrolling
+   - scroll-snap-type: x mandatory makes snapping precise
+   - Hide scrollbar for a cleaner luxury appearance
+   ============================================================ */
+.scrollContainer {
+  display: flex;
+  gap: 24px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  /* Add small horizontal padding so cards don't touch the nav buttons */
+  padding: 4px 4px 16px 4px;
+  /* Hide scrollbars across browsers */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge legacy */
+}
+
+/* Hide webkit scrollbar (Chrome/Safari/Edge) */
+.scrollContainer::-webkit-scrollbar {
+  display: none;
+}
+
+/* ============================================================
+   Direct children sizing — 3 per row on desktop
+   Using calc to account for the 24px gap between cards.
+   flex-shrink: 0 keeps each card at its fixed width.
+   ============================================================ */
+.scrollContainer > * {
+  flex: 0 0 calc((100% - 48px) / 3);
+  scroll-snap-align: start;
+  min-width: 0;
+}
+
+/* ============================================================
+   .navButton — base style for both previous and next buttons
+   Circular, semi-transparent background, centered on the slider.
+   Uses position: absolute relative to .sliderWrapper.
+   ============================================================ */
+.navButton {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  /* Circular button geometry */
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  /* Cream background with gold border to match the luxury palette */
+  background: var(--color-cream);
+  border: 1px solid rgba(201, 169, 110, 0.4);
+  /* Centered arrow text */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-espresso);
+  font-size: 1.4rem;
+  font-family: var(--font-inter);
+  cursor: pointer;
+  z-index: 10;
+  /* Smooth transitions on hover/disabled */
+  transition: all 0.3s ease;
+  /* Subtle shadow for depth */
+  box-shadow: 0 2px 8px rgba(44, 26, 14, 0.1);
+}
+
+/* Hover: gold fill with espresso arrow */
+.navButton:hover:not(:disabled) {
+  background: var(--color-gold);
+  color: var(--color-espresso);
+  border-color: var(--color-gold);
+}
+
+/* Disabled: faded opacity and no cursor */
+.navButton:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* Previous button — sits on the left edge */
+.prevButton {
+  left: -24px;
+}
+
+/* Next button — sits on the right edge */
+.nextButton {
+  right: -24px;
+}
+
+/* ============================================================
+   Responsive: tablet (max-width: 768px)
+   Show 2 cards at a time, nav buttons move inward slightly.
+   ============================================================ */
+@media (max-width: 768px) {
+  .scrollContainer > * {
+    flex: 0 0 calc((100% - 24px) / 2);
+  }
+
+  .prevButton {
+    left: -16px;
+  }
+
+  .nextButton {
+    right: -16px;
+  }
+}
+
+/* ============================================================
+   Responsive: mobile (max-width: 480px)
+   Show 1 card at a time, smaller buttons, less aggressive offset.
+   ============================================================ */
+@media (max-width: 480px) {
+  .scrollContainer > * {
+    flex: 0 0 100%;
+  }
+
+  .navButton {
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+  }
+
+  .prevButton {
+    left: -8px;
+  }
+
+  .nextButton {
+    right: -8px;
+  }
+}

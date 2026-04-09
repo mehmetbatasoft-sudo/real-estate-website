@@ -61,6 +61,7 @@ import FadeIn from '@/app/components/FadeIn'
 import HeroImage from '@/app/components/HeroImage'
 import PropertyImage from '@/app/components/PropertyImage'
 import ContactForm from '@/app/components/ContactForm'
+import PropertySlider from '@/app/components/PropertySlider'
 
 /* -- CSS Module -- */
 import styles from './home.module.css'
@@ -95,13 +96,14 @@ export default async function HomePage() {
   const tContact = await getTranslations('contact')
 
   /**
-   * Fetch the 3 most recent featured properties from the database.
+   * Fetch up to 20 featured properties for the homepage slider.
    * The `featured` flag is toggled in the admin panel.
-   * `take: 3` limits results to exactly 3 cards for the homepage grid.
+   * `take: 20` acts as a safety cap; realistically the slider shows all
+   * featured listings and the user pages through them with prev/next buttons.
    */
   const featuredProperties = await prisma.property.findMany({
     where: { featured: true },
-    take: 3,
+    take: 20,
   })
 
   /**
@@ -219,8 +221,10 @@ export default async function HomePage() {
               {tProperties('subtitle')}
             </p>
 
-            {/* Property cards grid -- 3 columns desktop, 2 tablet, 1 mobile */}
-            <div className={styles.propertiesGrid}>
+            {/* Property slider -- horizontal carousel with prev/next buttons
+                Client component that snap-scrolls through all featured listings,
+                showing 3 at once on desktop, 2 on tablet and 1 on mobile. */}
+            <PropertySlider>
               {featuredProperties.map((property: Property, index: number) => (
                 /**
                  * FadeIn wraps each card with a staggered entrance animation.
@@ -271,7 +275,7 @@ export default async function HomePage() {
                   </Link>
                 </FadeIn>
               ))}
-            </div>
+            </PropertySlider>
 
             {/* Link to view the full property listing page */}
             <div className={styles.viewAllWrapper}>
