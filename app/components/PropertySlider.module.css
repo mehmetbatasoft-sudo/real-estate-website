@@ -13,13 +13,15 @@
 /* ============================================================
    .sliderWrapper — positioning context for prev/next buttons
    Relative positioning anchors the absolute-positioned buttons.
-   Horizontal padding reserves space so the buttons sit outside
-   the card area and do not overlap the first/last cards.
+   Horizontal padding reserves space so the arrow glyphs sit
+   outside the card area and do not overlap the first/last cards.
+   Reduced from 72px since the buttons are now minimalist arrows
+   (no circular background) and need less reserved space.
    ============================================================ */
 .sliderWrapper {
   position: relative;
   width: 100%;
-  padding: 0 72px;
+  padding: 0 48px;
 }
 
 /* ============================================================
@@ -61,7 +63,9 @@
 
 /* ============================================================
    .navButton — base style for both previous and next buttons
-   Circular, semi-transparent background, centered on the slider.
+   Minimalist arrow-only design: no background, border, shadow
+   or border-radius. Just the arrow glyph itself, colored with
+   the espresso brown and shifting to gold on hover.
    Uses position: absolute relative to .sliderWrapper.
    ============================================================ */
 .navButton {
@@ -72,91 +76,64 @@
      card height lands at the image midpoint. */
   top: 31%;
   transform: translateY(-50%);
-  /* Circular button geometry */
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  /* Cream background with gold border to match the luxury palette */
-  background: var(--color-cream);
-  border: 1px solid rgba(201, 169, 110, 0.4);
-  /* Centered arrow text */
+  /* Compact click target sized around the arrow glyph */
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  /* No circle: transparent background, no border, no shadow, no radius */
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  /* Center the arrow character inside the click target */
   display: flex;
   align-items: center;
   justify-content: center;
+  line-height: 1;
+  /* Arrow styling — espresso brown, large serif-free glyph */
   color: var(--color-espresso);
-  font-size: 1.4rem;
+  font-size: 1.75rem;
   font-family: var(--font-inter);
   cursor: pointer;
   z-index: 10;
-  /* Smooth transitions on hover/disabled */
-  transition: all 0.3s ease;
-  /* Subtle shadow for depth */
-  box-shadow: 0 2px 8px rgba(44, 26, 14, 0.1);
+  /* Smooth color/opacity transitions on hover/disabled */
+  transition: color 0.3s ease, opacity 0.3s ease;
 }
 
-/* Hover: gold fill with espresso arrow */
+/* Hover: arrow turns gold for feedback */
 .navButton:hover:not(:disabled) {
-  background: var(--color-gold);
-  color: var(--color-espresso);
-  border-color: var(--color-gold);
+  color: var(--color-gold);
 }
 
 /* Disabled: faded opacity and no cursor */
 .navButton:disabled {
-  opacity: 0.3;
+  opacity: 0.25;
   cursor: not-allowed;
-  box-shadow: none;
 }
 
-/* Previous button — sits in the left padding area, outside the cards */
+/* Previous button — sits in the left padding area, outside the cards.
+   Symmetric offset with .nextButton to guarantee even margins. */
 .prevButton {
-  left: 12px;
+  left: 8px;
 }
 
-/* Next button — sits in the right padding area, outside the cards */
+/* Next button — sits in the right padding area, outside the cards.
+   Symmetric offset with .prevButton to guarantee even margins. */
 .nextButton {
-  right: 12px;
+  right: 8px;
 }
 
 /* ============================================================
    Responsive: tablet (max-width: 768px)
-   Show 2 cards at a time, nav buttons move inward slightly.
+   Show 2 cards at a time, arrows sit symmetrically in the padding.
    ============================================================ */
 @media (max-width: 768px) {
   .sliderWrapper {
-    padding: 0 56px;
+    padding: 0 40px;
   }
 
   .scrollContainer > * {
     flex: 0 0 calc((100% - 24px) / 2);
-  }
-
-  .prevButton {
-    left: 8px;
-  }
-
-  .nextButton {
-    right: 8px;
-  }
-}
-
-/* ============================================================
-   Responsive: mobile (max-width: 480px)
-   Show 1 card at a time, smaller buttons, less aggressive offset.
-   ============================================================ */
-@media (max-width: 480px) {
-  .sliderWrapper {
-    padding: 0 44px;
-  }
-
-  .scrollContainer > * {
-    flex: 0 0 100%;
-  }
-
-  .navButton {
-    width: 40px;
-    height: 40px;
-    font-size: 1.2rem;
   }
 
   .prevButton {
@@ -165,5 +142,33 @@
 
   .nextButton {
     right: 4px;
+  }
+}
+
+/* ============================================================
+   Responsive: mobile (max-width: 480px)
+   Show 1 card at a time, slightly smaller arrow glyph.
+   ============================================================ */
+@media (max-width: 480px) {
+  .sliderWrapper {
+    padding: 0 32px;
+  }
+
+  .scrollContainer > * {
+    flex: 0 0 100%;
+  }
+
+  .navButton {
+    width: 28px;
+    height: 28px;
+    font-size: 1.5rem;
+  }
+
+  .prevButton {
+    left: 2px;
+  }
+
+  .nextButton {
+    right: 2px;
   }
 }
