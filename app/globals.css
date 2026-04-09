@@ -49,14 +49,24 @@ body {
   /* Inter is the default body font for all UI and paragraph text */
   font-family: var(--font-inter);
   /* Comfortable line height for body readability */
-  line-height: 1.6;
+  line-height: 1.7;
+  /* Slight letter-spacing improves body readability */
+  letter-spacing: 0.015em;
   /* Subtle font rendering improvements */
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /* Headings use Cormorant Garamond for classic luxury elegance */
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-cormorant);
+  /* Gentle letter-spacing for serif headings */
+  letter-spacing: 0.01em;
+}
+
+/* Paragraph text — slightly wider spacing for comfortable reading */
+p {
+  letter-spacing: 0.02em;
 }
 
 /**
