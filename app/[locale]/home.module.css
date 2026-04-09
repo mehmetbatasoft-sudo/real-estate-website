@@ -154,6 +154,35 @@
   }
 }
 
+/* .sectionScroll -- scroll indicator used in Properties/Agent sections
+   Works on light backgrounds (ivory/cream) so it uses dark warm color */
+.sectionScroll {
+  /* Display as a centered block beneath section content */
+  display: block;
+  text-align: center;
+  /* Generous top margin to separate from content above */
+  margin-top: 64px;
+  /* Small uppercase style matching the hero indicator */
+  font-size: 0.75rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  /* Warm brown with transparency -- readable on light backgrounds */
+  color: rgba(44, 26, 14, 0.5);
+  /* No underline on the link */
+  text-decoration: none;
+  /* Interactive cursor */
+  cursor: pointer;
+  /* Gentle bounce animation to hint at scrolling */
+  animation: heroScrollBounce 2s ease-in-out infinite;
+  /* Smooth color transition on hover */
+  transition: color 0.3s ease;
+}
+
+/* .sectionScroll hover -- darker on hover for clear interactivity */
+.sectionScroll:hover {
+  color: rgba(44, 26, 14, 0.9);
+}
+
 /* .heroButtons -- flex container for CTA buttons */
 .heroButtons {
   /* Horizontal layout with gap between buttons */

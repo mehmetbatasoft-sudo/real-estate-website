@@ -279,6 +279,11 @@ export default async function HomePage() {
                 {tProperties('viewAll')} &rarr;
               </Link>
             </div>
+
+            {/* Scroll indicator -- links down to the agent/about section */}
+            <a href="#about" className={styles.sectionScroll}>
+              {tHero('scrollDown')}
+            </a>
           </section>
         </AnimatedSection>
 
@@ -292,7 +297,7 @@ export default async function HomePage() {
             ============================================================ */}
         {agent && (
           <AnimatedSection>
-            <section className={styles.agentSection}>
+            <section id="about" className={styles.agentSection}>
               <div className={styles.agentGrid}>
                 {/* Agent portrait photo */}
                 <div className={styles.agentImageWrapper}>
@@ -328,6 +333,11 @@ export default async function HomePage() {
                   </Link>
                 </div>
               </div>
+
+              {/* Scroll indicator -- links down to the contact section */}
+              <a href="#contact" className={styles.sectionScroll}>
+                {tHero('scrollDown')}
+              </a>
             </section>
           </AnimatedSection>
         )}
