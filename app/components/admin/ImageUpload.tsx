@@ -29,6 +29,18 @@
  * 5. publicId is appended to the images array (or replaces it in single mode)
  * 6. Parent component receives the updated array via onImagesChange callback
  *
+ * Supported formats (mirrors app/api/upload/route.ts):
+ *   JPG / JPEG / PNG / WebP / GIF / HEIC / HEIF
+ *   HEIC is included because iPhones shoot in it by default — Cloudinary
+ *   auto-transcodes on ingest so public pages get JPG.
+ *
+ * Error handling:
+ *   - Server returns Turkish JSON errors, shown verbatim
+ *   - Non-JSON responses fall back to a generic Turkish message that
+ *     still exposes the HTTP status for debuggability
+ *   - Network failures log the real exception via console.error so the
+ *     admin (or a developer) can diagnose the cause from devtools
+ *
  * Single-image mode (multiple=false):
  * - Only the first selected/dropped file is uploaded
  * - Uploading a new image replaces any existing image
@@ -191,6 +203,28 @@ export default function ImageUpload({
   /* ================================================================ */
 
   /**
+   * Safely parse a fetch Response as JSON.
+   *
+   * Route Handlers are supposed to always return JSON, but a broken dev
+   * server, a proxy error page, or a dropped connection can leave us
+   * holding an HTML / empty body. `response.json()` throws on those,
+   * which used to bubble up to the outer catch and show the user a
+   * useless "Yükleme sırasında bir hata oluştu" with no hint of the
+   * real cause. Falling back to `text()` + manual parse lets us return
+   * a typed null on failure so callers can decide how to handle it.
+   */
+  async function safeJson(response: Response): Promise<Record<string, unknown> | null> {
+    try {
+      const text = await response.text()
+      if (!text) return null
+      return JSON.parse(text) as Record<string, unknown>
+    } catch (err) {
+      console.error('Upload: failed to parse response JSON', err)
+      return null
+    }
+  }
+
+  /**
    * Upload files to the server via /api/upload.
    *
    * For each file:
@@ -201,6 +235,18 @@ export default function ImageUpload({
    *
    * In single-image mode (multiple=false), only the first file is
    * uploaded and it replaces any existing image.
+   *
+   * Error handling strategy:
+   *   - The server always returns JSON with an `error` field on failure,
+   *     so we surface `data.error` directly (already translated to Turkish
+   *     by the API route).
+   *   - If the response body is NOT valid JSON (network glitch, dev server
+   *     crash, proxy error page), we fall back to a generic Turkish message
+   *     that mentions the HTTP status so the admin has something concrete
+   *     to report.
+   *   - Network exceptions (offline, DNS failure, aborted fetch) are caught
+   *     and logged to the browser console, and we show a friendly Turkish
+   *     message prompting the user to retry.
    *
    * @param files — array of File objects to upload
    */
@@ -233,19 +279,42 @@ export default function ImageUpload({
           body: formData,
         })
 
+        /* Parse the response body once — safeJson never throws */
+        const data = await safeJson(response)
+
         /* Check for API errors (invalid type, too large, auth failure, etc.) */
         if (!response.ok) {
-          const data = await response.json()
-          setError(data.error || 'Yükleme başarısız oldu')
+          /* Prefer the translated error from the API; fall back to a
+             generic Turkish message that still mentions the HTTP status
+             so unexpected failures are traceable. */
+          const apiError =
+            data && typeof data.error === 'string' ? data.error : null
+          setError(
+            apiError ||
+              `Yükleme başarısız oldu (HTTP ${response.status}). Lütfen tekrar deneyin.`
+          )
           continue /* Skip this file but continue with others */
         }
 
         /* Extract the Cloudinary public ID from the successful response */
-        const data = await response.json()
-        newImageIds.push(data.publicId)
-      } catch {
-        /* Network error or unexpected failure */
-        setError('Yükleme sırasında bir hata oluştu')
+        if (data && typeof data.publicId === 'string') {
+          newImageIds.push(data.publicId)
+        } else {
+          /* Success status but no publicId — treat as a soft failure
+             so the admin knows something went wrong. */
+          console.error('Upload: success response missing publicId', data)
+          setError('Sunucudan beklenmeyen bir yanıt geldi. Lütfen tekrar deneyin.')
+        }
+      } catch (err) {
+        /**
+         * Network error or unexpected failure. Log the real exception
+         * so we can diagnose the cause from the browser devtools —
+         * previously this block swallowed the error and left us blind.
+         */
+        console.error('Upload: fetch failed', err, 'file:', file.name, file.type, file.size)
+        setError(
+          `Yükleme sırasında bir hata oluştu: ${file.name}. İnternet bağlantınızı kontrol edip tekrar deneyin.`
+        )
       } finally {
         /* Decrement the uploading counter as each file completes */
         setUploading((prev) => Math.max(0, prev - 1))
@@ -326,11 +395,16 @@ export default function ImageUpload({
         )}
       </div>
 
-      {/* Hidden file input — visually hidden, triggered by dropzone click */}
+      {/* Hidden file input — visually hidden, triggered by dropzone click.
+          The accept list mirrors the server-side whitelist in
+          app/api/upload/route.ts (JPG, PNG, WebP, GIF, HEIC/HEIF) so the
+          file browser shows iPhone HEIC photos in addition to the classic
+          formats. Drag-and-drop bypasses `accept`, so the server still
+          does its own validation regardless. */}
       <input
         ref={fileInputRef}
         type="file"
-        accept="image/jpeg,image/png,image/webp,image/gif"
+        accept="image/jpeg,image/png,image/webp,image/gif,image/heic,image/heif,.heic,.heif"
         multiple={multiple}
         onChange={handleFileChange}
         style={{ display: 'none' }}
