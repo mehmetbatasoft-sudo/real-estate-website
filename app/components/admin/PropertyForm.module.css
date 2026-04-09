@@ -36,6 +36,15 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
+  /* Constrain the form so it does not stretch edge-to-edge of the
+     browser on wide screens. 960px keeps two grid columns readable
+     without feeling cramped, matching the refined admin aesthetic.
+     margin: 0 auto centers the form inside .adminWrapper.
+     Padding gives breathing room on either side of the fields so
+     they never touch the browser edge on smaller desktops. */
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 32px 24px;
 }
 
 /* ================================================================ */
@@ -333,6 +342,12 @@
  *   as they are compact enough to fit on mobile screens
  */
 @media (max-width: 768px) {
+  /* Tighter outer padding on mobile so fields use more of the
+     available width without hugging the screen edges */
+  .form {
+    padding: 20px 16px;
+  }
+
   /* Grid collapses to single column on narrow screens */
   .formGrid {
     grid-template-columns: 1fr;
