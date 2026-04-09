@@ -262,9 +262,13 @@ export default async function HomePage() {
                         {property.location}
                       </p>
 
-                      {/* Price -- always displayed in Euros with locale formatting */}
+                      {/* Price -- single value OR range ("€X – €Y") when priceMax is set.
+                          Ranged listings represent project launches where different
+                          flats within the same complex have different prices. */}
                       <p className={styles.propertyPrice}>
-                        &euro;{property.price.toLocaleString()}
+                        {property.priceMax != null && property.priceMax > property.price
+                          ? <>&euro;{property.price.toLocaleString()} &ndash; &euro;{property.priceMax.toLocaleString()}</>
+                          : <>&euro;{property.price.toLocaleString()}</>}
                       </p>
 
                       {/* View Details link text */}

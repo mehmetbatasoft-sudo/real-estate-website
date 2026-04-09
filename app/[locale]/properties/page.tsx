@@ -157,20 +157,48 @@ export default async function PropertiesPage({
   }
 
   /**
-   * Price range filter -- uses Prisma's `gte` and `lte` operators.
-   * Only applied when the corresponding param is a valid number.
+   * Price range filter -- OVERLAP semantics.
+   *
+   * Each listing has a range [price, priceMax ?? price]. The filter
+   * shows every listing whose range INTERSECTS the user's range
+   * [minPrice, maxPrice]. Two ranges overlap when:
+   *
+   *     listingMin <= userMax  AND  listingMax >= userMin
+   *
+   * This means a ranged listing for €500K–€1.5M still shows up when
+   * the user filters for "under €1M" or "over €700K", matching what
+   * sahibinden.com / hepsiemlak.com do for project launches.
+   *
+   * Translation to Prisma:
+   *   listingMin <= userMax   =>   price: { lte: maxPrice }
+   *   listingMax >= userMin   =>   EITHER priceMax >= userMin
+   *                                OR     priceMax IS NULL AND price >= userMin
+   *
+   * Built as an AND array so it composes cleanly with the separate
+   * `whereClause.OR` used by the search filter below.
    */
-  if (minPrice || maxPrice) {
-    const priceFilter: Record<string, number> = {}
-    /* Minimum price (inclusive) */
-    if (minPrice && !isNaN(Number(minPrice))) {
-      priceFilter.gte = Number(minPrice)
-    }
-    /* Maximum price (inclusive) */
-    if (maxPrice && !isNaN(Number(maxPrice))) {
-      priceFilter.lte = Number(maxPrice)
-    }
-    whereClause.price = priceFilter
+  const priceConditions: Record<string, unknown>[] = []
+
+  if (maxPrice && !isNaN(Number(maxPrice))) {
+    /* listing's lower bound must not exceed user's upper bound */
+    priceConditions.push({ price: { lte: Number(maxPrice) } })
+  }
+
+  if (minPrice && !isNaN(Number(minPrice))) {
+    /* listing's upper bound (priceMax ?? price) must be at least user's lower bound */
+    const userMin = Number(minPrice)
+    priceConditions.push({
+      OR: [
+        /* Ranged listings: their explicit upper bound clears the user's floor */
+        { priceMax: { gte: userMin } },
+        /* Single-price listings: fall back to the lower bound itself */
+        { AND: [{ priceMax: null }, { price: { gte: userMin } }] },
+      ],
+    })
+  }
+
+  if (priceConditions.length > 0) {
+    whereClause.AND = priceConditions
   }
 
   /**
@@ -296,15 +324,20 @@ export default async function PropertiesPage({
                         {property.location}
                       </p>
 
-                      {/* Price in Euros */}
+                      {/* Price — single value or range (€X – €Y) when priceMax is set.
+                          Price ranges are used for project launches where different
+                          units in the same complex have different prices. */}
                       <p className={styles.cardPrice}>
-                        &euro;{property.price.toLocaleString()}
+                        {property.priceMax != null && property.priceMax > property.price
+                          ? <>&euro;{property.price.toLocaleString()} &ndash; &euro;{property.priceMax.toLocaleString()}</>
+                          : <>&euro;{property.price.toLocaleString()}</>}
                       </p>
 
                       {/* Property meta — Turkish "X+Y" room convention:
                           - {bedrooms}+{livingRooms} renders as "3+1"
                           - {bathrooms} banyo (bathroom count)
-                          - {area} m² (gross area in square meters)
+                          - Area renders as a single value or a range ("120 – 180 m²")
+                            when areaMax is set — used for complexes with mixed unit sizes.
                           sahibinden.com / hepsiemlak.com style. */}
                       <div className={styles.cardMeta}>
                         <span>
@@ -314,7 +347,9 @@ export default async function PropertiesPage({
                           {property.bathrooms} {t('bathrooms')}
                         </span>
                         <span>
-                          {property.area} {t('sqm')}
+                          {property.areaMax != null && property.areaMax > property.area
+                            ? <>{property.area} &ndash; {property.areaMax} {t('sqm')}</>
+                            : <>{property.area} {t('sqm')}</>}
                         </span>
                       </div>
 

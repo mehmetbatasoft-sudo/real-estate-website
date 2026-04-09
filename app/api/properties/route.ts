@@ -66,6 +66,23 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Invalid location' }, { status: 400 })
     }
 
+    /* Parse optional range fields.
+       priceMax and areaMax are only stored when the admin enters a number
+       AND that number is strictly greater than the lower bound. Anything
+       else (empty string, NaN, not-greater) collapses to a single value
+       so we never end up with a "range" of 1,000,000 – 1,000,000. */
+    const parsedPrice = parseFloat(body.price)
+    const rawPriceMax = body.priceMax !== undefined && body.priceMax !== '' && body.priceMax !== null
+      ? parseFloat(body.priceMax)
+      : NaN
+    const priceMax = !isNaN(rawPriceMax) && rawPriceMax > parsedPrice ? rawPriceMax : null
+
+    const parsedArea = parseFloat(body.area) || 0
+    const rawAreaMax = body.areaMax !== undefined && body.areaMax !== '' && body.areaMax !== null
+      ? parseFloat(body.areaMax)
+      : NaN
+    const areaMax = !isNaN(rawAreaMax) && rawAreaMax > parsedArea ? rawAreaMax : null
+
     /* Create the property in the database */
     const property = await prisma.property.create({
       data: {
@@ -74,7 +91,8 @@ export async function POST(request: NextRequest) {
         descriptionTr: body.descriptionTr || null,
         descriptionRu: body.descriptionRu || null,
         descriptionAr: body.descriptionAr || null,
-        price: parseFloat(body.price),
+        price: parsedPrice,
+        priceMax,
         location: body.location,
         /* Turkish "X+Y" convention:
            bedrooms    = X (number of bedrooms)
@@ -83,7 +101,8 @@ export async function POST(request: NextRequest) {
         bedrooms: parseInt(body.bedrooms) || 0,
         livingRooms: parseInt(body.livingRooms) || 1,
         bathrooms: parseInt(body.bathrooms) || 0,
-        area: parseFloat(body.area) || 0,
+        area: parsedArea,
+        areaMax,
         imageIds: body.imageIds || [],
         videoId: body.videoId || null,
         featured: body.featured === true,

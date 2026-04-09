@@ -105,6 +105,22 @@
 }
 
 /* ================================================================ */
+/* OPTIONAL HINT                                                      */
+/* Small inline label suffix used on optional fields like priceMax  */
+/* and areaMax. Lowercased, lighter weight, normal case to visually  */
+/* differentiate from the required field name.                       */
+/* ================================================================ */
+
+.optional {
+  font-size: 0.7rem;
+  font-weight: 400;
+  color: var(--color-warm);
+  text-transform: none;
+  letter-spacing: 0.3px;
+  opacity: 0.75;
+}
+
+/* ================================================================ */
 /* TEXT INPUT                                                         */
 /* Standard text/number input field.                                 */
 /* White background with thin 0.5px gold/30% opacity border.        */

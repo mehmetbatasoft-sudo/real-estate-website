@@ -57,8 +57,10 @@ interface Property {
   descriptionRu: string | null
   /** Arabic description — optional translation */
   descriptionAr: string | null
-  /** Price in EUR */
+  /** Minimum price in EUR (or the single price if no range) */
   price: number
+  /** Optional upper bound — null means this listing has a single price */
+  priceMax: number | null
   /** Human-readable location string, e.g. "Antalya, Konyaalti" */
   location: string
   /**
@@ -71,8 +73,10 @@ interface Property {
   livingRooms: number
   /** Number of bathrooms */
   bathrooms: number
-  /** Area in square meters */
+  /** Minimum brüt area in square meters (or the single area) */
   area: number
+  /** Optional upper bound — null means this listing has a single area */
+  areaMax: number | null
   /** Array of Cloudinary public IDs for property photos */
   imageIds: string[]
   /** Cloudinary public ID for an optional video tour */
@@ -139,8 +143,16 @@ export default function PropertyForm({ property }: PropertyFormProps) {
   /** Property title — displayed as the listing headline */
   const [title, setTitle] = useState(property?.title || '')
 
-  /** Price in EUR — stored as string for input binding, parsed on submit */
+  /**
+   * Price inputs — minimum (required) and optional maximum.
+   * When `priceMax` is left empty, the listing shows a single price.
+   * When both are set and priceMax > price, the card/detail page render
+   * the range as "€X – €Y" (e.g. for new projects with a price range).
+   */
   const [price, setPrice] = useState(property?.price?.toString() || '')
+  const [priceMax, setPriceMax] = useState(
+    property?.priceMax != null ? property.priceMax.toString() : ''
+  )
 
   /** Location text — free-form, e.g. "Antalya, Konyaalti" */
   const [location, setLocation] = useState(property?.location || '')
@@ -158,8 +170,17 @@ export default function PropertyForm({ property }: PropertyFormProps) {
   /** Number of bathrooms — string for input binding */
   const [bathrooms, setBathrooms] = useState(property?.bathrooms?.toString() || '1')
 
-  /** Brüt area in square meters — string for input binding */
+  /**
+   * Brüt area inputs — minimum (required) and optional maximum.
+   * Used for project-style listings where one entry covers multiple
+   * flats of different sizes (e.g. "120 – 180 m²" for an apartment
+   * complex with several layouts). Leave `areaMax` empty for single
+   * units to render a single-value label.
+   */
   const [area, setArea] = useState(property?.area?.toString() || '0')
+  const [areaMax, setAreaMax] = useState(
+    property?.areaMax != null ? property.areaMax.toString() : ''
+  )
 
   /**
    * Multilingual description fields.
@@ -270,12 +291,16 @@ export default function PropertyForm({ property }: PropertyFormProps) {
       const body = {
         title,
         price,
+        /* Optional upper bound — empty string → API stores null (single price) */
+        priceMax: priceMax || null,
         location,
         /* Turkish "X+Y" convention (e.g. "3+1" = 3 bedrooms + 1 salon) */
         bedrooms,
         livingRooms,
         bathrooms,
         area,
+        /* Optional upper bound — empty string → API stores null (single area) */
+        areaMax: areaMax || null,
         description,
         descriptionTr: descriptionTr || null,
         descriptionRu: descriptionRu || null,
@@ -409,7 +434,11 @@ export default function PropertyForm({ property }: PropertyFormProps) {
       {/* On mobile this collapses to a single column via media query.  */}
       {/* ============================================================ */}
       <div className={styles.formGrid}>
-        {/* Price field — value in Euros */}
+        {/* ========================================================
+            Price (min) — the listing's lower bound. Required.
+            For single-price listings this is the only number the
+            admin enters; "Fiyat Max" stays blank.
+            ======================================================== */}
         <div className={styles.formGroup}>
           <label htmlFor="price" className={styles.label}>
             Fiyat (€)
@@ -424,7 +453,31 @@ export default function PropertyForm({ property }: PropertyFormProps) {
             disabled={isLoading}
             min="0"
             step="1"
-            placeholder="0"
+            placeholder="Örn: 750000"
+          />
+        </div>
+
+        {/* ========================================================
+            Price (max) — OPTIONAL upper bound. Leave empty for a
+            single-price listing. When set and greater than "Fiyat",
+            the public card/detail page renders "€X – €Y".
+            Useful for project launches where units within the same
+            complex have different prices.
+            ======================================================== */}
+        <div className={styles.formGroup}>
+          <label htmlFor="priceMax" className={styles.label}>
+            Fiyat Max (€) <span className={styles.optional}>— isteğe bağlı</span>
+          </label>
+          <input
+            id="priceMax"
+            type="number"
+            value={priceMax}
+            onChange={(e) => setPriceMax(e.target.value)}
+            className={styles.input}
+            disabled={isLoading}
+            min="0"
+            step="1"
+            placeholder="Tek fiyat için boş bırakın"
           />
         </div>
 
@@ -514,7 +567,11 @@ export default function PropertyForm({ property }: PropertyFormProps) {
           />
         </div>
 
-        {/* Area in square meters — "Brüt Alan" (gross area in m²) */}
+        {/* ========================================================
+            Area (min) — "Brüt Alan" (gross area in m²).
+            For single-unit listings this is the only value entered;
+            "Brüt Alan Max" stays blank.
+            ======================================================== */}
         <div className={styles.formGroup}>
           <label htmlFor="area" className={styles.label}>
             Brüt Alan (m²)
@@ -529,6 +586,29 @@ export default function PropertyForm({ property }: PropertyFormProps) {
             min="0"
             step="0.01"
             placeholder="Örn: 150"
+          />
+        </div>
+
+        {/* ========================================================
+            Area (max) — OPTIONAL upper bound. Leave empty for a
+            single-size listing. When set and greater than "Brüt
+            Alan", the public card/detail page renders "X – Y m²".
+            Useful for complexes with mixed-size units.
+            ======================================================== */}
+        <div className={styles.formGroup}>
+          <label htmlFor="areaMax" className={styles.label}>
+            Brüt Alan Max (m²) <span className={styles.optional}>— isteğe bağlı</span>
+          </label>
+          <input
+            id="areaMax"
+            type="number"
+            value={areaMax}
+            onChange={(e) => setAreaMax(e.target.value)}
+            className={styles.input}
+            disabled={isLoading}
+            min="0"
+            step="0.01"
+            placeholder="Tek alan için boş bırakın"
           />
         </div>
       </div>

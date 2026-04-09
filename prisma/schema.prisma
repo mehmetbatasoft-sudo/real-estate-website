@@ -35,7 +35,18 @@ model Property {
   descriptionTr  String?                   // Turkish description (optional)
   descriptionRu  String?                   // Russian description (optional)
   descriptionAr  String?                   // Arabic description (optional)
-  price          Float                     // Price in Euros
+  // -----------------------------------------------------------------
+  // Price — stored in Euros. Supports single value OR range:
+  //   - Single price: price = 1500000, priceMax = null
+  //     UI renders "€1,500,000"
+  //   - Range:        price = 500000,  priceMax = 1500000
+  //     UI renders "€500,000 – €1,500,000"
+  // `price` always holds the LOWER bound so ORDER BY price still works
+  // for sorting cheapest-first, and filter queries can continue to use
+  // price.lte for the upper-bound comparison in overlap logic.
+  // -----------------------------------------------------------------
+  price          Float                     // Minimum price in Euros (or the single price)
+  priceMax       Float?                    // Optional upper bound — null means single price
   location       String                    // Property location (e.g., "Antalya, Konyaaltı")
   // -----------------------------------------------------------------
   // Turkish "X+Y" room convention (sahibinden.com style)
@@ -48,7 +59,15 @@ model Property {
   bedrooms       Int                       // Number of bedrooms (X in "X+Y")
   livingRooms    Int      @default(1)      // Number of living rooms / salons (Y in "X+Y")
   bathrooms      Int                       // Number of bathrooms
-  area           Float                     // Area in square meters (brüt m²)
+  // -----------------------------------------------------------------
+  // Brüt area in square meters. Same range semantics as price:
+  //   - Single size: area = 150, areaMax = null  → "150 m²"
+  //   - Range:       area = 120, areaMax = 180   → "120 – 180 m²"
+  // Used for project-style listings where one entry covers multiple
+  // units of different sizes (e.g. a new apartment complex).
+  // -----------------------------------------------------------------
+  area           Float                     // Minimum area in m² (or the single area)
+  areaMax        Float?                    // Optional upper bound — null means single area
   imageIds       String[]                  // Array of Cloudinary public IDs — [0] is cover image
   videoId        String?                   // Optional Cloudinary video public ID
   featured       Boolean  @default(false)  // Show on homepage featured section

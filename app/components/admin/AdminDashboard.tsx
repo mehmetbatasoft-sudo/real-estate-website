@@ -42,13 +42,19 @@ interface Property {
   descriptionTr: string | null
   descriptionRu: string | null
   descriptionAr: string | null
+  /* Minimum price in EUR (or the single price when priceMax is null) */
   price: number
+  /* Optional upper bound — null means this listing has a single price */
+  priceMax: number | null
   location: string
   /* Turkish "X+Y" room convention — bedrooms is X, livingRooms is Y */
   bedrooms: number
   livingRooms: number
   bathrooms: number
+  /* Minimum brüt area in m² (or the single area when areaMax is null) */
   area: number
+  /* Optional upper bound — null means this listing has a single area */
+  areaMax: number | null
   imageIds: string[]
   videoId: string | null
   featured: boolean
@@ -245,10 +251,19 @@ export default function AdminDashboard({
   }
 
   /**
-   * Format price for display — adds euro sign and thousand separators
-   * e.g., 1500000 -> "€1,500,000"
+   * Format price for display — adds euro sign and thousand separators.
+   * When `priceMax` is provided AND strictly greater than the lower bound,
+   * a dash-separated range is rendered instead of the single value.
+   *
+   * Examples:
+   *   formatPrice(1500000)          -> "€1,500,000"
+   *   formatPrice(750000, 950000)   -> "€750,000 – €950,000"
+   *   formatPrice(1000000, null)    -> "€1,000,000"
    */
-  function formatPrice(price: number): string {
+  function formatPrice(price: number, priceMax: number | null = null): string {
+    if (priceMax != null && priceMax > price) {
+      return `€${price.toLocaleString()} – €${priceMax.toLocaleString()}`
+    }
     return `€${price.toLocaleString()}`
   }
 
@@ -425,8 +440,8 @@ export default function AdminDashboard({
                           <td className={styles.tableCell}>{property.title}</td>
                           {/* Property location */}
                           <td className={styles.tableCell}>{property.location}</td>
-                          {/* Formatted price with euro sign */}
-                          <td className={styles.tableCell}>{formatPrice(property.price)}</td>
+                          {/* Formatted price with euro sign — renders a range "€X – €Y" when priceMax is set */}
+                          <td className={styles.tableCell}>{formatPrice(property.price, property.priceMax)}</td>
                           {/* Featured status — Turkish "Evet"/"Hayir" (Yes/No) */}
                           <td className={styles.tableCell}>
                             {property.featured ? 'Evet' : 'Hayır'}

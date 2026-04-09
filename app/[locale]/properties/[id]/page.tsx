@@ -248,9 +248,13 @@ export default async function PropertyDetailPage({
                 {property.location}
               </p>
 
-              {/* Property price -- always in Euros with locale formatting */}
+              {/* Property price -- single value OR range ("€X – €Y") when priceMax is set.
+                  Ranges are used for new-project listings where different units have
+                  different prices under the same listing entry. */}
               <p className={styles.propertyPrice}>
-                &euro;{property.price.toLocaleString()}
+                {property.priceMax != null && property.priceMax > property.price
+                  ? <>&euro;{property.price.toLocaleString()} &ndash; &euro;{property.priceMax.toLocaleString()}</>
+                  : <>&euro;{property.price.toLocaleString()}</>}
               </p>
             </FadeIn>
 
@@ -277,11 +281,16 @@ export default async function PropertyDetailPage({
                   <div className={styles.infoValue}>{property.bathrooms}</div>
                 </div>
 
-                {/* Area stat in square meters */}
+                {/* Area stat in square meters — renders a range ("120 – 180 m²")
+                    when areaMax is set and strictly greater than area. Used for
+                    multi-unit project listings where different flats have
+                    different sizes. */}
                 <div className={styles.infoItem}>
                   <div className={styles.infoLabel}>{t('area')}</div>
                   <div className={styles.infoValue}>
-                    {property.area} {t('sqm')}
+                    {property.areaMax != null && property.areaMax > property.area
+                      ? <>{property.area} &ndash; {property.areaMax} {t('sqm')}</>
+                      : <>{property.area} {t('sqm')}</>}
                   </div>
                 </div>
               </div>
@@ -356,13 +365,15 @@ export default async function PropertyDetailPage({
                         />
                       </div>
 
-                      {/* Card details */}
+                      {/* Card details — price renders a range when priceMax is set */}
                       <div className={styles.similarCardInfo}>
                         <h3 className={styles.similarCardTitle}>
                           {similar.title}
                         </h3>
                         <p className={styles.similarCardPrice}>
-                          &euro;{similar.price.toLocaleString()}
+                          {similar.priceMax != null && similar.priceMax > similar.price
+                            ? <>&euro;{similar.price.toLocaleString()} &ndash; &euro;{similar.priceMax.toLocaleString()}</>
+                            : <>&euro;{similar.price.toLocaleString()}</>}
                         </p>
                       </div>
                     </Link>

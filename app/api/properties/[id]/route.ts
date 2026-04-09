@@ -80,6 +80,22 @@ export async function PUT(
       return NextResponse.json({ error: 'Invalid location' }, { status: 400 })
     }
 
+    /* Parse optional range fields — see POST /api/properties for the
+       rationale. priceMax/areaMax collapse to null whenever the admin
+       leaves them blank or enters a value that isn't strictly greater
+       than the lower bound. */
+    const parsedPrice = parseFloat(body.price)
+    const rawPriceMax = body.priceMax !== undefined && body.priceMax !== '' && body.priceMax !== null
+      ? parseFloat(body.priceMax)
+      : NaN
+    const priceMax = !isNaN(rawPriceMax) && rawPriceMax > parsedPrice ? rawPriceMax : null
+
+    const parsedArea = parseFloat(body.area) || 0
+    const rawAreaMax = body.areaMax !== undefined && body.areaMax !== '' && body.areaMax !== null
+      ? parseFloat(body.areaMax)
+      : NaN
+    const areaMax = !isNaN(rawAreaMax) && rawAreaMax > parsedArea ? rawAreaMax : null
+
     /* Update the property in the database */
     const property = await prisma.property.update({
       where: { id: parseInt(id) },
@@ -89,7 +105,8 @@ export async function PUT(
         descriptionTr: body.descriptionTr || null,
         descriptionRu: body.descriptionRu || null,
         descriptionAr: body.descriptionAr || null,
-        price: parseFloat(body.price),
+        price: parsedPrice,
+        priceMax,
         location: body.location,
         /* Turkish "X+Y" convention:
            bedrooms    = X (number of bedrooms)
@@ -98,7 +115,8 @@ export async function PUT(
         bedrooms: parseInt(body.bedrooms) || 0,
         livingRooms: parseInt(body.livingRooms) || 1,
         bathrooms: parseInt(body.bathrooms) || 0,
-        area: parseFloat(body.area) || 0,
+        area: parsedArea,
+        areaMax,
         imageIds: body.imageIds || [],
         videoId: body.videoId || null,
         featured: body.featured === true,
