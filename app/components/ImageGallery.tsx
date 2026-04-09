@@ -156,14 +156,18 @@ export default function ImageGallery({ imageIds }: ImageGalleryProps) {
         <div className={styles.viewport}>
           <div className={styles.container}>
             <div className={styles.slide}>
-              {/* CldImage in fill mode stretches to cover the slide div */}
+              {/* CldImage in fill mode with object-fit: contain shows the
+                  entire photo without cropping. Portrait phone photos and
+                  non-16:10 formats get pillarbox/letterbox bars of the
+                  .slide background color (espresso) so the full image is
+                  always visible to the buyer. */}
               <CldImage
                 src={imageIds[0]}      /* Cloudinary public ID            */
                 alt="Property image"   /* Accessible description          */
                 fill                   /* Next.js fill layout             */
                 sizes="100vw"          /* Full viewport width             */
                 style={{
-                  objectFit: 'cover',  /* Cover the slide, crop excess   */
+                  objectFit: 'contain', /* Show full image, no cropping   */
                 }}
               />
             </div>
@@ -196,6 +200,10 @@ export default function ImageGallery({ imageIds }: ImageGalleryProps) {
             /* Each slide is 100 % wide; Embla translates the container
                so only one slide is visible at a time. */
             <div className={styles.slide} key={id + index}>
+              {/* object-fit: contain shows the entire photo without
+                  cropping — portrait photos and off-ratio images get
+                  pillarbox/letterbox bars of the .slide background
+                  (espresso) so the full image is visible. */}
               <CldImage
                 src={id}                     /* Cloudinary public ID       */
                 alt={`Property image ${index + 1}`} /* Numbered alt text  */
@@ -203,7 +211,7 @@ export default function ImageGallery({ imageIds }: ImageGalleryProps) {
                 sizes="100vw"                /* Hint: full viewport width  */
                 priority={index === 0}       /* Preload the first image    */
                 style={{
-                  objectFit: 'cover',        /* Cover the slide area       */
+                  objectFit: 'contain',      /* Show full image, no crop   */
                 }}
               />
             </div>

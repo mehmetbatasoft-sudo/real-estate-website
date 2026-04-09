@@ -64,11 +64,20 @@
 /*  exactly 100 % of the viewport width and does not shrink or grow.  */
 /*  min-width: 0 prevents flex items from overflowing in some edge     */
 /*  cases. Position relative so the fill-mode CldImage can cover it.  */
+/*                                                                     */
+/*  Background: espresso fills the letterbox / pillarbox bars that      */
+/*  appear when a photo's aspect ratio doesn't match the viewport's     */
+/*  16:10 frame. Using `object-fit: contain` on the <img> means the    */
+/*  entire photo is always visible — portrait iPhone shots get dark    */
+/*  bars on the left and right instead of being cropped at the top     */
+/*  and bottom. Dark espresso matches the luxury brand palette and     */
+/*  makes images pop.                                                   */
 /* ------------------------------------------------------------------ */
 .slide {
-  flex: 0 0 100%;      /* Fixed at full viewport width            */
-  min-width: 0;        /* Prevent flex overflow quirks            */
-  position: relative;  /* Context for CldImage fill               */
+  flex: 0 0 100%;                           /* Fixed at full viewport width */
+  min-width: 0;                              /* Prevent flex overflow quirks */
+  position: relative;                        /* Context for CldImage fill   */
+  background: var(--color-espresso, #2C1A0E); /* Letterbox / pillarbox fill */
 }
 
 /* ------------------------------------------------------------------ */
