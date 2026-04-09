@@ -112,10 +112,12 @@
   color: var(--color-gold);
 }
 
-/* Disabled: faded opacity and no cursor */
+/* Disabled: faded opacity only — default cursor (no "blocked" icon).
+   The faded arrow already communicates the disabled state; the red
+   not-allowed cursor looks harsh on a minimalist luxury layout. */
 .navButton:disabled {
   opacity: 0.25;
-  cursor: not-allowed;
+  cursor: default;
 }
 
 /* Previous button — sits in the left padding area, outside the cards.
