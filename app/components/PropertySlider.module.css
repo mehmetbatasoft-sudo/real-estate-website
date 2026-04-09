@@ -66,7 +66,11 @@
    ============================================================ */
 .navButton {
   position: absolute;
-  top: 50%;
+  /* Align button to the vertical center of the property IMAGE
+     (not the whole card). Image is 4:3 aspect ratio and the info
+     section occupies the bottom third of the card, so ~31% of the
+     card height lands at the image midpoint. */
+  top: 31%;
   transform: translateY(-50%);
   /* Circular button geometry */
   width: 48px;
