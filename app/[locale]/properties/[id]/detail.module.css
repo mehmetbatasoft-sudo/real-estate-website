@@ -26,8 +26,8 @@
 
 /* ================================================================== */
 /*  PAGE WRAPPER                                                       */
-/*  Note: paddingTop for navbar clearance is applied as an inline      */
-/*  style in the component (the ONE allowed inline style per docs).    */
+/*  Top padding reserves space for the fixed navbar so the gallery     */
+/*  doesn't slide under the logo.                                      */
 /* ================================================================== */
 
 /* .page -- main page container */
@@ -36,6 +36,8 @@
   min-height: 100vh;
   /* Cream background */
   background: var(--color-cream);
+  /* Top padding clears the fixed navbar (see --navbar-height in globals.css) */
+  padding-top: var(--navbar-height);
 }
 
 /* ================================================================== */

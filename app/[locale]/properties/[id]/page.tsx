@@ -25,13 +25,9 @@
  *   locale === 'ar' && descriptionAr ? descriptionAr :
  *   description (English fallback)
  *
- * Note on inline style:
- *   The main wrapper uses `style={{ paddingTop: '80px' }}` as the ONE allowed
- *   inline style per project documentation, to compensate for the fixed navbar
- *   overlapping the page content. All other styling uses CSS Modules.
- *
- * Styling: All styles via CSS Modules (detail.module.css) except the one
- *          paddingTop inline style noted above.
+ * Styling: All styles via CSS Modules (detail.module.css). The fixed-navbar
+ *          clearance is handled by `.page { padding-top: var(--navbar-height) }`
+ *          so the gallery doesn't slide under the logo.
  */
 
 import { notFound } from 'next/navigation'
@@ -217,10 +213,10 @@ export default async function PropertyDetailPage({
 
       {/* ============================================================
           MAIN WRAPPER
-          paddingTop: '80px' is the ONE allowed inline style per docs.
-          It prevents the fixed navbar from overlapping the gallery.
+          The `.page` class reserves top padding equal to --navbar-height
+          so the fixed navbar never overlaps the gallery area below.
           ============================================================ */}
-      <main className={styles.page} style={{ paddingTop: '80px' }}>
+      <main className={styles.page}>
         {/* ============================================================
             IMAGE GALLERY
             Full-width carousel with thumbnails and navigation arrows.

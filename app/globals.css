@@ -36,6 +36,9 @@
   --color-ivory: #F5F0E8;     /* Light section backgrounds */
   --color-warm: #8C6B4A;      /* Secondary text, muted elements */
   --color-cream: #FDFAF4;     /* Page background */
+
+  /* Layout tokens */
+  --navbar-height: 88px;      /* Fixed navbar height — matches .container in Navbar.module.css */
 }
 
 /**

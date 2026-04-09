@@ -37,8 +37,8 @@
   min-height: 100vh;
   /* Cream page background for luxury feel */
   background: var(--color-cream);
-  /* Top padding clears the fixed navbar (approx 80px height) */
-  padding-top: 80px;
+  /* Top padding clears the fixed navbar (see --navbar-height in globals.css) */
+  padding-top: var(--navbar-height);
 }
 
 /* ================================================================== */

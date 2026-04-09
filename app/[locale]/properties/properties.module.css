@@ -30,8 +30,8 @@
 
 /* .page -- main page wrapper */
 .page {
-  /* Top padding clears the fixed navbar (approximately 80px height) */
-  padding-top: 80px;
+  /* Top padding clears the fixed navbar (see --navbar-height in globals.css) */
+  padding-top: var(--navbar-height);
   /* Minimum full viewport height */
   min-height: 100vh;
   /* Cream page background */
