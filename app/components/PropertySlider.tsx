@@ -106,8 +106,14 @@ export default function PropertySlider({ children }: PropertySliderProps) {
         <span aria-hidden="true">&larr;</span>
       </button>
 
-      {/* Scroll container — holds all the property cards */}
-      <div ref={scrollRef} className={styles.scrollContainer}>
+      {/* Scroll container — holds all the property cards
+          data-lenis-prevent tells Lenis smooth-scroll to ignore this
+          element so native horizontal scrolling (and scrollBy) works. */}
+      <div
+        ref={scrollRef}
+        className={styles.scrollContainer}
+        data-lenis-prevent
+      >
         {children}
       </div>
 

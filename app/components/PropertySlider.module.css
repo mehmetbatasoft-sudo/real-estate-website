@@ -12,11 +12,14 @@
 
 /* ============================================================
    .sliderWrapper — positioning context for prev/next buttons
-   Relative positioning anchors the absolute-positioned buttons
+   Relative positioning anchors the absolute-positioned buttons.
+   Horizontal padding reserves space so the buttons sit outside
+   the card area and do not overlap the first/last cards.
    ============================================================ */
 .sliderWrapper {
   position: relative;
   width: 100%;
+  padding: 0 72px;
 }
 
 /* ============================================================
@@ -101,14 +104,14 @@
   box-shadow: none;
 }
 
-/* Previous button — sits on the left edge */
+/* Previous button — sits in the left padding area, outside the cards */
 .prevButton {
-  left: -24px;
+  left: 12px;
 }
 
-/* Next button — sits on the right edge */
+/* Next button — sits in the right padding area, outside the cards */
 .nextButton {
-  right: -24px;
+  right: 12px;
 }
 
 /* ============================================================
@@ -116,16 +119,20 @@
    Show 2 cards at a time, nav buttons move inward slightly.
    ============================================================ */
 @media (max-width: 768px) {
+  .sliderWrapper {
+    padding: 0 56px;
+  }
+
   .scrollContainer > * {
     flex: 0 0 calc((100% - 24px) / 2);
   }
 
   .prevButton {
-    left: -16px;
+    left: 8px;
   }
 
   .nextButton {
-    right: -16px;
+    right: 8px;
   }
 }
 
@@ -134,6 +141,10 @@
    Show 1 card at a time, smaller buttons, less aggressive offset.
    ============================================================ */
 @media (max-width: 480px) {
+  .sliderWrapper {
+    padding: 0 44px;
+  }
+
   .scrollContainer > * {
     flex: 0 0 100%;
   }
@@ -145,10 +156,10 @@
   }
 
   .prevButton {
-    left: -8px;
+    left: 4px;
   }
 
   .nextButton {
-    right: -8px;
+    right: 4px;
   }
 }
