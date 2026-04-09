@@ -26,6 +26,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { usePathname, useRouter, Link } from '@/i18n/navigation';
 import { useLocale, useTranslations } from 'next-intl';
+import CloudinaryImage from '@/app/components/CloudinaryImage';
 import styles from './Navbar.module.css';
 
 /**
@@ -218,8 +219,14 @@ export default function Navbar() {
         <div className={styles.container}>
           {/* ---- Logo / Brand ---- */}
           {/* Links to home page; next-intl Link auto-prefixes the locale */}
-          <Link href="/" className={styles.logo}>
-            {t('brand')}
+          <Link href="/" className={styles.logo} aria-label={t('brand')}>
+            <CloudinaryImage
+              src="oriva_logo"
+              alt={t('brand')}
+              width={240}
+              height={64}
+              className={styles.logoImage}
+            />
           </Link>
 
           {/* ============================================================
