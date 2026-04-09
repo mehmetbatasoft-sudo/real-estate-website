@@ -302,7 +302,7 @@ export default async function HomePage() {
                 {/* Agent portrait photo */}
                 <div className={styles.agentImageWrapper}>
                   <CloudinaryImage
-                    src={agent.imageId}
+                    src="picture-agent"
                     alt={agent.name}
                     fill
                     sizes="(max-width: 768px) 100vw, 50vw"
