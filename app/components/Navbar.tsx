@@ -221,7 +221,7 @@ export default function Navbar() {
           {/* Links to home page; next-intl Link auto-prefixes the locale */}
           <Link href="/" className={styles.logo} aria-label={t('brand')}>
             <CloudinaryImage
-              src="oriva_logo"
+              src="oriva_logo_dark"
               alt={t('brand')}
               width={240}
               height={64}
