@@ -303,10 +303,12 @@ export default async function HomePage() {
           <AnimatedSection>
             <section id="about" className={styles.agentSection}>
               <div className={styles.agentGrid}>
-                {/* Agent portrait photo */}
+                {/* Agent portrait photo -- reads from agent.imageId so the
+                    admin panel's ImageUpload on the Agent form controls both
+                    the homepage and the about page in lockstep. */}
                 <div className={styles.agentImageWrapper}>
                   <CloudinaryImage
-                    src="picture-agent"
+                    src={agent.imageId}
                     alt={agent.name}
                     fill
                     sizes="(max-width: 768px) 100vw, 50vw"

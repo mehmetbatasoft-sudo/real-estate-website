@@ -71,7 +71,7 @@ async function main() {
         bioAr: 'مع أكثر من 15 عامًا من الخبرة في سوق العقارات الفاخرة في أنطاليا، أساعد المشترين الدوليين في العثور على عقارات أحلامهم على الريفييرا التركية. معرفتي العميقة بالسوق المحلي، جنبًا إلى جنب مع القدرات متعددة اللغات، تضمن تجربة شراء سلسة.',
         phone: '+90 555 123 4567',
         email: 'ozgul.oriva@gmail.com',
-        imageId: 'properties/agent-placeholder',
+        imageId: 'picture-agent',
         experience: 15,
         listings: 45,
         rating: 4.9,
