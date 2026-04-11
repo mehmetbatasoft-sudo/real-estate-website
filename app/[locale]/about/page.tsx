@@ -161,11 +161,6 @@ export default async function AboutPage() {
                     {tAbout('title')}
                   </h1>
 
-                  {/* Page subtitle -- translated description */}
-                  <p className={styles.pageSubtitle}>
-                    {tAbout('subtitle')}
-                  </p>
-
                   {/* Multilingual biography with English fallback */}
                   <p className={styles.agentBio}>
                     {getAgentBio()}
