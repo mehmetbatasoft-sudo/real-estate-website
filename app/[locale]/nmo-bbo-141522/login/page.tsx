@@ -105,7 +105,7 @@ export default function AdminLoginPage() {
         <h1 className={styles.title}>Giriş Yap</h1>
 
         {/* Subtitle — brand name for context */}
-        <p className={styles.subtitle}>Özgül&apos;s Realty Admin</p>
+        <p className={styles.subtitle}>Oriva Admin</p>
 
         {/* Login form — onSubmit calls handleSubmit */}
         <form onSubmit={handleSubmit} className={styles.form}>

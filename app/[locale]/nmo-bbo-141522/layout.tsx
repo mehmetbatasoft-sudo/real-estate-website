@@ -24,10 +24,10 @@ import { Metadata } from 'next'
  * This overrides the locale layout's title template for admin pages.
  *
  * title.absolute: bypasses the parent locale layout's title template
- *   ('%s — Özgül\'s Realty'). Without absolute, Next.js would compose the
- *   plain string with the template and render "Admin Panel — Özgül's Realty
- *   — Özgül's Realty" (duplicated suffix). absolute sets the tab title
- *   verbatim and ignores any inherited template.
+ *   ('%s — Oriva'). Without absolute, Next.js would compose the plain
+ *   string with the template and render "Admin Panel — Oriva — Oriva"
+ *   (duplicated suffix). absolute sets the tab title verbatim and
+ *   ignores any inherited template.
  *
  * Robots: hard noindex/nofollow. Defense-in-depth alongside the existing
  * robots.txt Disallow rule, covering the case where a stray link accidentally
@@ -36,7 +36,7 @@ import { Metadata } from 'next'
  */
 export const metadata: Metadata = {
   title: {
-    absolute: 'Admin Panel — Özgül\'s Realty',
+    absolute: 'Admin Panel — Oriva',
   },
   robots: {
     index: false,
