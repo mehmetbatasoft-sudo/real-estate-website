@@ -327,11 +327,6 @@ export default async function HomePage() {
                     {agent.name}
                   </h2>
 
-                  {/* Professional title */}
-                  <p className={styles.agentTitle}>
-                    {agent.title}
-                  </p>
-
                   {/* Biography text -- uses locale-aware fallback */}
                   <p className={styles.agentBio}>
                     {getAgentBio()}
