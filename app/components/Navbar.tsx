@@ -203,6 +203,25 @@ export default function Navbar() {
     { href: '/about', labelKey: 'about' },
   ] as const;
 
+  /* ---- Background Logic ---- */
+
+  /**
+   * isHomePage — True when the user is on the landing page ('/').
+   * next-intl's usePathname returns the path WITHOUT the locale prefix,
+   * so '/tr' appears here as '/'.
+   *
+   * Why this matters: the home page has a dark full-bleed hero image
+   * behind the navbar, so a transparent navbar reads beautifully there.
+   * On every other page the page background is cream (#FDFAF4) and the
+   * gold / warm nav text blends into it when the navbar is transparent —
+   * users can't see the buttons. So we force the solid (.navbarScrolled)
+   * treatment on every non-home page, regardless of scroll position.
+   */
+  const isHomePage = pathname === '/';
+
+  /** showSolidBg — True whenever the navbar should render its tan background */
+  const showSolidBg = !isHomePage || scrolled;
+
   /* ---- Render ---- */
 
   return (
@@ -212,7 +231,7 @@ export default function Navbar() {
           Combines base .navbar with conditional .navbarScrolled
           ============================================================ */}
       <nav
-        className={`${styles.navbar} ${scrolled ? styles.navbarScrolled : ''}`}
+        className={`${styles.navbar} ${showSolidBg ? styles.navbarScrolled : ''}`}
         role="navigation"
         aria-label={t('ariaLabel')}
       >
