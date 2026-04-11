@@ -537,12 +537,26 @@
 /*  Cream background section wrapping the ContactForm component        */
 /* ================================================================== */
 
-/* .contactSection -- wrapper with cream background */
+/* .contactSection -- wrapper with cream background
+   Fills the full viewport so that when the user scrolls to the
+   #contact anchor, the previous section (agent bio or hero "SCROLL DOWN"
+   indicator) is pushed completely out of view. */
 .contactSection {
   /* Cream background for warmth */
   background: var(--color-cream);
   /* Generous vertical padding */
   padding: 80px 24px;
+  /* Fill the entire viewport so scrolling to #contact hides any
+     trailing content from the previous section (e.g., the hero
+     "SCROLL DOWN" indicator that would otherwise peek at the top). */
+  min-height: 100vh;
+  /* Flex layout centers the narrow form wrapper vertically within
+     the full-viewport section. */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Box-sizing so padding is included in the 100vh height calculation */
+  box-sizing: border-box;
 }
 
 /* .contactWrapper -- centers and constrains the contact form width */
@@ -551,6 +565,9 @@
   max-width: 600px;
   /* Center horizontally */
   margin: 0 auto;
+  /* Fill the flex parent's cross axis so the form stays centered
+     regardless of the flex container width */
+  width: 100%;
 }
 
 /* ================================================================== */
@@ -652,7 +669,9 @@
     padding: 48px 16px;
   }
 
-  /* Reduce contact section padding */
+  /* Reduce contact section padding (min-height: 100vh is retained
+     from the base rule above so the full-viewport behavior still
+     applies on mobile). */
   .contactSection {
     padding: 48px 16px;
   }
