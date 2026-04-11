@@ -51,8 +51,8 @@ const inter = Inter({
 export async function generateMetadata() {
   return {
     title: {
-      template: '%s — Özgül\'s Realty',
-      default: 'Özgül\'s Realty — Luxury Real Estate in Antalya',
+      template: '%s — Oriva',
+      default: 'Oriva',
     },
     description: 'Luxury real estate properties in Antalya, Turkey. Find your dream home on the Turkish Riviera with Özgül Pekşen.',
   }
