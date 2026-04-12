@@ -129,7 +129,7 @@ export async function POST(request: NextRequest) {
     /* Send email notification via Resend */
     try {
       await resend.emails.send({
-        from: 'Özgül\'s Realty <onboarding@resend.dev>',
+        from: 'Oriva <contact@oriva-estate.com>',
         to: process.env.CONTACT_EMAIL!,
         subject: body.property
           ? `New Inquiry: ${body.property}`
